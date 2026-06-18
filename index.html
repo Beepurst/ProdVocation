@@ -4,1087 +4,745 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ProdVocation — Premier incubateur de spectacle en France</title>
-<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #FAFAF8;
-    --white: #FFFFFF;
-    --dark: #111111;
-    --text: #1A1A1A;
-    --muted: #6B7280;
-    --light-muted: #9CA3AF;
-    --border: rgba(0,0,0,.07);
-    --red: #EB2348;
-    --red2: #D91E3E;
-    --orange: #FF6B35;
-    --coral: #FF4D6D;
-    --grad-hero: linear-gradient(135deg, #FF8A3D 0%, #FF5F3D 25%, #EB2348 55%, #C2185B 100%);
-    --grad-btn: linear-gradient(135deg, #EB2348, #C2185B);
-    --radius: 16px;
-    --radius-lg: 24px;
-    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
-    --shadow-md: 0 8px 30px rgba(0,0,0,.08);
-    --shadow-lg: 0 20px 60px rgba(0,0,0,.1);
-    --shadow-card: 0 4px 20px rgba(0,0,0,.05);
-  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;background:#fbfbfd;color:#1d1d1f;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;line-height:1.5;overflow-x:hidden}
+  ::selection{background:rgba(235,35,72,.14);color:#1d1d1f}
+  a{text-decoration:none;color:inherit}
+  #pv-spectacles::-webkit-scrollbar{display:none}
+  details[data-faq] summary::-webkit-details-marker{display:none}
+  @keyframes pvSpin{to{transform:rotate(360deg)}}
+  @keyframes pvSpinRev{to{transform:rotate(-360deg)}}
+  @keyframes pvBtnGlow{0%,100%{box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2)}50%{box-shadow:0 0 0 1px rgba(235,35,72,.72),0 0 32px rgba(235,35,72,.62),0 0 70px rgba(235,35,72,.36)}}
+  @keyframes pvGlow{0%,100%{opacity:.4}50%{opacity:.7}}
+  @keyframes pvPulse{0%,100%{opacity:.5}50%{opacity:1}}
+  @keyframes pvFadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+  @keyframes pvScrollDot{0%{opacity:0;transform:translateY(0)}40%{opacity:1}80%,100%{opacity:0;transform:translateY(10px)}}
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: 'General Sans', system-ui, -apple-system, sans-serif;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-    overflow-x: hidden;
-    line-height: 1.6;
-  }
-  ::selection { background: rgba(235,35,72,.15); color: var(--dark); }
-  a { text-decoration: none; color: inherit; }
-  img { max-width: 100%; display: block; }
-  button { border: none; background: none; cursor: pointer; font-family: inherit; }
+  /* Hover styles converted from style-hover attributes */
+  .hover-nav-link:hover{color:var(--nav-fg)!important}
+  .hover-hero-btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,0,0,.3)}
+  .hover-card:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.1);border-color:rgba(0,0,0,.12)}
+  .hover-card-link:hover{gap:12px!important;color:var(--accent)!important}
+  .hover-scroll-btn:hover{border-color:var(--accent)!important;color:var(--accent)!important}
+  .hover-cta-small:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(235,35,72,.34)}
+  .hover-about-btn:hover{transform:translateY(-2px)}
+  .hover-glow-btn:hover{transform:translateY(-2px)}
+  .hover-service-card:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
+  .hover-artist-card:hover{transform:translateY(-5px);box-shadow:0 16px 36px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
+  .hover-faq-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(235,35,72,.3)}
+  .hover-footer-link:hover{color:var(--accent)!important}
+  .hover-pill:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
+  .hover-cta-main:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.45)}
 
-  /* ===== ANIMATIONS ===== */
-  @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes slideLeft { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: none; } }
-  @keyframes slideRight { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: none; } }
-  @keyframes scaleIn { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: none; } }
-  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
-  @keyframes float2 { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
-  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-  @keyframes gradShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-  @keyframes pulse { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes countUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
-  @keyframes borderGlow { 0%,100% { border-color: rgba(235,35,72,.15); } 50% { border-color: rgba(235,35,72,.4); } }
+  /* Image placeholders for missing images */
+  .pv-img-slot{background:#e5e5ea;display:flex;align-items:center;justify-content:center;color:#86868b;font-size:13px;font-weight:500;text-align:center;overflow:hidden}
+  .pv-img-slot img{width:100%;height:100%;object-fit:cover;display:block}
 
-  .reveal {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
-  }
-  .reveal.visible { opacity: 1; transform: none; }
-  .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
-  .reveal-left.visible { opacity: 1; transform: none; }
-  .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
-  .reveal-right.visible { opacity: 1; transform: none; }
-  .reveal-scale { opacity: 0; transform: scale(.9); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
-  .reveal-scale.visible { opacity: 1; transform: none; }
-  .stagger-1 { transition-delay: .05s; }
-  .stagger-2 { transition-delay: .1s; }
-  .stagger-3 { transition-delay: .15s; }
-  .stagger-4 { transition-delay: .2s; }
-  .stagger-5 { transition-delay: .25s; }
-
-  /* ===== NAV ===== */
-  .nav {
-    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    height: 72px; display: flex; align-items: center; justify-content: space-between;
-    padding: 0 40px;
-    transition: background .4s, backdrop-filter .4s, box-shadow .4s;
-  }
-  .nav.scrolled {
-    background: rgba(255,255,255,.85);
-    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-    box-shadow: 0 1px 20px rgba(0,0,0,.06);
-  }
-  .nav-logo { height: 30px; filter: brightness(0) invert(1); transition: filter .4s; }
-  .nav.scrolled .nav-logo { filter: none; }
-  .nav-links-pill {
-    display: flex; gap: 6px;
-    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
-    border-radius: 100px; padding: 4px;
-    backdrop-filter: blur(12px);
-    transition: background .4s, border-color .4s;
-  }
-  .nav.scrolled .nav-links-pill {
-    background: rgba(0,0,0,.04); border-color: var(--border);
-  }
-  .nav-link {
-    font-size: 14px; font-weight: 500; color: rgba(255,255,255,.75);
-    padding: 8px 18px; border-radius: 100px;
-    transition: color .3s, background .3s;
-  }
-  .nav.scrolled .nav-link { color: var(--muted); }
-  .nav-link:hover { color: #fff; background: rgba(255,255,255,.1); }
-  .nav.scrolled .nav-link:hover { color: var(--text); background: rgba(0,0,0,.04); }
-  .nav-cta {
-    font-size: 13px; font-weight: 600; color: var(--dark);
-    background: #fff; border: 1px solid rgba(255,255,255,.3);
-    padding: 10px 24px; border-radius: 100px;
-    transition: all .3s;
-  }
-  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,.15); }
-  .nav.scrolled .nav-cta {
-    background: var(--dark); border-color: var(--dark); color: #fff;
-  }
-  .nav.scrolled .nav-cta:hover { box-shadow: 0 8px 24px rgba(0,0,0,.2); }
-
-  /* ===== HERO ===== */
-  @keyframes heroOrbitSpin { to { transform: rotate(360deg); } }
-  @keyframes heroGlow { 0%,100% { opacity: .4; } 50% { opacity: .7; } }
-
-  .hero {
-    position: relative; min-height: 100vh;
-    background: #0C0816;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-  }
-  .hero::before {
-    content: ''; position: absolute;
-    top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: 700px; height: 700px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(120,40,180,.5) 0%, rgba(235,35,72,.3) 35%, transparent 65%);
-    filter: blur(60px);
-    animation: heroGlow 6s ease-in-out infinite;
-  }
-
-  .hero-orbit {
-    position: absolute; top: 50%; left: 50%;
-    transform-origin: center;
-  }
-  .hero-orbit-ring {
-    position: absolute; border-radius: 50%;
-    border: 1px solid rgba(255,255,255,.08);
-    top: 50%; left: 50%;
-  }
-  .hero-orbit-ring-1 {
-    width: 500px; height: 500px;
-    margin-left: -250px; margin-top: -250px;
-    border-style: dashed;
-    border-color: rgba(255,255,255,.1);
-    animation: heroOrbitSpin 40s linear infinite;
-  }
-  .hero-orbit-ring-2 {
-    width: 700px; height: 700px;
-    margin-left: -350px; margin-top: -350px;
-  }
-  .hero-orbit-ring-3 {
-    width: 900px; height: 900px;
-    margin-left: -450px; margin-top: -450px;
-    border-color: rgba(255,255,255,.04);
-  }
-  .hero-arc-left {
-    position: absolute; top: 50%; left: 50%;
-    width: 360px; height: 600px;
-    margin-left: -460px; margin-top: -300px;
-    border: 3px solid rgba(255,255,255,.06);
-    border-radius: 50%;
-    border-right-color: transparent; border-top-color: transparent;
-    animation: heroOrbitSpin 25s linear infinite reverse;
-  }
-  .hero-arc-right {
-    position: absolute; top: 50%; left: 50%;
-    width: 400px; height: 680px;
-    margin-left: 100px; margin-top: -340px;
-    border: 3px solid rgba(255,255,255,.1);
-    border-radius: 50%;
-    border-left-color: transparent; border-bottom-color: transparent;
-    animation: heroOrbitSpin 30s linear infinite;
-  }
-  .hero-scroll-hint {
-    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
-    display: flex; flex-direction: column; align-items: center; gap: 8px;
-    animation: fadeIn 1s ease 1.2s both;
-  }
-  .hero-scroll-pill {
-    width: 24px; height: 40px; border-radius: 12px;
-    border: 2px solid rgba(255,255,255,.2);
-    display: flex; justify-content: center; padding-top: 8px;
-  }
-  .hero-scroll-dot {
-    width: 4px; height: 8px; border-radius: 2px; background: rgba(255,255,255,.5);
-    animation: fadeUp 1.5s ease-in-out infinite;
-  }
-  .hero-scroll-line {
-    width: 1px; height: 40px;
-    background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
-    border: none;
-  }
-
-  .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 140px 40px 120px; text-align: center; }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 10px;
-    padding: 8px 20px; border-radius: 100px;
-    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
-    backdrop-filter: blur(8px); margin-bottom: 32px;
-    animation: fadeUp .8s ease both;
-  }
-  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); box-shadow: 0 0 8px var(--red); animation: pulse 2s ease-in-out infinite; }
-  .hero-badge-text { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.8); }
-  .hero h1 {
-    font-family: 'Clash Display', sans-serif; font-weight: 600;
-    font-size: clamp(48px, 8vw, 86px); line-height: .98; letter-spacing: -.03em;
-    color: #fff; margin-bottom: 24px;
-    animation: fadeUp .8s ease .15s both;
-  }
-  .hero-sub {
-    font-size: 18px; line-height: 1.65; color: rgba(255,255,255,.55);
-    max-width: 520px; margin: 0 auto 40px;
-    animation: fadeUp .8s ease .3s both;
-  }
-  .hero-buttons { display: flex; gap: 14px; justify-content: center; animation: fadeUp .8s ease .45s both; }
-  .btn-hero-primary {
-    font-weight: 600; font-size: 15px; color: var(--red);
-    background: #fff; padding: 16px 32px; border-radius: 100px;
-    box-shadow: 0 4px 20px rgba(0,0,0,.2);
-    transition: transform .3s, box-shadow .3s;
-  }
-  .btn-hero-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
-
-  /* ===== MARQUEE ===== */
-  .marquee-wrap {
-    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
-    background: var(--white); padding: 22px 0; overflow: hidden;
-    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
-  }
-  .marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
-  .marquee-item { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 22px; padding: 0 28px; white-space: nowrap; }
-  .marquee-item.filled { color: var(--text); }
-  .marquee-item.outline { color: transparent; -webkit-text-stroke: 1px rgba(0,0,0,.15); }
-  .marquee-dot { color: var(--red); font-size: 14px; display: flex; align-items: center; }
-
-  /* ===== SECTION HELPERS ===== */
-  .section { padding: 140px 0; }
-  .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
-  .section-label {
-    font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
-    color: var(--red); margin-bottom: 16px; display: inline-block;
-  }
-  .section-title {
-    font-family: 'Clash Display', sans-serif; font-weight: 600;
-    font-size: clamp(34px, 4.5vw, 54px); line-height: 1.06; letter-spacing: -.02em;
-    color: var(--dark);
-  }
-  .section-desc { font-size: 18px; line-height: 1.7; color: var(--muted); max-width: 520px; margin-top: 20px; }
-
-  /* ===== À PROPOS ===== */
-  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-  .about-image-wrap { position: relative; }
-  .about-image-frame {
-    border-radius: var(--radius-lg); overflow: hidden;
-    box-shadow: var(--shadow-lg);
-    border: 1px solid var(--border);
-  }
-  .about-image-frame img { aspect-ratio: 4/5; object-fit: cover; }
-  .about-link {
-    display: inline-flex; align-items: center; gap: 8px;
-    font-weight: 600; font-size: 15px; color: var(--red);
-    margin-top: 32px; transition: gap .3s;
-  }
-  .about-link:hover { gap: 14px; }
-
-  /* ===== APPROCHE (cards) ===== */
-  .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
-  .approach-card {
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 40px 32px;
-    transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .4s;
-    position: relative; overflow: hidden;
-  }
-  .approach-card::before {
-    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
-    background: var(--grad-btn); opacity: 0; transition: opacity .4s;
-  }
-  .approach-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(235,35,72,.15); }
-  .approach-card:hover::before { opacity: 1; }
-  .approach-num {
-    font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 48px;
-    background: var(--grad-btn); -webkit-background-clip: text; background-clip: text;
-    -webkit-text-fill-color: transparent; line-height: 1;
-  }
-  .approach-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 22px; margin: 20px 0 10px; color: var(--dark); }
-  .approach-card p { font-size: 15px; line-height: 1.7; color: var(--muted); }
-
-  /* ===== PROCESSUS (tilted cards) ===== */
-  .process-section { background: #EEECEB; }
-  .process-header { text-align: center; margin-bottom: 24px; }
-  .process-header .section-label {
-    font-style: italic; font-weight: 500; letter-spacing: .04em;
-    text-transform: none; color: var(--muted); font-size: 15px;
-  }
-  .process-header .label-line {
-    display: inline-flex; align-items: center; gap: 16px; margin-bottom: 16px;
-  }
-  .process-header .label-line::before,
-  .process-header .label-line::after {
-    content: ''; width: 50px; height: 1px; background: rgba(0,0,0,.2);
-  }
-  .process-cards-wrap {
-    position: relative;
-    display: flex; justify-content: center; align-items: flex-start;
-    padding: 60px 0 40px;
-    min-height: 520px;
-  }
-  .process-card {
-    position: relative;
-    width: 340px; min-height: 420px;
-    background: var(--white);
-    border-radius: 20px;
-    padding: 40px 36px;
-    box-shadow: 0 20px 60px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
-    display: flex; flex-direction: column;
-    transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s;
-  }
-  .process-card:hover {
-    box-shadow: 0 30px 80px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.04);
-  }
-  .process-card-1 {
-    transform: rotate(-8deg) translateY(30px);
-    z-index: 1;
-    margin-right: 20px;
-  }
-  .process-card-1:hover { transform: rotate(-8deg) translateY(18px); }
-  .process-card-2 {
-    transform: rotate(3deg) translateY(-20px);
-    z-index: 3;
-    margin: 0 20px;
-  }
-  .process-card-2:hover { transform: rotate(3deg) translateY(-34px); }
-  .process-card-3 {
-    transform: rotate(6deg) translateY(40px);
-    z-index: 2;
-    margin-left: 20px;
-  }
-  .process-card-3:hover { transform: rotate(6deg) translateY(28px); }
-  .process-card .num {
-    font-family: 'Clash Display', sans-serif;
-    font-weight: 600; font-size: 100px; line-height: .85;
-    color: var(--dark); letter-spacing: -.04em;
-  }
-  .process-card .card-bottom { margin-top: auto; }
-  .process-card h3 {
-    font-family: 'Clash Display', sans-serif;
-    font-weight: 600; font-size: 24px; color: var(--dark);
-    margin-bottom: 8px;
-  }
-  .process-card p { font-size: 15px; line-height: 1.6; color: var(--muted); }
-  .process-connector {
-    position: absolute; z-index: 4; pointer-events: none;
-  }
-  .process-connector-1 {
-    top: 10px; left: calc(50% - 230px);
-    width: 220px; height: 160px;
-  }
-  .process-connector-2 {
-    bottom: 50px; left: calc(50% + 60px);
-    width: 200px; height: 140px;
-  }
-
-  /* ===== VALEURS (floating pills) ===== */
-  .values-section {
-    background: #EEECEB;
-    position: relative; overflow: hidden;
-    min-height: 600px;
-  }
-  .values-layout {
-    position: relative;
-    display: flex; align-items: center; justify-content: center;
-    min-height: 500px;
-  }
-  .values-center {
-    max-width: 680px; text-align: center; position: relative; z-index: 1;
-  }
-  .values-center .label-line {
-    display: inline-flex; align-items: center; gap: 16px; margin-bottom: 20px;
-  }
-  .values-center .label-line::before,
-  .values-center .label-line::after {
-    content: ''; width: 50px; height: 1px; background: rgba(0,0,0,.2);
-  }
-  .values-center .label-text {
-    font-size: 15px; font-weight: 500; font-style: italic;
-    color: var(--muted); letter-spacing: .04em;
-  }
-  .values-statement {
-    font-family: 'Clash Display', sans-serif; font-weight: 600;
-    font-size: clamp(32px, 4.5vw, 50px); line-height: 1.15;
-    letter-spacing: -.02em; color: var(--dark);
-  }
-  .value-pill {
-    position: absolute;
-    display: inline-flex; align-items: center; gap: 10px;
-    background: var(--white);
-    border: 1px solid rgba(0,0,0,.06);
-    border-radius: 100px;
-    padding: 12px 22px 12px 14px;
-    box-shadow: 0 4px 16px rgba(0,0,0,.06);
-    cursor: grab; user-select: none;
-    transition: box-shadow .3s, transform .2s;
-    z-index: 5;
-    touch-action: none;
-  }
-  .value-pill:active { cursor: grabbing; box-shadow: 0 10px 30px rgba(0,0,0,.12); transform: scale(1.06); z-index: 10; }
-  .value-pill:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); }
-  .value-pill .pill-icon {
-    width: 34px; height: 34px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 16px;
-  }
-  .value-pill .pill-label { font-weight: 600; font-size: 15px; color: var(--dark); }
-
-  .pill-pos-1 { top: 18%; left: 6%; }
-  .pill-pos-2 { top: 44%; left: 3%; }
-  .pill-pos-3 { bottom: 18%; left: 8%; }
-  .pill-pos-4 { top: 16%; right: 5%; }
-  .pill-pos-5 { top: 46%; right: 3%; }
-  .pill-pos-6 { bottom: 16%; right: 7%; }
-
-  /* ===== POUR QUI ===== */
-  .audience-section { background: var(--white); }
-  .audience-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
-  .audience-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 56px; }
-  .audience-card {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: var(--radius); padding: 28px 22px;
-    transition: all .35s cubic-bezier(.16,1,.3,1);
-    text-align: center;
-  }
-  .audience-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(235,35,72,.2); }
-  .audience-card .icon { color: var(--red); font-size: 20px; margin-bottom: 14px; }
-  .audience-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 20px; color: var(--dark); margin-bottom: 8px; }
-  .audience-card p { font-size: 14px; line-height: 1.6; color: var(--muted); }
-
-  /* ===== SERVICES (bento asymmetric) ===== */
-  .services-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; margin-top: 56px; }
-  .services-grid-row2 { grid-template-columns: .8fr 1.2fr; }
-  .service-card {
-    position: relative; overflow: hidden;
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 44px;
-    transition: all .4s cubic-bezier(.16,1,.3,1);
-  }
-  .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(235,35,72,.15); }
-  .service-card::after {
-    content: ''; position: absolute; top: -60px; right: -60px;
-    width: 160px; height: 160px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(235,35,72,.06), transparent 65%);
-    transition: opacity .4s;
-  }
-  .service-card:hover::after { opacity: 1.5; }
-  .service-num { font-family: 'Clash Display', sans-serif; font-weight: 500; font-size: 13px; color: var(--red); letter-spacing: .1em; }
-  .service-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 26px; color: var(--dark); margin: 12px 0 10px; }
-  .service-card p { font-size: 16px; line-height: 1.7; color: var(--muted); }
-  .service-arrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: var(--red); margin-top: 20px; transition: gap .3s; }
-  .service-arrow:hover { gap: 14px; }
-
-  /* ===== SPECTACLES ===== */
-  .spectacles-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
-  .spectacles-nav { display: flex; gap: 10px; }
-  .spectacles-nav button {
-    width: 48px; height: 48px; border-radius: 50%;
-    border: 1px solid var(--border); background: var(--white);
-    color: var(--text); font-size: 18px;
-    display: flex; align-items: center; justify-content: center;
-    transition: all .3s;
-  }
-  .spectacles-nav button:hover { border-color: var(--red); color: var(--red); background: rgba(235,35,72,.04); }
-  .spectacles-scroll {
-    display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
-    padding: 48px max(40px, calc((100% - 1200px)/2 + 40px)) 20px;
-    scrollbar-width: none;
-  }
-  .spectacles-scroll::-webkit-scrollbar { display: none; }
-  .spectacle-card {
-    flex: none; width: 380px; scroll-snap-align: start;
-    background: var(--white); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); overflow: hidden;
-    transition: all .4s cubic-bezier(.16,1,.3,1);
-  }
-  .spectacle-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(235,35,72,.15); }
-  .spectacle-card img { aspect-ratio: 3/4; width: 100%; object-fit: cover; transition: transform .6s; }
-  .spectacle-card:hover img { transform: scale(1.03); }
-  .spectacle-card-body { padding: 24px 28px 28px; }
-  .spectacle-tag { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--red); }
-  .spectacle-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 26px; color: var(--dark); margin: 6px 0 0; }
-  .spectacle-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: var(--text); margin-top: 16px; transition: gap .3s, color .3s; }
-  .spectacle-link:hover { gap: 13px; color: var(--red); }
-  .spectacle-cta-card {
-    flex: none; width: 380px; scroll-snap-align: start;
-    border-radius: var(--radius-lg); padding: 1px;
-    background: var(--grad-btn);
-    display: flex;
-  }
-  .spectacle-cta-inner {
-    border-radius: calc(var(--radius-lg) - 1px);
-    background: var(--white);
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 48px 36px; width: 100%;
-  }
-  .spectacle-cta-inner .icon { color: var(--red); font-size: 24px; animation: float 4s ease-in-out infinite; }
-  .spectacle-cta-inner h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 26px; color: var(--dark); margin: 16px 0 10px; line-height: 1.1; }
-  .spectacle-cta-inner p { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
-  .btn-red {
-    font-weight: 600; font-size: 14px; color: #fff;
-    background: var(--grad-btn); padding: 14px 28px; border-radius: 100px;
-    box-shadow: 0 6px 20px rgba(235,35,72,.3);
-    transition: transform .3s, box-shadow .3s;
-  }
-  .btn-red:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(235,35,72,.4); }
-
-  /* ===== FAQ ===== */
-  .faq-section { background: var(--white); }
-  .faq-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: 56px; align-items: start; margin-top: 64px; }
-  .faq-contact {
-    background: var(--bg); border: 1px solid var(--border);
-    border-radius: var(--radius-lg); padding: 36px;
-    position: sticky; top: 100px;
-  }
-  .faq-contact-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
-  .faq-contact-avatar {
-    width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
-    border: 2px solid rgba(235,35,72,.15);
-  }
-  .faq-contact h4 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 20px; color: var(--dark); }
-  .faq-contact .sub { font-size: 14px; color: var(--muted); margin-top: 2px; }
-  .btn-faq {
-    display: flex; align-items: center; justify-content: center; gap: 10px;
-    font-weight: 600; font-size: 15px; color: #fff; width: 100%;
-    background: var(--grad-btn); padding: 16px 28px; border-radius: 100px;
-    box-shadow: 0 8px 24px rgba(235,35,72,.25);
-    transition: transform .3s, box-shadow .3s;
-  }
-  .btn-faq:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(235,35,72,.35); }
-  .faq-email { text-align: center; margin-top: 18px; font-size: 14px; color: var(--muted); }
-  .faq-email a { color: var(--red); font-weight: 500; }
-
-  details[data-faq] { border-top: 1px solid var(--border); }
-  details[data-faq]:last-child { border-bottom: 1px solid var(--border); }
-  details[data-faq] summary {
-    list-style: none; cursor: pointer;
-    display: flex; align-items: center; justify-content: space-between; gap: 24px;
-    padding: 22px 4px;
-  }
-  details[data-faq] summary::-webkit-details-marker { display: none; }
-  details[data-faq] summary span:first-child { font-weight: 500; font-size: 17px; color: var(--dark); }
-  .faq-plus { flex: none; color: var(--red); font-size: 22px; font-weight: 300; transition: transform .35s cubic-bezier(.16,1,.3,1); }
-  details[data-faq][open] .faq-plus { transform: rotate(45deg); }
-  details[data-faq] .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s cubic-bezier(.16,1,.3,1); }
-  details[data-faq][open] .faq-answer { grid-template-rows: 1fr; }
-  details[data-faq] .faq-answer > div { overflow: hidden; }
-  details[data-faq] .faq-answer p { font-size: 15.5px; line-height: 1.7; color: var(--muted); margin: 0 4px 22px; }
-
-  /* ===== CTA FINAL ===== */
-  .cta-section {
-    position: relative; padding: 160px 0; overflow: hidden;
-    background: var(--grad-hero); background-size: 200% 200%;
-    animation: gradShift 12s ease infinite;
-  }
-  .cta-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 80px 80px; -webkit-mask-image: radial-gradient(60% 60% at 50% 50%, #000, transparent 75%); mask-image: radial-gradient(60% 60% at 50% 50%, #000, transparent 75%); }
-  .cta-content { position: relative; max-width: 800px; margin: 0 auto; text-align: center; padding: 0 40px; }
-  .cta-content .section-label { color: rgba(255,255,255,.7); }
-  .cta-content .section-title { color: #fff; }
-  .cta-content .section-title span {
-    background: rgba(255,255,255,.2); padding: 0 12px; border-radius: 8px;
-    -webkit-text-fill-color: #fff;
-  }
-  .cta-sub { font-size: 19px; line-height: 1.6; color: rgba(255,255,255,.75); max-width: 500px; margin: 20px auto 0; }
-  .btn-cta-white {
-    display: inline-block; margin-top: 40px;
-    font-weight: 600; font-size: 16px; color: var(--red);
-    background: #fff; padding: 18px 40px; border-radius: 100px;
-    box-shadow: 0 10px 40px rgba(0,0,0,.15);
-    transition: transform .3s, box-shadow .3s;
-  }
-  .btn-cta-white:hover { transform: translateY(-3px); box-shadow: 0 16px 50px rgba(0,0,0,.2); }
-
-  /* ===== FOOTER ===== */
-  .footer { background: var(--white); border-top: 1px solid var(--border); padding: 72px 0 32px; }
-  .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; }
-  .footer-logo { height: 34px; margin-bottom: 20px; }
-  .footer-desc { font-size: 15px; line-height: 1.7; color: var(--muted); max-width: 280px; }
-  .footer-heading { font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
-  .footer-text { font-size: 15px; line-height: 1.7; color: var(--muted); }
-  .footer-link { display: block; font-size: 15px; color: var(--muted); transition: color .25s; }
-  .footer-link + .footer-link { margin-top: 10px; }
-  .footer-link:hover { color: var(--red); }
-  .footer-bottom {
-    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
-    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
-    font-size: 13px; color: var(--light-muted);
+  /* Responsive */
+  @media(max-width:768px){
+    nav .pv-nav-links{display:none!important}
+    .pv-grid-5{grid-template-columns:1fr 1fr!important}
+    .pv-grid-2{grid-template-columns:1fr!important}
+    .pv-grid-3{grid-template-columns:1fr!important}
+    .pv-footer-grid{grid-template-columns:1fr 1fr!important}
+    .pv-faq-grid{grid-template-columns:1fr!important}
+    .pv-process-grid{grid-template-columns:1fr!important}
+    .pv-process-grid > div{border-left:none!important;padding:0 0 40px 0!important}
+    .pv-process-grid > div > div{padding-top:0!important}
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
-<nav class="nav" id="main-nav">
-  <a href="#accueil"><img src="assets/prodvocation-logo.png" alt="Prodvocation" class="nav-logo"></a>
-  <div class="nav-links-pill">
-    <a href="#accueil" class="nav-link">Accueil</a>
-    <a href="#apropos" class="nav-link">À propos</a>
-    <a href="#services" class="nav-link">Services</a>
-    <a href="#spectacles" class="nav-link">Spectacles</a>
-    <a href="#contact" class="nav-link">Contact</a>
+<div id="pv-root" style="--accent:#EB2348">
+
+<!-- ========== NAV ========== -->
+<nav id="pv-nav" style="position:fixed;top:0;left:0;right:0;z-index:100;height:52px;display:flex;align-items:center;border-bottom:1px solid transparent;background:transparent;transition:background .4s,border-color .4s,backdrop-filter .4s;--nav-fg:#f5f5f7;--nav-fg-dim:rgba(255,255,255,.62)">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%;display:flex;align-items:center;justify-content:space-between">
+    <a href="#accueil" style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:var(--nav-fg);transition:color .4s">ProdVocation</a>
+    <div class="pv-nav-links" style="display:flex;gap:32px">
+      <a href="#spectacles" class="hover-nav-link" style="font-size:13px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Spectacles</a>
+      <a href="#apropos" class="hover-nav-link" style="font-size:13px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">À propos</a>
+      <a href="#services" class="hover-nav-link" style="font-size:13px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Services</a>
+      <a href="#processus" class="hover-nav-link" style="font-size:13px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Processus</a>
+    </div>
+    <a href="#contact" style="font-size:13px;font-weight:500;color:var(--nav-fg);transition:color .4s">Nous contacter</a>
   </div>
-  <a href="#contact" class="nav-cta">Nous contacter</a>
 </nav>
 
-<!-- HERO -->
-<section class="hero" id="accueil">
-  <!-- Orbital rings -->
-  <div class="hero-orbit-ring hero-orbit-ring-1"></div>
-  <div class="hero-orbit-ring hero-orbit-ring-2"></div>
-  <div class="hero-orbit-ring hero-orbit-ring-3"></div>
-  <div class="hero-arc-left"></div>
-  <div class="hero-arc-right"></div>
+<!-- ========== HERO ========== -->
+<section id="accueil" style="position:relative;min-height:100vh;background:#0C0816;display:flex;align-items:center;justify-content:center;overflow:hidden">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:680px;height:680px;border-radius:50%;background:radial-gradient(circle,rgba(120,40,180,.45) 0%,rgba(235,35,72,.28) 38%,transparent 66%);filter:blur(64px);animation:pvGlow 6s ease-in-out infinite"></div>
+  <div style="position:absolute;top:50%;left:50%;width:500px;height:500px;margin-left:-250px;margin-top:-250px;border:1px dashed rgba(255,255,255,.1);border-radius:50%;animation:pvSpin 40s linear infinite"></div>
+  <div style="position:absolute;top:50%;left:50%;width:720px;height:720px;margin-left:-360px;margin-top:-360px;border:1px solid rgba(255,255,255,.07);border-radius:50%"></div>
+  <div style="position:absolute;top:50%;left:50%;width:960px;height:960px;margin-left:-480px;margin-top:-480px;border:1px solid rgba(255,255,255,.04);border-radius:50%"></div>
+  <div style="position:absolute;top:50%;left:50%;width:400px;height:680px;margin-left:-460px;margin-top:-340px;border:3px solid rgba(255,255,255,.06);border-right-color:transparent;border-top-color:transparent;border-radius:50%;animation:pvSpin 25s linear infinite reverse"></div>
+  <div style="position:absolute;top:50%;left:50%;width:420px;height:700px;margin-left:90px;margin-top:-350px;border:3px solid rgba(255,255,255,.09);border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;animation:pvSpin 30s linear infinite"></div>
 
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="hero-badge-dot"></span>
-      <span class="hero-badge-text">Premier incubateur de spectacle en France</span>
+  <div style="position:relative;z-index:2;max-width:860px;padding:140px 32px 120px;text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:100px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);margin-bottom:30px">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pvPulse 2s ease-in-out infinite"></span>
+      <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)">Premier incubateur de spectacle en France</span>
     </div>
-    <h1>Le premier incubateur de spectacle</h1>
-    <p class="hero-sub">ProdVocation accompagne les artistes dans le développement de leur one-man show, via un modèle de co-production équitable.</p>
-    <div class="hero-buttons">
-      <a href="#spectacles" class="btn-hero-primary">Découvrir nos artistes</a>
+    <h1 style="font-size:clamp(46px,8vw,84px);font-weight:600;line-height:1.0;letter-spacing:-.035em;color:#fff;margin-bottom:22px">Le premier incubateur<br>de spectacle</h1>
+    <p style="font-size:19px;line-height:1.6;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto 38px">ProdVocation accompagne les artistes dans le développement de leur one-man show, via un modèle de co-production équitable.</p>
+    <div style="display:flex;gap:14px;justify-content:center">
+      <a href="#spectacles" class="hover-hero-btn" style="font-weight:600;font-size:15px;color:#0C0816;background:#fff;padding:15px 30px;border-radius:100px;transition:transform .3s,box-shadow .3s">Découvrir nos artistes</a>
     </div>
   </div>
 
-  <!-- Scroll indicator -->
-  <div class="hero-scroll-hint">
-    <div class="hero-scroll-pill"><div class="hero-scroll-dot"></div></div>
-    <div class="hero-scroll-line"></div>
+  <div style="position:absolute;bottom:36px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:8px">
+    <div style="width:23px;height:38px;border-radius:12px;border:2px solid rgba(255,255,255,.2);display:flex;justify-content:center;padding-top:7px">
+      <div style="width:4px;height:8px;border-radius:2px;background:rgba(255,255,255,.5);animation:pvScrollDot 1.6s ease-in-out infinite"></div>
+    </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-track">
-    <div style="display:flex; align-items:center;">
-      <span class="marquee-item filled">One-man show</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item outline">Co-production équitable</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item filled">Diffusion nationale</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item outline">Mise en scène</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item filled">Incubateur de spectacle</span><span class="marquee-dot">✦</span>
-    </div>
-    <div style="display:flex; align-items:center;" aria-hidden="true">
-      <span class="marquee-item filled">One-man show</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item outline">Co-production équitable</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item filled">Diffusion nationale</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item outline">Mise en scène</span><span class="marquee-dot">✦</span>
-      <span class="marquee-item filled">Incubateur de spectacle</span><span class="marquee-dot">✦</span>
+<!-- ========== STATEMENT ========== -->
+<section id="pv-statement-section" style="position:relative;height:260vh;background:#fbfbfd">
+  <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden">
+    <div style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
+      <p style="font-size:clamp(28px,3.7vw,46px);font-weight:600;letter-spacing:-.028em;line-height:1.28;color:#1d1d1f;max-width:920px">Depuis 2007, nous co-produisons les one-man shows de demain. <span id="pv-statement-fade" style="color:#cfcfd4">Un partenaire qui investit autant que l'artiste — temps, moyens et expertise — pour partager les efforts comme les réussites.</span></p>
     </div>
   </div>
-</div>
+</section>
 
-<!-- SPECTACLES -->
-<section class="section" style="background:var(--white);" id="spectacles">
-  <div class="container">
-    <div class="spectacles-header reveal">
-      <div style="max-width:600px;">
-        <span class="section-label">Nos spectacles</span>
-        <h2 class="section-title">Les artistes qui nous font confiance</h2>
+<!-- ========== SPECTACLES ========== -->
+<section id="spectacles" style="padding:10px 0 130px;background:#fbfbfd">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
+      <div style="max-width:600px">
+        <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Nos spectacles</span>
+        <h2 style="font-size:clamp(32px,4.5vw,52px);font-weight:600;letter-spacing:-.028em;line-height:1.07;color:#1d1d1f">Les artistes qui nous font confiance</h2>
       </div>
-      <div class="spectacles-nav">
-        <button id="scroll-prev" aria-label="Précédent">←</button>
-        <button id="scroll-next" aria-label="Suivant">→</button>
+      <div style="display:flex;gap:10px">
+        <button id="scroll-prev" aria-label="Précédent" class="hover-scroll-btn" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:#1d1d1f;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,color .3s">&larr;</button>
+        <button id="scroll-next" aria-label="Suivant" class="hover-scroll-btn" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:#1d1d1f;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,color .3s">&rarr;</button>
       </div>
     </div>
   </div>
-  <div class="spectacles-scroll reveal" id="spectacles-scroller">
-    <article class="spectacle-card">
-      <div style="overflow:hidden;">
-        <img src="assets/spectacle-angelvy.jpg" alt="Thomas Angelvy">
-      </div>
-      <div class="spectacle-card-body">
-        <span class="spectacle-tag">One-man show</span>
-        <h3>Thomas Angelvy</h3>
-        <a href="#contact" class="spectacle-link">En savoir plus <span>→</span></a>
-      </div>
-    </article>
-    <article class="spectacle-card">
-      <div style="overflow:hidden;">
-        <img src="assets/spectacle-dolle.jpg" alt="Guillaume Dollé — Alpha(E)">
-      </div>
-      <div class="spectacle-card-body">
-        <span class="spectacle-tag">One-man show</span>
-        <h3>Guillaume Dollé</h3>
-        <a href="#contact" class="spectacle-link">En savoir plus <span>→</span></a>
+
+  <div id="pv-spectacles" data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:46px max(32px,calc((100% - 1080px)/2 + 32px)) 20px;scrollbar-width:none">
+    <article class="hover-card" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
+      <img src="assets/spectacle-angelvy.jpg" alt="Thomas Angelvy" style="width:100%;aspect-ratio:3/4;display:block;object-fit:cover">
+      <div style="padding:22px 24px 26px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
+        <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Thomas Angelvy</h3>
+        <a href="#contact" class="hover-card-link" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus &rarr;</a>
       </div>
     </article>
-    <article class="spectacle-card">
-      <div style="overflow:hidden;">
-        <img src="assets/spectacle-mazine.jpg" alt="Mazine — Iceberg">
-      </div>
-      <div class="spectacle-card-body">
-        <span class="spectacle-tag">One-man show</span>
-        <h3>Mazine</h3>
-        <a href="#contact" class="spectacle-link">En savoir plus <span>→</span></a>
+    <article class="hover-card" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
+      <img src="assets/spectacle-dolle.jpg" alt="Guillaume Dollé" style="width:100%;aspect-ratio:3/4;display:block;object-fit:cover">
+      <div style="padding:22px 24px 26px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
+        <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Guillaume Dollé</h3>
+        <a href="#contact" class="hover-card-link" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus &rarr;</a>
       </div>
     </article>
-    <article class="spectacle-card">
-      <div style="overflow:hidden;">
-        <img src="assets/spectacle-bursztein.jpg" alt="Rosa Bursztein — Dédoublée">
-      </div>
-      <div class="spectacle-card-body">
-        <span class="spectacle-tag">One-man show</span>
-        <h3>Rosa Bursztein</h3>
-        <a href="#contact" class="spectacle-link">En savoir plus <span>→</span></a>
+    <article class="hover-card" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
+      <img src="assets/spectacle-mazine.jpg" alt="Mazine" style="width:100%;aspect-ratio:3/4;display:block;object-fit:cover">
+      <div style="padding:22px 24px 26px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
+        <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Mazine</h3>
+        <a href="#contact" class="hover-card-link" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus &rarr;</a>
       </div>
     </article>
-    <article class="spectacle-cta-card">
-      <div class="spectacle-cta-inner">
-        <span class="icon">✦</span>
-        <h3>Et bientôt,<br>le vôtre ?</h3>
-        <p>Votre spectacle a sa place dans cette sélection.</p>
-        <a href="#contact" class="btn-red">Proposer mon projet</a>
+    <article class="hover-card" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
+      <img src="assets/spectacle-bursztein.jpg" alt="Rosa Bursztein" style="width:100%;aspect-ratio:3/4;display:block;object-fit:cover">
+      <div style="padding:22px 24px 26px">
+        <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
+        <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Rosa Bursztein</h3>
+        <a href="#contact" class="hover-card-link" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus &rarr;</a>
       </div>
+    </article>
+    <article style="flex:none;width:340px;scroll-snap-align:start;border-radius:18px;border:1px solid rgba(0,0,0,.08);background:#f5f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 34px">
+      <h3 style="font-size:25px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;line-height:1.12;margin-bottom:10px">Et bientôt,<br>le vôtre ?</h3>
+      <p style="font-size:15px;color:#6e6e73;margin-bottom:24px;line-height:1.5">Votre spectacle a sa place dans cette sélection.</p>
+      <a href="#contact" class="hover-cta-small" style="font-weight:600;font-size:14px;color:#fff;background:var(--accent);padding:13px 26px;border-radius:100px;transition:transform .3s,box-shadow .3s">Proposer mon projet</a>
     </article>
   </div>
 </section>
 
-<!-- À PROPOS -->
-<section class="section" id="apropos">
-  <div class="container">
-    <div class="about-grid">
-      <div class="reveal-left">
-        <span class="section-label">Qui sommes-nous</span>
-        <h2 class="section-title">Un partenaire qui investit autant que vous</h2>
-        <p class="section-desc">Depuis 2007, à Asnières-sur-Seine, ProdVocation accompagne les humoristes dans la création de leur spectacle. Notre conviction : un artiste réussit mieux quand il n'est pas seul à porter le risque.</p>
-        <p class="section-desc" style="margin-top:16px;">C'est le principe de la <strong style="color:var(--dark); font-weight:600;">co-production équitable</strong> : nous partageons les efforts, les moyens et les bénéfices. Vous gardez votre liberté de création, nous apportons la structure.</p>
-        <a href="#contact" class="about-link">Découvrir notre histoire <span>→</span></a>
+<!-- ========== A PROPOS ========== -->
+<section id="apropos" style="padding:130px 0;background:#fff">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+    <div class="pv-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)">
+        <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Qui sommes-nous</span>
+        <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Un partenaire qui investit autant que vous</h2>
+        <p style="font-size:18px;line-height:1.6;color:#6e6e73;margin-top:24px;max-width:480px">Depuis 2007, à Asnières-sur-Seine, ProdVocation accompagne les humoristes dans la création de leur spectacle. Notre conviction : un artiste réussit mieux quand il n'est pas seul à porter le risque.</p>
+        <p style="font-size:18px;line-height:1.6;color:#6e6e73;margin-top:18px;max-width:480px">C'est le principe de la <strong style="color:#1d1d1f;font-weight:600">co-production équitable</strong> : nous partageons les efforts, les moyens et les bénéfices. Vous gardez votre liberté de création, nous apportons la structure.</p>
+        <a href="#contact" class="hover-about-btn" style="position:relative;display:inline-flex;align-items:center;gap:9px;margin-top:32px;padding:15px 30px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s">Découvrir notre histoire <span>&rarr;</span></a>
       </div>
-      <div class="reveal-right about-image-wrap">
-        <div class="about-image-frame">
-          <img src="assets/spectacle-angelvy.jpg" alt="Thomas Angelvy — ProdVocation" style="width:100%; height:100%; object-fit:cover; display:block;">
-        </div>
+      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s">
+        <img src="assets/spectacle-angelvy.jpg" alt="ProdVocation" style="aspect-ratio:4/5;display:block;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.1);width:100%;height:100%;object-fit:cover">
       </div>
     </div>
   </div>
 </section>
 
-<!-- APPROCHE -->
-<section class="section" style="background:var(--white);">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-label">Notre approche</span>
-      <h2 class="section-title">Une méthode au service de l'artiste</h2>
+<!-- ========== APPROCHE ========== -->
+<section style="padding:130px 0;background:#fbfbfd">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);max-width:640px">
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Notre approche</span>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Une méthode au service de l'artiste</h2>
     </div>
-    <div class="approach-grid">
-      <div class="approach-card reveal stagger-1">
-        <div class="approach-num">01</div>
-        <h3>Contrôle artistique préservé</h3>
-        <p>Votre vision reste la vôtre. Nous accompagnons sans jamais imposer : le spectacle est et demeure le vôtre.</p>
+    <div class="pv-grid-3" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:64px;border-top:1px solid rgba(0,0,0,.1)">
+      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);padding:36px 36px 36px 0;border-right:1px solid rgba(0,0,0,.1)">
+        <div style="font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.06em">01</div>
+        <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:18px 0 10px">Contrôle artistique préservé</h3>
+        <p style="font-size:16px;line-height:1.6;color:#6e6e73">Votre vision reste la vôtre. Nous accompagnons sans jamais imposer : le spectacle est et demeure le vôtre.</p>
       </div>
-      <div class="approach-card reveal stagger-2">
-        <div class="approach-num">02</div>
-        <h3>Relations humaines</h3>
-        <p>Honnêteté et réciprocité guident chaque échange. Une relation de confiance, sur la durée, avant toute logique commerciale.</p>
+      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .08s,transform .8s cubic-bezier(.16,1,.3,1) .08s;padding:36px;border-right:1px solid rgba(0,0,0,.1)">
+        <div style="font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.06em">02</div>
+        <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:18px 0 10px">Relations humaines</h3>
+        <p style="font-size:16px;line-height:1.6;color:#6e6e73">Honnêteté et réciprocité guident chaque échange. Une relation de confiance, sur la durée, avant toute logique commerciale.</p>
       </div>
-      <div class="approach-card reveal stagger-3">
-        <div class="approach-num">03</div>
-        <h3>Expertise depuis 2007</h3>
-        <p>Écriture, mise en scène, gestion : près de vingt ans de savoir-faire au service de votre spectacle.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESSUS -->
-<section class="section process-section" id="processus">
-  <div class="container">
-    <div class="process-header reveal">
-      <div class="label-line"><span class="section-label">Notre processus, expliqué</span></div>
-      <h2 class="section-title">Comment on travaille ensemble</h2>
-    </div>
-    <div class="process-cards-wrap reveal-scale">
-
-      <svg class="process-connector process-connector-1" viewBox="0 0 180 140" fill="none">
-        <path d="M20 120 C 10 60, 80 30, 130 25 S 165 18, 165 15" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none" class="connector-path"/>
-        <circle cx="20" cy="120" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
-        <circle cx="165" cy="15" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
-      </svg>
-
-      <svg class="process-connector process-connector-2" viewBox="0 0 160 120" fill="none">
-        <path d="M15 15 C 30 50, 60 70, 80 80 S 100 95, 80 100 C 60 105, 90 110, 140 90" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none" class="connector-path"/>
-        <circle cx="15" cy="15" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
-        <circle cx="140" cy="90" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
-      </svg>
-
-      <div class="process-card process-card-1">
-        <div class="num">1</div>
-        <div class="card-bottom">
-          <h3>Rencontre</h3>
-          <p>On échange sur votre univers, votre projet et vos ambitions, sans engagement.</p>
-        </div>
-      </div>
-
-      <div class="process-card process-card-2">
-        <div class="num">2</div>
-        <div class="card-bottom">
-          <h3>Création</h3>
-          <p>Écriture, mise en scène, rodage : on construit le spectacle ensemble, à votre rythme.</p>
-        </div>
-      </div>
-
-      <div class="process-card process-card-3">
-        <div class="num">3</div>
-        <div class="card-bottom">
-          <h3>Diffusion</h3>
-          <p>Réseau national, dates et communication : on porte le spectacle vers son public.</p>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- VALEURS -->
-<section class="section values-section">
-  <div class="values-layout">
-
-    <!-- Pills gauche -->
-    <div class="value-pill pill-pos-1 reveal-left stagger-1" data-draggable>
-      <div class="pill-icon" style="background:linear-gradient(135deg,#FFF0EB,#FFE0E6);">◇</div>
-      <span class="pill-label">Souplesse</span>
-    </div>
-    <div class="value-pill pill-pos-2 reveal-left stagger-2" data-draggable>
-      <div class="pill-icon" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);">○</div>
-      <span class="pill-label">Transparence</span>
-    </div>
-    <div class="value-pill pill-pos-3 reveal-left stagger-3" data-draggable>
-      <div class="pill-icon" style="background:linear-gradient(135deg,#FFF8E1,#FFECB3);">●</div>
-      <span class="pill-label">Humain</span>
-    </div>
-
-    <!-- Texte central -->
-    <div class="values-center reveal">
-      <div class="label-line"><span class="label-text">Nos valeurs</span></div>
-      <p class="values-statement">
-        Nous accompagnons les artistes avec souplesse, transparence et indépendance pour créer des spectacles authentiques et humains
-      </p>
-    </div>
-
-    <!-- Pills droite -->
-    <div class="value-pill pill-pos-4 reveal-right stagger-1" data-draggable>
-      <div class="pill-icon" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);">✦</div>
-      <span class="pill-label">Indépendance</span>
-    </div>
-    <div class="value-pill pill-pos-5 reveal-right stagger-2" data-draggable>
-      <div class="pill-icon" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);">◈</div>
-      <span class="pill-label">Créativité</span>
-    </div>
-    <div class="value-pill pill-pos-6 reveal-right stagger-3" data-draggable>
-      <div class="pill-icon" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7);">★</div>
-      <span class="pill-label">Confiance</span>
-    </div>
-
-  </div>
-</section>
-
-<!-- POUR QUI -->
-<section class="section audience-section">
-  <div class="container">
-    <div class="audience-header reveal">
-      <div style="max-width:600px;">
-        <span class="section-label">Pour qui ?</span>
-        <h2 class="section-title">Les artistes que nous accompagnons</h2>
-      </div>
-      <p style="font-size:16px; line-height:1.7; color:var(--muted); max-width:340px;">Cinq tempéraments, une même envie : porter un spectacle qui vous ressemble.</p>
-    </div>
-    <div class="audience-grid">
-      <div class="audience-card reveal stagger-1"><div class="icon">✦</div><h3>Indépendants</h3><p>Vous gardez la main sur votre carrière et vos choix.</p></div>
-      <div class="audience-card reveal stagger-2"><div class="icon">✦</div><h3>Perfectionnistes</h3><p>Vous visez l'excellence à chaque représentation.</p></div>
-      <div class="audience-card reveal stagger-3"><div class="icon">✦</div><h3>Ambitieux</h3><p>Vous voyez grand pour votre spectacle et votre public.</p></div>
-      <div class="audience-card reveal stagger-4"><div class="icon">✦</div><h3>Talentueux</h3><p>Vous avez quelque chose d'unique à défendre sur scène.</p></div>
-      <div class="audience-card reveal stagger-5"><div class="icon">✦</div><h3>Déterminés</h3><p>Vous êtes prêts à vous investir pleinement dans l'aventure.</p></div>
-    </div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="section" id="services">
-  <div class="container">
-    <div class="reveal">
-      <span class="section-label">Nos services</span>
-      <h2 class="section-title">Tout ce qu'il faut autour de votre spectacle</h2>
-    </div>
-    <div class="services-grid" style="margin-top:56px;">
-      <div class="service-card reveal stagger-1">
-        <div class="service-num">01</div>
-        <h3>Gestion</h3>
-        <p>Production, planning et logistique de vos dates : on structure, vous créez.</p>
-        <span class="service-arrow">En savoir plus <span>→</span></span>
-      </div>
-      <div class="service-card reveal stagger-2">
-        <div class="service-num">02</div>
-        <h3>Administration</h3>
-        <p>Contrats, paie, déclarations : on s'occupe de la paperasse, vous restez sur scène.</p>
-        <span class="service-arrow">En savoir plus <span>→</span></span>
-      </div>
-    </div>
-    <div class="services-grid services-grid-row2" style="margin-top:20px;">
-      <div class="service-card reveal stagger-1">
-        <div class="service-num">03</div>
-        <h3>Diffusion</h3>
-        <p>Un réseau national de salles et de programmateurs pour remplir vos représentations.</p>
-        <span class="service-arrow">En savoir plus <span>→</span></span>
-      </div>
-      <div class="service-card reveal stagger-2">
-        <div class="service-num">04</div>
-        <h3>Communication</h3>
-        <p>Identité, contenus et stratégie pour faire connaître votre spectacle au bon public.</p>
-        <span class="service-arrow">En savoir plus <span>→</span></span>
+      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .16s,transform .8s cubic-bezier(.16,1,.3,1) .16s;padding:36px 0 36px 36px">
+        <div style="font-size:14px;font-weight:600;color:var(--accent);letter-spacing:.06em">03</div>
+        <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:18px 0 10px">Expertise depuis 2007</h3>
+        <p style="font-size:16px;line-height:1.6;color:#6e6e73">Écriture, mise en scène, gestion : près de vingt ans de savoir-faire au service de votre spectacle.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FAQ -->
-<section class="section faq-section">
-  <div class="container">
-    <div class="reveal" style="text-align:center; margin-bottom:16px;">
-      <span class="section-label">FAQ</span>
-      <h2 class="section-title">Vos questions, nos réponses</h2>
-    </div>
-    <div class="faq-layout">
-      <div class="reveal-left">
-        <div class="faq-contact">
-          <div class="faq-contact-header">
-            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Contact" class="faq-contact-avatar">
-            <div>
-              <h4>Encore des questions ?</h4>
-              <div class="sub">Réservez un appel découverte gratuit</div>
-            </div>
+<!-- ========== PROCESSUS ========== -->
+<section id="processus" style="position:relative;height:300vh;background:#f5f5f7">
+  <div style="position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0;overflow:hidden">
+    <div style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
+      <div style="text-align:center;max-width:600px;margin:0 auto">
+        <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Notre processus</span>
+        <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Comment on travaille ensemble</h2>
+      </div>
+      <div class="pv-process-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;align-items:stretch">
+        <div id="pv-step-1" style="opacity:0;transform:translateY(40px);transition:opacity .25s ease,transform .25s ease;padding:0 40px 0 0">
+          <div style="padding-top:0">
+            <span style="display:inline-block;padding:6px 13px;border:1px solid rgba(0,0,0,.22);border-radius:10px;font-size:13px;font-weight:600;color:#1d1d1f;letter-spacing:.02em">01</span>
+            <h3 style="font-size:clamp(26px,2.3vw,33px);font-weight:600;letter-spacing:-.02em;line-height:1.12;color:#1d1d1f;margin:20px 0 14px">Rencontre</h3>
+            <p style="font-size:15px;line-height:1.6;color:#6e6e73;max-width:300px">On échange sur votre univers, votre projet et vos ambitions, sans engagement.</p>
+            <div class="pv-img-slot" style="display:block;width:100%;aspect-ratio:16/11;border-radius:14px;margin-top:26px;background:#e5e5ea"><span style="padding:20px;color:#86868b;font-size:13px">Photo &middot; Rencontre</span></div>
           </div>
-          <a href="#contact" class="btn-faq">Réserver un appel <span>→</span></a>
-          <div class="faq-email">Ou écrivez-nous à <a href="mailto:Diffusion@prodvocation.com">Diffusion@prodvocation.com</a></div>
+        </div>
+        <div id="pv-step-2" style="opacity:0;transform:translateY(40px);transition:opacity .25s ease,transform .25s ease;border-left:1px solid rgba(0,0,0,.12);padding:0 40px">
+          <div style="padding-top:44px">
+            <span style="display:inline-block;padding:6px 13px;border:1px solid rgba(0,0,0,.22);border-radius:10px;font-size:13px;font-weight:600;color:#1d1d1f;letter-spacing:.02em">02</span>
+            <h3 style="font-size:clamp(26px,2.3vw,33px);font-weight:600;letter-spacing:-.02em;line-height:1.12;color:#1d1d1f;margin:20px 0 14px">Création</h3>
+            <p style="font-size:15px;line-height:1.6;color:#6e6e73;max-width:300px">Écriture, mise en scène, rodage : on construit le spectacle ensemble, à votre rythme.</p>
+            <div class="pv-img-slot" style="display:block;width:100%;aspect-ratio:16/11;border-radius:14px;margin-top:26px;background:#e5e5ea"><span style="padding:20px;color:#86868b;font-size:13px">Photo &middot; Création</span></div>
+          </div>
+        </div>
+        <div id="pv-step-3" style="opacity:0;transform:translateY(40px);transition:opacity .25s ease,transform .25s ease;border-left:1px solid rgba(0,0,0,.12);padding:0 0 0 40px">
+          <div style="padding-top:88px">
+            <span style="display:inline-block;padding:6px 13px;border:1px solid rgba(0,0,0,.22);border-radius:10px;font-size:13px;font-weight:600;color:#1d1d1f;letter-spacing:.02em">03</span>
+            <h3 style="font-size:clamp(26px,2.3vw,33px);font-weight:600;letter-spacing:-.02em;line-height:1.12;color:#1d1d1f;margin:20px 0 14px">Diffusion</h3>
+            <p style="font-size:15px;line-height:1.6;color:#6e6e73;max-width:300px">Réseau national, dates et communication : on porte le spectacle vers son public.</p>
+            <div class="pv-img-slot" style="display:block;width:100%;aspect-ratio:16/11;border-radius:14px;margin-top:26px;background:#e5e5ea"><span style="padding:20px;color:#86868b;font-size:13px">Photo &middot; Diffusion</span></div>
+          </div>
         </div>
       </div>
-      <div class="reveal-right">
-        <details data-faq open>
-          <summary><span>Comment fonctionne la co-production équitable ?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer"><div><p>Nous investissons aux côtés de l'artiste, temps, moyens et expertise, et nous partageons les bénéfices de manière équitable. Vous n'êtes plus seul à porter le risque, ni à en récolter les fruits.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== VALEURS ========== -->
+<section id="pv-values-section" style="position:relative;height:240vh;background:#fff">
+  <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden">
+
+    <div data-pill="" class="hover-pill" style="position:absolute;top:25%;left:7%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
+      <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:linear-gradient(135deg,#FFF0EB,#FFE0E6)">&loz;</div>
+      <span style="font-weight:600;font-size:14px;color:#1d1d1f">Souplesse</span>
+    </div>
+    <div data-pill="" class="hover-pill" style="position:absolute;top:45%;left:11%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
+      <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">&#9675;</div>
+      <span style="font-weight:600;font-size:14px;color:#1d1d1f">Transparence</span>
+    </div>
+    <div data-pill="" class="hover-pill" style="position:absolute;top:64%;left:8%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
+      <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;background:linear-gradient(135deg,#FFF8E1,#FFECB3)">&#9679;</div>
+      <span style="font-weight:600;font-size:14px;color:#1d1d1f">Humain</span>
+    </div>
+
+    <div data-pill="" class="hover-pill" style="position:absolute;top:23%;right:8%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
+      <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:linear-gradient(135deg,#FCE4EC,#F8BBD0)">&#10022;</div>
+      <span style="font-weight:600;font-size:14px;color:#1d1d1f">Indépendance</span>
+    </div>
+    <div data-pill="" class="hover-pill" style="position:absolute;top:44%;right:5%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
+      <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">&#9672;</div>
+      <span style="font-weight:600;font-size:14px;color:#1d1d1f">Créativité</span>
+    </div>
+    <div data-pill="" class="hover-pill" style="position:absolute;top:63%;right:9%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
+      <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:linear-gradient(135deg,#F3E5F5,#E1BEE7)">&#9733;</div>
+      <span style="font-weight:600;font-size:14px;color:#1d1d1f">Confiance</span>
+    </div>
+
+    <div style="position:relative;z-index:1;max-width:640px;text-align:center;padding:0 32px">
+      <span style="font-size:15px;font-style:italic;color:#86868b;letter-spacing:.02em;display:inline-block;margin-bottom:20px">Nos valeurs</span>
+      <p style="font-size:clamp(28px,3.6vw,44px);font-weight:600;letter-spacing:-.028em;line-height:1.25;color:#1d1d1f"><span id="pv-values-fade" style="color:#cfcfd4">Nous accompagnons les artistes avec souplesse, transparence et indépendance pour créer des spectacles authentiques et humains.</span></p>
+      <div style="margin-top:30px;font-size:13px;color:#a1a1a6;display:inline-flex;align-items:center;gap:8px"><span style="font-size:15px">&harr;</span> Attrapez et déplacez les valeurs</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ========== POUR QUI ========== -->
+<section style="padding:130px 0;background:#fbfbfd">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap">
+      <div style="max-width:600px">
+        <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Pour qui ?</span>
+        <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Les artistes que nous accompagnons</h2>
+      </div>
+      <p style="font-size:16px;line-height:1.6;color:#6e6e73;max-width:320px">Cinq tempéraments, une même envie : porter un spectacle qui vous ressemble.</p>
+    </div>
+    <div class="pv-grid-5" style="display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-top:56px">
+      <div data-reveal="" class="hover-artist-card" style="opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:28px 24px">
+        <h3 style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin-bottom:8px">Indépendants</h3>
+        <p style="font-size:14px;line-height:1.55;color:#6e6e73">Vous gardez la main sur votre carrière et vos choix.</p>
+      </div>
+      <div data-reveal="" class="hover-artist-card" style="opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1) .06s,transform .7s cubic-bezier(.16,1,.3,1) .06s;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:28px 24px">
+        <h3 style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin-bottom:8px">Perfectionnistes</h3>
+        <p style="font-size:14px;line-height:1.55;color:#6e6e73">Vous visez l'excellence à chaque représentation.</p>
+      </div>
+      <div data-reveal="" class="hover-artist-card" style="opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1) .12s,transform .7s cubic-bezier(.16,1,.3,1) .12s;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:28px 24px">
+        <h3 style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin-bottom:8px">Ambitieux</h3>
+        <p style="font-size:14px;line-height:1.55;color:#6e6e73">Vous voyez grand pour votre spectacle et votre public.</p>
+      </div>
+      <div data-reveal="" class="hover-artist-card" style="opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1) .18s,transform .7s cubic-bezier(.16,1,.3,1) .18s;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:28px 24px">
+        <h3 style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin-bottom:8px">Talentueux</h3>
+        <p style="font-size:14px;line-height:1.55;color:#6e6e73">Vous avez quelque chose d'unique à défendre sur scène.</p>
+      </div>
+      <div data-reveal="" class="hover-artist-card" style="opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1) .24s,transform .7s cubic-bezier(.16,1,.3,1) .24s;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;padding:28px 24px">
+        <h3 style="font-size:19px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin-bottom:8px">Déterminés</h3>
+        <p style="font-size:14px;line-height:1.55;color:#6e6e73">Vous êtes prêts à vous investir pleinement dans l'aventure.</p>
+      </div>
+    </div>
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);display:flex;justify-content:center;margin-top:52px">
+      <a href="#contact" class="hover-glow-btn" style="position:relative;display:inline-flex;align-items:center;gap:9px;padding:16px 34px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s">Proposer mon projet <span>&rarr;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SERVICES ========== -->
+<section id="services" style="padding:130px 0;background:#fff">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);max-width:640px">
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Nos services</span>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Tout ce qu'il faut autour de votre spectacle</h2>
+    </div>
+    <div class="pv-grid-2" style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:56px">
+      <div data-reveal="" class="hover-service-card" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:22px;padding:44px">
+        <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">01</div>
+        <h3 style="font-size:26px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 10px">Gestion</h3>
+        <p style="font-size:16px;line-height:1.6;color:#6e6e73">Production, planning et logistique de vos dates : on structure, vous créez.</p>
+      </div>
+      <div data-reveal="" class="hover-service-card" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .08s,transform .8s cubic-bezier(.16,1,.3,1) .08s;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:22px;padding:44px">
+        <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">02</div>
+        <h3 style="font-size:26px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 10px">Administration</h3>
+        <p style="font-size:16px;line-height:1.6;color:#6e6e73">Contrats, paie, déclarations : on s'occupe de la paperasse, vous restez sur scène.</p>
+      </div>
+      <div data-reveal="" class="hover-service-card" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .12s,transform .8s cubic-bezier(.16,1,.3,1) .12s;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:22px;padding:44px">
+        <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">03</div>
+        <h3 style="font-size:26px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 10px">Diffusion</h3>
+        <p style="font-size:16px;line-height:1.6;color:#6e6e73">Un réseau national de salles et de programmateurs pour remplir vos représentations.</p>
+      </div>
+      <div data-reveal="" class="hover-service-card" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .18s,transform .8s cubic-bezier(.16,1,.3,1) .18s;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:22px;padding:44px">
+        <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">04</div>
+        <h3 style="font-size:26px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 10px">Communication</h3>
+        <p style="font-size:16px;line-height:1.6;color:#6e6e73">Identité, contenus et stratégie pour faire connaître votre spectacle au bon public.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== FAQ ========== -->
+<section style="padding:130px 0;background:#fbfbfd">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);text-align:center;max-width:600px;margin:0 auto">
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">FAQ</span>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Vos questions, nos réponses</h2>
+    </div>
+    <div class="pv-faq-grid" style="display:grid;grid-template-columns:.78fr 1.22fr;gap:56px;align-items:start;margin-top:64px">
+      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)">
+        <div style="background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:22px;padding:34px;position:sticky;top:80px">
+          <h4 style="font-size:21px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f">Encore des questions ?</h4>
+          <p style="font-size:15px;color:#6e6e73;margin-top:8px;line-height:1.5">Réservez un appel découverte gratuit, sans engagement.</p>
+          <a href="#contact" class="hover-faq-btn" style="display:flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15px;color:#fff;width:100%;background:var(--accent);padding:15px 28px;border-radius:100px;margin-top:24px;transition:transform .3s,box-shadow .3s">Réserver un appel &rarr;</a>
+          <div style="text-align:center;margin-top:16px;font-size:14px;color:#6e6e73">Ou écrivez-nous à<br><a href="mailto:Diffusion@prodvocation.com" style="color:var(--accent);font-weight:500">Diffusion@prodvocation.com</a></div>
+        </div>
+      </div>
+      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s">
+        <details data-faq="" open="" style="border-top:1px solid rgba(0,0,0,.1)">
+          <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 4px"><span style="font-weight:500;font-size:17px;color:#1d1d1f">Comment fonctionne la co-production équitable ?</span><span style="flex:none;color:var(--accent);font-size:22px;font-weight:300">+</span></summary>
+          <p style="font-size:15.5px;line-height:1.65;color:#6e6e73;margin:0 4px 22px">Nous investissons aux côtés de l'artiste — temps, moyens et expertise — et nous partageons les bénéfices de manière équitable. Vous n'êtes plus seul à porter le risque, ni à en récolter les fruits.</p>
         </details>
-        <details data-faq>
-          <summary><span>Gardez-vous un droit de regard sur mon spectacle ?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer"><div><p>Le contrôle artistique reste entièrement le vôtre. Nous accompagnons, conseillons et structurons, mais nous n'imposons jamais : le spectacle est et demeure le vôtre.</p></div></div>
+        <details data-faq="" style="border-top:1px solid rgba(0,0,0,.1)">
+          <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 4px"><span style="font-weight:500;font-size:17px;color:#1d1d1f">Gardez-vous un droit de regard sur mon spectacle ?</span><span style="flex:none;color:var(--accent);font-size:22px;font-weight:300">+</span></summary>
+          <p style="font-size:15.5px;line-height:1.65;color:#6e6e73;margin:0 4px 22px">Le contrôle artistique reste entièrement le vôtre. Nous accompagnons, conseillons et structurons, mais nous n'imposons jamais : le spectacle est et demeure le vôtre.</p>
         </details>
-        <details data-faq>
-          <summary><span>À quel stade de mon projet puis-je vous contacter ?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer"><div><p>À tout moment, d'une simple idée à un spectacle déjà rodé. Plus on se rencontre tôt, plus on peut construire ensemble dans la bonne direction.</p></div></div>
+        <details data-faq="" style="border-top:1px solid rgba(0,0,0,.1)">
+          <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 4px"><span style="font-weight:500;font-size:17px;color:#1d1d1f">À quel stade de mon projet puis-je vous contacter ?</span><span style="flex:none;color:var(--accent);font-size:22px;font-weight:300">+</span></summary>
+          <p style="font-size:15.5px;line-height:1.65;color:#6e6e73;margin:0 4px 22px">À tout moment, d'une simple idée à un spectacle déjà rodé. Plus on se rencontre tôt, plus on peut construire ensemble dans la bonne direction.</p>
         </details>
-        <details data-faq>
-          <summary><span>Quels types d'accompagnement proposez-vous ?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer"><div><p>Écriture, mise en scène, gestion, administration, diffusion et communication. Un accompagnement complet, modulable selon vos besoins et votre autonomie.</p></div></div>
+        <details data-faq="" style="border-top:1px solid rgba(0,0,0,.1)">
+          <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 4px"><span style="font-weight:500;font-size:17px;color:#1d1d1f">Quels types d'accompagnement proposez-vous ?</span><span style="flex:none;color:var(--accent);font-size:22px;font-weight:300">+</span></summary>
+          <p style="font-size:15.5px;line-height:1.65;color:#6e6e73;margin:0 4px 22px">Écriture, mise en scène, gestion, administration, diffusion et communication. Un accompagnement complet, modulable selon vos besoins et votre autonomie.</p>
         </details>
-        <details data-faq>
-          <summary><span>Travaillez-vous avec des artistes débutants ?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer"><div><p>Ce n'est pas l'expérience qui compte, mais le talent, l'ambition et la détermination. Nous accompagnons aussi bien des artistes émergents que des humoristes confirmés.</p></div></div>
+        <details data-faq="" style="border-top:1px solid rgba(0,0,0,.1)">
+          <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 4px"><span style="font-weight:500;font-size:17px;color:#1d1d1f">Travaillez-vous avec des artistes débutants ?</span><span style="flex:none;color:var(--accent);font-size:22px;font-weight:300">+</span></summary>
+          <p style="font-size:15.5px;line-height:1.65;color:#6e6e73;margin:0 4px 22px">Ce n'est pas l'expérience qui compte, mais le talent, l'ambition et la détermination. Nous accompagnons aussi bien des artistes émergents que des humoristes confirmés.</p>
         </details>
-        <details data-faq>
-          <summary><span>Comment se passe la diffusion de mon spectacle ?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer"><div><p>Nous nous appuyons sur un réseau national de salles et de programmateurs pour vous trouver des dates et remplir vos représentations, partout en France.</p></div></div>
-        </details>
-        <details data-faq>
-          <summary><span>Le premier rendez-vous m'engage-t-il à quelque chose ?</span><span class="faq-plus">+</span></summary>
-          <div class="faq-answer"><div><p>Aucunement. La première rencontre est gratuite et sans engagement, sinon celui d'oser en parler. On échange, on apprend à se connaître, et on décide ensemble de la suite.</p></div></div>
+        <details data-faq="" style="border-top:1px solid rgba(0,0,0,.1);border-bottom:1px solid rgba(0,0,0,.1)">
+          <summary style="list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:24px;padding:22px 4px"><span style="font-weight:500;font-size:17px;color:#1d1d1f">Le premier rendez-vous m'engage-t-il à quelque chose ?</span><span style="flex:none;color:var(--accent);font-size:22px;font-weight:300">+</span></summary>
+          <p style="font-size:15.5px;line-height:1.65;color:#6e6e73;margin:0 4px 22px">Aucunement. La première rencontre est gratuite et sans engagement, sinon celui d'oser en parler. On échange, on apprend à se connaître, et on décide ensemble de la suite.</p>
         </details>
       </div>
     </div>
   </div>
 </section>
 
-<!-- CTA FINAL -->
-<section class="cta-section">
-  <div class="cta-grid"></div>
-  <div class="cta-content reveal">
-    <span class="section-label" style="color:rgba(255,255,255,.7);">Rejoindre l'aventure</span>
-    <h2 class="section-title" style="color:#fff; font-size:clamp(40px, 6vw, 76px);">Qui sera le <span>prochain</span> ?</h2>
-    <p class="cta-sub">Vous avez un spectacle à porter ? Parlons-en. La première rencontre ne vous engage à rien, sinon à oser.</p>
-    <a href="#contact" class="btn-cta-white">Contactez-nous</a>
+<!-- ========== CTA ========== -->
+<section id="pv-cta" style="position:relative;padding:170px 0;background:#0C0816;overflow:hidden;display:flex;align-items:center;justify-content:center;min-height:640px">
+  <div style="position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 12% 24%,rgba(255,255,255,.6),transparent),radial-gradient(1px 1px at 82% 16%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 66% 72%,rgba(255,255,255,.45),transparent),radial-gradient(1.5px 1.5px at 28% 80%,rgba(255,255,255,.5),transparent),radial-gradient(1px 1px at 91% 62%,rgba(255,255,255,.4),transparent),radial-gradient(1px 1px at 46% 10%,rgba(255,255,255,.4),transparent),radial-gradient(1px 1px at 7% 62%,rgba(255,255,255,.4),transparent),radial-gradient(1px 1px at 54% 90%,rgba(255,255,255,.35),transparent);opacity:.75"></div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:780px;height:780px;border-radius:50%;background:radial-gradient(circle,rgba(120,40,180,.42) 0%,rgba(235,35,72,.26) 38%,transparent 66%);filter:blur(70px);animation:pvGlow 6s ease-in-out infinite"></div>
+  <div style="position:absolute;top:50%;left:50%;width:520px;height:520px;margin-left:-260px;margin-top:-260px;border:1px dashed rgba(255,255,255,.1);border-radius:50%;animation:pvSpin 42s linear infinite"></div>
+  <div style="position:absolute;top:50%;left:50%;width:760px;height:760px;margin-left:-380px;margin-top:-380px;border:1px solid rgba(255,255,255,.06);border-radius:50%"></div>
+  <div style="position:absolute;top:50%;left:50%;width:1020px;height:1020px;margin-left:-510px;margin-top:-510px;border:1px solid rgba(255,255,255,.04);border-radius:50%"></div>
+  <div style="position:absolute;top:50%;left:50%;width:420px;height:680px;margin-left:-470px;margin-top:-340px;border:3px solid rgba(255,255,255,.06);border-right-color:transparent;border-top-color:transparent;border-radius:50%;animation:pvSpin 26s linear infinite reverse"></div>
+  <div style="position:absolute;top:50%;left:50%;width:440px;height:720px;margin-left:120px;margin-top:-360px;border:3px solid rgba(255,255,255,.09);border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;animation:pvSpin 32s linear infinite"></div>
+  <div style="position:absolute;top:50%;left:50%;width:520px;height:520px;margin-left:-260px;margin-top:-260px;animation:pvSpin 42s linear infinite">
+    <div style="position:absolute;top:-5px;left:50%;margin-left:-5px;width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 14px var(--accent),0 0 28px rgba(235,35,72,.5)"></div>
+  </div>
+
+  <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);position:relative;z-index:2;max-width:760px;margin:0 auto;padding:0 32px;text-align:center">
+    <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:100px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);margin-bottom:28px">
+      <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pvPulse 2s ease-in-out infinite"></span>
+      <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)">Rejoindre l'aventure</span>
+    </div>
+    <h2 style="font-size:clamp(44px,6.5vw,80px);font-weight:600;letter-spacing:-.035em;line-height:1.0;color:#fff">Qui sera le <span style="color:var(--accent)">prochain</span> ?</h2>
+    <p style="font-size:19px;line-height:1.6;color:rgba(255,255,255,.55);max-width:500px;margin:24px auto 0">Vous avez un spectacle à porter ? Parlons-en. La première rencontre ne vous engage à rien, sinon à oser.</p>
+    <a href="#contact" class="hover-cta-main" style="display:inline-block;margin-top:40px;font-weight:600;font-size:16px;color:#0C0816;background:#fff;padding:17px 38px;border-radius:100px;box-shadow:0 4px 24px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s">Contactez-nous</a>
   </div>
 </section>
 
-<!-- FOOTER -->
-<footer class="footer" id="contact">
-  <div class="container">
-    <div class="footer-grid">
-      <div>
-        <img src="assets/prodvocation-logo.png" alt="Prodvocation" class="footer-logo">
-        <p class="footer-desc">Le premier incubateur de spectacle en France. Co-producteur équitable des one-man shows de demain, depuis 2007.</p>
-      </div>
-      <div>
-        <div class="footer-heading">Adresse</div>
-        <p class="footer-text">163 quai du Dr Dervaux<br>92600 Asnières-sur-Seine</p>
-      </div>
-      <div>
-        <div class="footer-heading">Contact</div>
-        <a href="mailto:Diffusion@prodvocation.com" class="footer-link">Diffusion@prodvocation.com</a>
-        <a href="tel:+33699723748" class="footer-link">+33 6 99 72 37 48</a>
-      </div>
-      <div>
-        <div class="footer-heading">Réseaux</div>
-        <a href="#" class="footer-link">Instagram</a>
-        <a href="#" class="footer-link">Facebook</a>
-        <a href="#" class="footer-link">LinkedIn</a>
-        <a href="#" class="footer-link">YouTube</a>
+<!-- ========== TREENITY ECOSYSTEM ========== -->
+<section style="padding:130px 0;background:#fbfbfd;overflow:hidden;height:740px">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center">
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)">
+      <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Le groupe</span>
+      <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">ProdVocation fait partie du groupe Treenity</h2>
+      <p style="font-size:18px;line-height:1.6;color:#6e6e73;margin-top:24px;max-width:440px">De ton premier cours à la Stand-Up Academy jusqu'à ta tournée avec Prodvocation, en passant par tes premiers sets au QG, tes open mics au Joke et ton management chez Imagin Artist, chaque étape s'appuie sur une structure du groupe Treenity.</p>
+    </div>
+
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;position:relative;height:480px">
+      <div style="position:absolute;top:50%;left:50%;width:420px;height:420px;margin:-210px;animation:pvSpin 44s linear infinite">
+        <!-- ProdVocation -->
+        <div style="position:absolute;top:50%;left:50%;width:84px;height:84px;margin:-42px;transform:rotate(0deg) translateY(-165px)"><div style="width:100%;height:100%;transform:rotate(0deg)"><div style="width:100%;height:100%;animation:pvSpinRev 44s linear infinite"><div style="width:100%;height:100%;border-radius:50%;background:linear-gradient(180deg,#7c4390,#d42c3a);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.14)"><div class="pv-img-slot" style="width:50px;height:50px;border-radius:50%;background:transparent;color:#fff;font-size:10px">PV</div></div></div></div></div>
+        <!-- QG -->
+        <div style="position:absolute;top:50%;left:50%;width:84px;height:84px;margin:-42px;transform:rotate(60deg) translateY(-165px)"><div style="width:100%;height:100%;transform:rotate(-60deg)"><div style="width:100%;height:100%;animation:pvSpinRev 44s linear infinite"><div style="width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.14);background-color:#155980"><div class="pv-img-slot" style="width:50px;height:50px;border-radius:50%;background:transparent;color:#fff;font-size:10px">QG</div></div></div></div></div>
+        <!-- Stand-Up Academy -->
+        <div style="position:absolute;top:50%;left:50%;width:84px;height:84px;margin:-42px;transform:rotate(120deg) translateY(-165px)"><div style="width:100%;height:100%;transform:rotate(-120deg)"><div style="width:100%;height:100%;animation:pvSpinRev 44s linear infinite"><div style="width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.14);background-color:#a79679"><div class="pv-img-slot" style="width:50px;height:100%;border-radius:50%;background:transparent;color:#fff;font-size:10px">SA</div></div></div></div></div>
+        <!-- Joke -->
+        <div style="position:absolute;top:50%;left:50%;width:84px;height:84px;margin:-42px;transform:rotate(180deg) translateY(-165px)"><div style="width:100%;height:100%;transform:rotate(-180deg)"><div style="width:100%;height:100%;animation:pvSpinRev 44s linear infinite"><div style="width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.14);background-color:#f17300"><div class="pv-img-slot" style="width:50px;height:50px;border-radius:50%;background:transparent;color:#fff;font-size:10px">JK</div></div></div></div></div>
+        <!-- Imagin Artist -->
+        <div style="position:absolute;top:50%;left:50%;width:84px;height:84px;margin:-42px;transform:rotate(240deg) translateY(-165px)"><div style="width:100%;height:100%;transform:rotate(-240deg)"><div style="width:100%;height:100%;animation:pvSpinRev 44s linear infinite"><div style="width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.14);background-color:#b01a36"><div class="pv-img-slot" style="width:50px;height:50px;border-radius:50%;background:transparent;color:#fff;font-size:10px">IA</div></div></div></div></div>
+        <!-- Treenity Group -->
+        <div style="position:absolute;top:50%;left:50%;width:84px;height:84px;margin:-42px;transform:rotate(300deg) translateY(-165px)"><div style="width:100%;height:100%;transform:rotate(-300deg)"><div style="width:100%;height:100%;animation:pvSpinRev 44s linear infinite"><div style="width:100%;height:100%;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.14);background-color:#801486"><div class="pv-img-slot" style="width:50px;height:50px;border-radius:50%;background:transparent;color:#fff;font-size:10px">TG</div></div></div></div></div>
       </div>
     </div>
-    <div class="footer-bottom">
-      <span>© 2026 ProdVocation — Tous droits réservés.</span>
-      <span>Mentions légales · Politique de confidentialité</span>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer id="contact" style="background:#fff;border-top:1px solid rgba(0,0,0,.08);padding:72px 0 32px">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+    <div class="pv-footer-grid" style="display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:48px">
+      <div>
+        <div style="font-size:21px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin-bottom:18px">ProdVocation</div>
+        <p style="font-size:15px;line-height:1.65;color:#6e6e73;max-width:280px">Le premier incubateur de spectacle en France. Co-producteur équitable des one-man shows de demain, depuis 2007.</p>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#86868b;margin-bottom:16px">Adresse</div>
+        <p style="font-size:15px;line-height:1.7;color:#6e6e73">163 quai du Dr Dervaux<br>92600 Asnières-sur-Seine</p>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#86868b;margin-bottom:16px">Contact</div>
+        <a href="mailto:Diffusion@prodvocation.com" class="hover-footer-link" style="display:block;font-size:15px;color:#6e6e73;transition:color .25s">Diffusion@prodvocation.com</a>
+        <a href="tel:+33699723748" class="hover-footer-link" style="display:block;font-size:15px;color:#6e6e73;margin-top:10px;transition:color .25s">+33 6 99 72 37 48</a>
+      </div>
+      <div>
+        <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#86868b;margin-bottom:16px">Réseaux</div>
+        <a href="#" class="hover-footer-link" style="display:block;font-size:15px;color:#6e6e73;transition:color .25s">Instagram</a>
+        <a href="#" class="hover-footer-link" style="display:block;font-size:15px;color:#6e6e73;margin-top:10px;transition:color .25s">Facebook</a>
+        <a href="#" class="hover-footer-link" style="display:block;font-size:15px;color:#6e6e73;margin-top:10px;transition:color .25s">LinkedIn</a>
+        <a href="#" class="hover-footer-link" style="display:block;font-size:15px;color:#6e6e73;margin-top:10px;transition:color .25s">YouTube</a>
+      </div>
+    </div>
+    <div style="margin-top:56px;padding-top:20px;border-top:1px solid rgba(0,0,0,.08);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:#a1a1a6">
+      <span>&copy; 2026 ProdVocation — Tous droits réservés.</span>
+      <span>Mentions légales &middot; Politique de confidentialité</span>
     </div>
   </div>
 </footer>
 
+</div>
+
+<!-- ========== VANILLA JS ========== -->
 <script>
-document.addEventListener('DOMContentLoaded', () => {
+(function() {
+  'use strict';
 
-  // ===== NAV scroll =====
-  const nav = document.getElementById('main-nav');
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 60);
-  }, { passive: true });
+  // =============================================
+  // 1. NAV SCROLL EFFECT
+  // =============================================
+  var nav = document.getElementById('pv-nav');
+  var ticking = false;
 
-  // ===== Scroll reveal =====
-  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-  const io = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        io.unobserve(e.target);
-      }
-    });
-  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
-  reveals.forEach(el => io.observe(el));
-  setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 2500);
-
-  // ===== Process connector SVG draw =====
-  document.querySelectorAll('.connector-path').forEach(path => {
-    const len = path.getTotalLength();
-    path.style.strokeDasharray = len;
-    path.style.strokeDashoffset = len;
-    path.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1)';
-  });
-  const processWrap = document.querySelector('.process-cards-wrap');
-  if (processWrap) {
-    const pio = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          document.querySelectorAll('.connector-path').forEach((p, i) => {
-            setTimeout(() => { p.style.strokeDashoffset = '0'; }, 600 + i * 500);
-          });
-          pio.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.3 });
-    pio.observe(processWrap);
+  function updateNav() {
+    if (!nav) return;
+    var s = window.scrollY > 60;
+    nav.style.background = s ? 'rgba(251,251,253,.82)' : 'transparent';
+    nav.style.backdropFilter = s ? 'saturate(180%) blur(20px)' : 'none';
+    nav.style.webkitBackdropFilter = s ? 'saturate(180%) blur(20px)' : 'none';
+    nav.style.borderBottomColor = s ? 'rgba(0,0,0,.08)' : 'transparent';
+    nav.style.setProperty('--nav-fg', s ? '#1d1d1f' : '#f5f5f7');
+    nav.style.setProperty('--nav-fg-dim', s ? '#6e6e73' : 'rgba(255,255,255,.62)');
   }
 
-  // ===== Carousel =====
-  const scroller = document.getElementById('spectacles-scroller');
-  document.getElementById('scroll-prev')?.addEventListener('click', () => scroller?.scrollBy({ left: -400, behavior: 'smooth' }));
-  document.getElementById('scroll-next')?.addEventListener('click', () => scroller?.scrollBy({ left: 400, behavior: 'smooth' }));
+  // =============================================
+  // 2. SCROLL REVEAL (IntersectionObserver)
+  // =============================================
+  var revealEls = Array.from(document.querySelectorAll('[data-reveal]'));
+  var revealIO = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'none';
+        revealIO.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12, rootMargin: '0px 0px -7% 0px' });
+  revealEls.forEach(function(el) { revealIO.observe(el); });
+  // Fallback: reveal all after 2.8s in case observer doesn't fire
+  setTimeout(function() {
+    revealEls.forEach(function(el) {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+    });
+  }, 2800);
 
-  // ===== Smooth anchor clicks =====
-  document.querySelectorAll('a[href^="#"]').forEach(a => {
-    a.addEventListener('click', e => {
-      const target = document.querySelector(a.getAttribute('href'));
+  // =============================================
+  // 3. STATEMENT: word-by-word darkening on scroll
+  // =============================================
+  var stSection = document.getElementById('pv-statement-section');
+  var fade = document.getElementById('pv-statement-fade');
+  var stWords = [];
+  var updateStatement = null;
+
+  if (stSection && fade) {
+    var toks = fade.textContent.split(/(\s+)/);
+    fade.textContent = '';
+    toks.forEach(function(tok) {
+      if (tok === '') return;
+      if (/^\s+$/.test(tok)) { fade.appendChild(document.createTextNode(tok)); return; }
+      var sp = document.createElement('span');
+      sp.textContent = tok;
+      sp.style.color = '#cfcfd4';
+      sp.style.transition = 'color .12s linear';
+      fade.appendChild(sp);
+    });
+    stWords = Array.from(fade.querySelectorAll('span'));
+    var stN = stWords.length;
+    var L = [207, 207, 212], D = [20, 20, 22];
+    var mix = function(t) {
+      return 'rgb(' + Math.round(L[0] + (D[0] - L[0]) * t) + ',' + Math.round(L[1] + (D[1] - L[1]) * t) + ',' + Math.round(L[2] + (D[2] - L[2]) * t) + ')';
+    };
+    updateStatement = function() {
+      var total = stSection.offsetHeight - window.innerHeight;
+      var top = stSection.getBoundingClientRect().top;
+      var p = total > 0 ? (-top) / total : 0;
+      p = Math.max(0, Math.min(1, p));
+      var fill = (p / 0.9) * stN;
+      for (var i = 0; i < stN; i++) {
+        var t = fill - i;
+        t = t < 0 ? 0 : (t > 1 ? 1 : t);
+        stWords[i].style.color = mix(t);
+      }
+    };
+  }
+
+  // =============================================
+  // 4. PROCESS: steps appear on scroll
+  // =============================================
+  var procSection = document.getElementById('processus');
+  var steps = ['pv-step-1', 'pv-step-2', 'pv-step-3'].map(function(id) { return document.getElementById(id); });
+  var updateProcess = null;
+
+  if (procSection && steps.every(Boolean)) {
+    var starts = [0.06, 0.40, 0.72];
+    var span = 0.22;
+    updateProcess = function() {
+      var total = procSection.offsetHeight - window.innerHeight;
+      var top = procSection.getBoundingClientRect().top;
+      var p = total > 0 ? (-top) / total : 0;
+      p = Math.max(0, Math.min(1, p));
+      steps.forEach(function(el, i) {
+        var t = (p - starts[i]) / span;
+        t = t < 0 ? 0 : (t > 1 ? 1 : t);
+        el.style.opacity = t;
+        el.style.transform = 'translateY(' + ((1 - t) * 40) + 'px)';
+      });
+    };
+  }
+
+  // =============================================
+  // 5. VALUES: word-by-word darkening on scroll
+  // =============================================
+  var valSection = document.getElementById('pv-values-section');
+  var valFade = document.getElementById('pv-values-fade');
+  var updateValues = null;
+
+  if (valSection && valFade) {
+    var vToks = valFade.textContent.split(/(\s+)/);
+    valFade.textContent = '';
+    vToks.forEach(function(tok) {
+      if (tok === '') return;
+      if (/^\s+$/.test(tok)) { valFade.appendChild(document.createTextNode(tok)); return; }
+      var sp = document.createElement('span');
+      sp.textContent = tok;
+      sp.style.color = '#cfcfd4';
+      sp.style.transition = 'color .12s linear';
+      valFade.appendChild(sp);
+    });
+    var vWords = Array.from(valFade.querySelectorAll('span'));
+    var vN = vWords.length;
+    var VL = [207, 207, 212], VD = [20, 20, 22];
+    var vmix = function(t) {
+      return 'rgb(' + Math.round(VL[0] + (VD[0] - VL[0]) * t) + ',' + Math.round(VL[1] + (VD[1] - VL[1]) * t) + ',' + Math.round(VL[2] + (VD[2] - VL[2]) * t) + ')';
+    };
+    updateValues = function() {
+      var total = valSection.offsetHeight - window.innerHeight;
+      var top = valSection.getBoundingClientRect().top;
+      var p = total > 0 ? (-top) / total : 0;
+      p = Math.max(0, Math.min(1, p));
+      var fill = (p / 0.9) * vN;
+      for (var i = 0; i < vN; i++) {
+        var t = fill - i;
+        t = t < 0 ? 0 : (t > 1 ? 1 : t);
+        vWords[i].style.color = vmix(t);
+      }
+    };
+  }
+
+  // =============================================
+  // 6. DRAGGABLE VALUE PILLS
+  // =============================================
+  var pills = document.querySelectorAll('[data-pill]');
+  pills.forEach(function(pill) {
+    var dragging = false, sx = 0, sy = 0, orig = null;
+    var start = function(e) {
+      dragging = true;
+      var ev = e.touches ? e.touches[0] : e;
+      orig = pill.getBoundingClientRect();
+      sx = ev.clientX - orig.left;
+      sy = ev.clientY - orig.top;
+      pill.style.transition = 'box-shadow .2s, transform .2s';
+      pill.style.zIndex = '40';
+      pill.style.position = 'fixed';
+      pill.style.left = orig.left + 'px';
+      pill.style.top = orig.top + 'px';
+      pill.style.right = 'auto';
+      pill.style.bottom = 'auto';
+      pill.style.margin = '0';
+      pill.style.cursor = 'grabbing';
+      pill.style.transform = 'scale(1.06)';
+      pill.style.boxShadow = '0 18px 40px rgba(0,0,0,.18)';
+      e.preventDefault();
+    };
+    var move = function(e) {
+      if (!dragging) return;
+      var ev = e.touches ? e.touches[0] : e;
+      pill.style.left = (ev.clientX - sx) + 'px';
+      pill.style.top = (ev.clientY - sy) + 'px';
+      if (e.cancelable) e.preventDefault();
+    };
+    var end = function() {
+      if (!dragging) return;
+      dragging = false;
+      pill.style.transition = 'left .55s cubic-bezier(.16,1,.3,1), top .55s cubic-bezier(.16,1,.3,1), transform .4s, box-shadow .4s';
+      pill.style.left = orig.left + 'px';
+      pill.style.top = orig.top + 'px';
+      pill.style.transform = 'none';
+      pill.style.cursor = 'grab';
+      pill.style.boxShadow = '';
+      setTimeout(function() {
+        pill.style.position = '';
+        pill.style.left = '';
+        pill.style.top = '';
+        pill.style.right = '';
+        pill.style.bottom = '';
+        pill.style.margin = '';
+        pill.style.transition = '';
+        pill.style.zIndex = '';
+        pill.style.transform = '';
+      }, 580);
+    };
+    pill.addEventListener('mousedown', start);
+    pill.addEventListener('touchstart', start, { passive: false });
+    window.addEventListener('mousemove', move);
+    window.addEventListener('touchmove', move, { passive: false });
+    window.addEventListener('mouseup', end);
+    window.addEventListener('touchend', end);
+  });
+
+  // =============================================
+  // 7. CAROUSEL SCROLL BUTTONS
+  // =============================================
+  var scrollPrevBtn = document.getElementById('scroll-prev');
+  var scrollNextBtn = document.getElementById('scroll-next');
+  var scroller = document.getElementById('pv-spectacles');
+  if (scrollPrevBtn && scroller) {
+    scrollPrevBtn.addEventListener('click', function() {
+      scroller.scrollBy({ left: -380, behavior: 'smooth' });
+    });
+  }
+  if (scrollNextBtn && scroller) {
+    scrollNextBtn.addEventListener('click', function() {
+      scroller.scrollBy({ left: 380, behavior: 'smooth' });
+    });
+  }
+
+  // =============================================
+  // 8. UNIFIED SCROLL HANDLER
+  // =============================================
+  function onScroll() {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(function() {
+      updateNav();
+      if (updateStatement) updateStatement();
+      if (updateProcess) updateProcess();
+      if (updateValues) updateValues();
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  // Initial call to set correct state
+  onScroll();
+  if (updateStatement) updateStatement();
+  if (updateProcess) updateProcess();
+  if (updateValues) updateValues();
+
+  // =============================================
+  // 9. SMOOTH ANCHOR LINKS
+  // =============================================
+  document.querySelectorAll('a[href^="#"]').forEach(function(a) {
+    a.addEventListener('click', function(e) {
+      var href = this.getAttribute('href');
+      if (href === '#') return;
+      var target = document.querySelector(href);
       if (target) {
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -1092,87 +750,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ===== Magnetic hover on buttons =====
-  document.querySelectorAll('.btn-hero-primary, .btn-hero-secondary, .btn-cta-white, .btn-red, .btn-faq, .nav-cta').forEach(btn => {
-    btn.addEventListener('mousemove', e => {
-      const r = btn.getBoundingClientRect();
-      const x = (e.clientX - r.left - r.width / 2) * 0.15;
-      const y = (e.clientY - r.top - r.height / 2) * 0.15;
-      btn.style.transform = `translate(${x}px, ${y}px)`;
-    });
-    btn.addEventListener('mouseleave', () => {
-      btn.style.transform = '';
-    });
-  });
-
-  // ===== Card tilt on hover =====
-  document.querySelectorAll('.approach-card, .service-card').forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const r = card.getBoundingClientRect();
-      const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
-      const y = ((e.clientY - r.top) / r.height - 0.5) * -8;
-      card.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${y}deg) translateY(-8px)`;
-    });
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-    });
-  });
-
-  // ===== Draggable value pills (snap back) =====
-  document.querySelectorAll('[data-draggable]').forEach(pill => {
-    let isDragging = false;
-    let startX, startY, origRect;
-
-    const onStart = (e) => {
-      isDragging = true;
-      const ev = e.touches ? e.touches[0] : e;
-      origRect = pill.getBoundingClientRect();
-      startX = ev.clientX - origRect.left;
-      startY = ev.clientY - origRect.top;
-      pill.style.transition = 'box-shadow .2s';
-      pill.style.zIndex = '20';
-      pill.style.position = 'fixed';
-      pill.style.left = origRect.left + 'px';
-      pill.style.top = origRect.top + 'px';
-      pill.style.right = 'auto';
-      pill.style.bottom = 'auto';
-      e.preventDefault();
-    };
-
-    const onMove = (e) => {
-      if (!isDragging) return;
-      const ev = e.touches ? e.touches[0] : e;
-      pill.style.left = (ev.clientX - startX) + 'px';
-      pill.style.top = (ev.clientY - startY) + 'px';
-      e.preventDefault();
-    };
-
-    const onEnd = () => {
-      if (!isDragging) return;
-      isDragging = false;
-      pill.style.transition = 'all .5s cubic-bezier(.16,1,.3,1)';
-      pill.style.left = origRect.left + 'px';
-      pill.style.top = origRect.top + 'px';
-      pill.style.zIndex = '5';
-      setTimeout(() => {
-        pill.style.position = '';
-        pill.style.left = '';
-        pill.style.top = '';
-        pill.style.right = '';
-        pill.style.bottom = '';
-        pill.style.transition = '';
-      }, 550);
-    };
-
-    pill.addEventListener('mousedown', onStart);
-    pill.addEventListener('touchstart', onStart, { passive: false });
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('touchmove', onMove, { passive: false });
-    window.addEventListener('mouseup', onEnd);
-    window.addEventListener('touchend', onEnd);
-  });
-
-});
+})();
 </script>
+
 </body>
 </html>
