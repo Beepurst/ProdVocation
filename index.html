@@ -1,0 +1,1158 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProdVocation — Premier incubateur de spectacle en France</title>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@400,500,600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAFAF8;
+    --white: #FFFFFF;
+    --dark: #111111;
+    --text: #1A1A1A;
+    --muted: #6B7280;
+    --light-muted: #9CA3AF;
+    --border: rgba(0,0,0,.07);
+    --red: #EB2348;
+    --red2: #D91E3E;
+    --orange: #FF6B35;
+    --coral: #FF4D6D;
+    --grad-hero: linear-gradient(135deg, #FF8A3D 0%, #FF5F3D 25%, #EB2348 55%, #C2185B 100%);
+    --grad-btn: linear-gradient(135deg, #EB2348, #C2185B);
+    --radius: 16px;
+    --radius-lg: 24px;
+    --shadow-sm: 0 1px 3px rgba(0,0,0,.06);
+    --shadow-md: 0 8px 30px rgba(0,0,0,.08);
+    --shadow-lg: 0 20px 60px rgba(0,0,0,.1);
+    --shadow-card: 0 4px 20px rgba(0,0,0,.05);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'General Sans', system-ui, -apple-system, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    line-height: 1.6;
+  }
+  ::selection { background: rgba(235,35,72,.15); color: var(--dark); }
+  a { text-decoration: none; color: inherit; }
+  img { max-width: 100%; display: block; }
+  button { border: none; background: none; cursor: pointer; font-family: inherit; }
+
+  /* ===== ANIMATIONS ===== */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: none; } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideLeft { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: none; } }
+  @keyframes slideRight { from { opacity: 0; transform: translateX(-60px); } to { opacity: 1; transform: none; } }
+  @keyframes scaleIn { from { opacity: 0; transform: scale(.92); } to { opacity: 1; transform: none; } }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+  @keyframes float2 { 0%,100% { transform: translateY(0) rotate(-2deg); } 50% { transform: translateY(-10px) rotate(2deg); } }
+  @keyframes marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+  @keyframes gradShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+  @keyframes pulse { 0%,100% { opacity: .6; } 50% { opacity: 1; } }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  @keyframes countUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: none; } }
+  @keyframes borderGlow { 0%,100% { border-color: rgba(235,35,72,.15); } 50% { border-color: rgba(235,35,72,.4); } }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: none; }
+  .reveal-left { opacity: 0; transform: translateX(-50px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal-left.visible { opacity: 1; transform: none; }
+  .reveal-right { opacity: 0; transform: translateX(50px); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal-right.visible { opacity: 1; transform: none; }
+  .reveal-scale { opacity: 0; transform: scale(.9); transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1); }
+  .reveal-scale.visible { opacity: 1; transform: none; }
+  .stagger-1 { transition-delay: .05s; }
+  .stagger-2 { transition-delay: .1s; }
+  .stagger-3 { transition-delay: .15s; }
+  .stagger-4 { transition-delay: .2s; }
+  .stagger-5 { transition-delay: .25s; }
+
+  /* ===== NAV ===== */
+  .nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    height: 72px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 40px;
+    transition: background .4s, backdrop-filter .4s, box-shadow .4s;
+  }
+  .nav.scrolled {
+    background: rgba(255,255,255,.85);
+    backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 1px 20px rgba(0,0,0,.06);
+  }
+  .nav-logo { height: 30px; filter: brightness(0) invert(1); transition: filter .4s; }
+  .nav.scrolled .nav-logo { filter: none; }
+  .nav-links-pill {
+    display: flex; gap: 6px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.12);
+    border-radius: 100px; padding: 4px;
+    backdrop-filter: blur(12px);
+    transition: background .4s, border-color .4s;
+  }
+  .nav.scrolled .nav-links-pill {
+    background: rgba(0,0,0,.04); border-color: var(--border);
+  }
+  .nav-link {
+    font-size: 14px; font-weight: 500; color: rgba(255,255,255,.75);
+    padding: 8px 18px; border-radius: 100px;
+    transition: color .3s, background .3s;
+  }
+  .nav.scrolled .nav-link { color: var(--muted); }
+  .nav-link:hover { color: #fff; background: rgba(255,255,255,.1); }
+  .nav.scrolled .nav-link:hover { color: var(--text); background: rgba(0,0,0,.04); }
+  .nav-cta {
+    font-size: 13px; font-weight: 600; color: var(--dark);
+    background: #fff; border: 1px solid rgba(255,255,255,.3);
+    padding: 10px 24px; border-radius: 100px;
+    transition: all .3s;
+  }
+  .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 16px rgba(0,0,0,.15); }
+  .nav.scrolled .nav-cta {
+    background: var(--dark); border-color: var(--dark); color: #fff;
+  }
+  .nav.scrolled .nav-cta:hover { box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+
+  /* ===== HERO ===== */
+  @keyframes heroOrbitSpin { to { transform: rotate(360deg); } }
+  @keyframes heroGlow { 0%,100% { opacity: .4; } 50% { opacity: .7; } }
+
+  .hero {
+    position: relative; min-height: 100vh;
+    background: #0C0816;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: ''; position: absolute;
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    width: 700px; height: 700px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(120,40,180,.5) 0%, rgba(235,35,72,.3) 35%, transparent 65%);
+    filter: blur(60px);
+    animation: heroGlow 6s ease-in-out infinite;
+  }
+
+  .hero-orbit {
+    position: absolute; top: 50%; left: 50%;
+    transform-origin: center;
+  }
+  .hero-orbit-ring {
+    position: absolute; border-radius: 50%;
+    border: 1px solid rgba(255,255,255,.08);
+    top: 50%; left: 50%;
+  }
+  .hero-orbit-ring-1 {
+    width: 500px; height: 500px;
+    margin-left: -250px; margin-top: -250px;
+    border-style: dashed;
+    border-color: rgba(255,255,255,.1);
+    animation: heroOrbitSpin 40s linear infinite;
+  }
+  .hero-orbit-ring-2 {
+    width: 700px; height: 700px;
+    margin-left: -350px; margin-top: -350px;
+  }
+  .hero-orbit-ring-3 {
+    width: 900px; height: 900px;
+    margin-left: -450px; margin-top: -450px;
+    border-color: rgba(255,255,255,.04);
+  }
+  .hero-arc-left {
+    position: absolute; top: 50%; left: 50%;
+    width: 360px; height: 600px;
+    margin-left: -460px; margin-top: -300px;
+    border: 3px solid rgba(255,255,255,.06);
+    border-radius: 50%;
+    border-right-color: transparent; border-top-color: transparent;
+    animation: heroOrbitSpin 25s linear infinite reverse;
+  }
+  .hero-arc-right {
+    position: absolute; top: 50%; left: 50%;
+    width: 400px; height: 680px;
+    margin-left: 100px; margin-top: -340px;
+    border: 3px solid rgba(255,255,255,.1);
+    border-radius: 50%;
+    border-left-color: transparent; border-bottom-color: transparent;
+    animation: heroOrbitSpin 30s linear infinite;
+  }
+  .hero-scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+    animation: fadeIn 1s ease 1.2s both;
+  }
+  .hero-scroll-pill {
+    width: 24px; height: 40px; border-radius: 12px;
+    border: 2px solid rgba(255,255,255,.2);
+    display: flex; justify-content: center; padding-top: 8px;
+  }
+  .hero-scroll-dot {
+    width: 4px; height: 8px; border-radius: 2px; background: rgba(255,255,255,.5);
+    animation: fadeUp 1.5s ease-in-out infinite;
+  }
+  .hero-scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,.3), transparent);
+    border: none;
+  }
+
+  .hero-content { position: relative; z-index: 2; max-width: 900px; padding: 140px 40px 120px; text-align: center; }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 10px;
+    padding: 8px 20px; border-radius: 100px;
+    background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.1);
+    backdrop-filter: blur(8px); margin-bottom: 32px;
+    animation: fadeUp .8s ease both;
+  }
+  .hero-badge-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--red); box-shadow: 0 0 8px var(--red); animation: pulse 2s ease-in-out infinite; }
+  .hero-badge-text { font-size: 12px; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: rgba(255,255,255,.8); }
+  .hero h1 {
+    font-family: 'Clash Display', sans-serif; font-weight: 600;
+    font-size: clamp(48px, 8vw, 86px); line-height: .98; letter-spacing: -.03em;
+    color: #fff; margin-bottom: 24px;
+    animation: fadeUp .8s ease .15s both;
+  }
+  .hero-sub {
+    font-size: 18px; line-height: 1.65; color: rgba(255,255,255,.55);
+    max-width: 520px; margin: 0 auto 40px;
+    animation: fadeUp .8s ease .3s both;
+  }
+  .hero-buttons { display: flex; gap: 14px; justify-content: center; animation: fadeUp .8s ease .45s both; }
+  .btn-hero-primary {
+    font-weight: 600; font-size: 15px; color: var(--red);
+    background: #fff; padding: 16px 32px; border-radius: 100px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.2);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .btn-hero-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+
+  /* ===== MARQUEE ===== */
+  .marquee-wrap {
+    border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);
+    background: var(--white); padding: 22px 0; overflow: hidden;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  }
+  .marquee-track { display: flex; width: max-content; animation: marquee 30s linear infinite; }
+  .marquee-item { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 22px; padding: 0 28px; white-space: nowrap; }
+  .marquee-item.filled { color: var(--text); }
+  .marquee-item.outline { color: transparent; -webkit-text-stroke: 1px rgba(0,0,0,.15); }
+  .marquee-dot { color: var(--red); font-size: 14px; display: flex; align-items: center; }
+
+  /* ===== SECTION HELPERS ===== */
+  .section { padding: 140px 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 40px; }
+  .section-label {
+    font-size: 12px; font-weight: 600; letter-spacing: .18em; text-transform: uppercase;
+    color: var(--red); margin-bottom: 16px; display: inline-block;
+  }
+  .section-title {
+    font-family: 'Clash Display', sans-serif; font-weight: 600;
+    font-size: clamp(34px, 4.5vw, 54px); line-height: 1.06; letter-spacing: -.02em;
+    color: var(--dark);
+  }
+  .section-desc { font-size: 18px; line-height: 1.7; color: var(--muted); max-width: 520px; margin-top: 20px; }
+
+  /* ===== À PROPOS ===== */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .about-image-wrap { position: relative; }
+  .about-image-frame {
+    border-radius: var(--radius-lg); overflow: hidden;
+    box-shadow: var(--shadow-lg);
+    border: 1px solid var(--border);
+  }
+  .about-image-frame img { aspect-ratio: 4/5; object-fit: cover; }
+  .about-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-weight: 600; font-size: 15px; color: var(--red);
+    margin-top: 32px; transition: gap .3s;
+  }
+  .about-link:hover { gap: 14px; }
+
+  /* ===== APPROCHE (cards) ===== */
+  .approach-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-top: 56px; }
+  .approach-card {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 40px 32px;
+    transition: transform .4s cubic-bezier(.16,1,.3,1), box-shadow .4s, border-color .4s;
+    position: relative; overflow: hidden;
+  }
+  .approach-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--grad-btn); opacity: 0; transition: opacity .4s;
+  }
+  .approach-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(235,35,72,.15); }
+  .approach-card:hover::before { opacity: 1; }
+  .approach-num {
+    font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 48px;
+    background: var(--grad-btn); -webkit-background-clip: text; background-clip: text;
+    -webkit-text-fill-color: transparent; line-height: 1;
+  }
+  .approach-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 22px; margin: 20px 0 10px; color: var(--dark); }
+  .approach-card p { font-size: 15px; line-height: 1.7; color: var(--muted); }
+
+  /* ===== PROCESSUS (tilted cards) ===== */
+  .process-section { background: #EEECEB; }
+  .process-header { text-align: center; margin-bottom: 24px; }
+  .process-header .section-label {
+    font-style: italic; font-weight: 500; letter-spacing: .04em;
+    text-transform: none; color: var(--muted); font-size: 15px;
+  }
+  .process-header .label-line {
+    display: inline-flex; align-items: center; gap: 16px; margin-bottom: 16px;
+  }
+  .process-header .label-line::before,
+  .process-header .label-line::after {
+    content: ''; width: 50px; height: 1px; background: rgba(0,0,0,.2);
+  }
+  .process-cards-wrap {
+    position: relative;
+    display: flex; justify-content: center; align-items: flex-start;
+    padding: 60px 0 40px;
+    min-height: 520px;
+  }
+  .process-card {
+    position: relative;
+    width: 340px; min-height: 420px;
+    background: var(--white);
+    border-radius: 20px;
+    padding: 40px 36px;
+    box-shadow: 0 20px 60px rgba(0,0,0,.08), 0 2px 4px rgba(0,0,0,.04);
+    display: flex; flex-direction: column;
+    transition: transform .5s cubic-bezier(.16,1,.3,1), box-shadow .5s;
+  }
+  .process-card:hover {
+    box-shadow: 0 30px 80px rgba(0,0,0,.12), 0 2px 4px rgba(0,0,0,.04);
+  }
+  .process-card-1 {
+    transform: rotate(-8deg) translateY(30px);
+    z-index: 1;
+    margin-right: 20px;
+  }
+  .process-card-1:hover { transform: rotate(-8deg) translateY(18px); }
+  .process-card-2 {
+    transform: rotate(3deg) translateY(-20px);
+    z-index: 3;
+    margin: 0 20px;
+  }
+  .process-card-2:hover { transform: rotate(3deg) translateY(-34px); }
+  .process-card-3 {
+    transform: rotate(6deg) translateY(40px);
+    z-index: 2;
+    margin-left: 20px;
+  }
+  .process-card-3:hover { transform: rotate(6deg) translateY(28px); }
+  .process-card .num {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600; font-size: 100px; line-height: .85;
+    color: var(--dark); letter-spacing: -.04em;
+  }
+  .process-card .card-bottom { margin-top: auto; }
+  .process-card h3 {
+    font-family: 'Clash Display', sans-serif;
+    font-weight: 600; font-size: 24px; color: var(--dark);
+    margin-bottom: 8px;
+  }
+  .process-card p { font-size: 15px; line-height: 1.6; color: var(--muted); }
+  .process-connector {
+    position: absolute; z-index: 4; pointer-events: none;
+  }
+  .process-connector-1 {
+    top: 10px; left: calc(50% - 230px);
+    width: 220px; height: 160px;
+  }
+  .process-connector-2 {
+    bottom: 50px; left: calc(50% + 60px);
+    width: 200px; height: 140px;
+  }
+
+  /* ===== VALEURS (floating pills) ===== */
+  .values-section {
+    background: #EEECEB;
+    position: relative; overflow: hidden;
+    min-height: 600px;
+  }
+  .values-layout {
+    position: relative;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 500px;
+  }
+  .values-center {
+    max-width: 680px; text-align: center; position: relative; z-index: 1;
+  }
+  .values-center .label-line {
+    display: inline-flex; align-items: center; gap: 16px; margin-bottom: 20px;
+  }
+  .values-center .label-line::before,
+  .values-center .label-line::after {
+    content: ''; width: 50px; height: 1px; background: rgba(0,0,0,.2);
+  }
+  .values-center .label-text {
+    font-size: 15px; font-weight: 500; font-style: italic;
+    color: var(--muted); letter-spacing: .04em;
+  }
+  .values-statement {
+    font-family: 'Clash Display', sans-serif; font-weight: 600;
+    font-size: clamp(32px, 4.5vw, 50px); line-height: 1.15;
+    letter-spacing: -.02em; color: var(--dark);
+  }
+  .value-pill {
+    position: absolute;
+    display: inline-flex; align-items: center; gap: 10px;
+    background: var(--white);
+    border: 1px solid rgba(0,0,0,.06);
+    border-radius: 100px;
+    padding: 12px 22px 12px 14px;
+    box-shadow: 0 4px 16px rgba(0,0,0,.06);
+    cursor: grab; user-select: none;
+    transition: box-shadow .3s, transform .2s;
+    z-index: 5;
+    touch-action: none;
+  }
+  .value-pill:active { cursor: grabbing; box-shadow: 0 10px 30px rgba(0,0,0,.12); transform: scale(1.06); z-index: 10; }
+  .value-pill:hover { box-shadow: 0 8px 24px rgba(0,0,0,.1); }
+  .value-pill .pill-icon {
+    width: 34px; height: 34px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .value-pill .pill-label { font-weight: 600; font-size: 15px; color: var(--dark); }
+
+  .pill-pos-1 { top: 18%; left: 6%; }
+  .pill-pos-2 { top: 44%; left: 3%; }
+  .pill-pos-3 { bottom: 18%; left: 8%; }
+  .pill-pos-4 { top: 16%; right: 5%; }
+  .pill-pos-5 { top: 46%; right: 3%; }
+  .pill-pos-6 { bottom: 16%; right: 7%; }
+
+  /* ===== POUR QUI ===== */
+  .audience-section { background: var(--white); }
+  .audience-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; }
+  .audience-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 56px; }
+  .audience-card {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 28px 22px;
+    transition: all .35s cubic-bezier(.16,1,.3,1);
+    text-align: center;
+  }
+  .audience-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); border-color: rgba(235,35,72,.2); }
+  .audience-card .icon { color: var(--red); font-size: 20px; margin-bottom: 14px; }
+  .audience-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 20px; color: var(--dark); margin-bottom: 8px; }
+  .audience-card p { font-size: 14px; line-height: 1.6; color: var(--muted); }
+
+  /* ===== SERVICES (bento asymmetric) ===== */
+  .services-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 20px; margin-top: 56px; }
+  .services-grid-row2 { grid-template-columns: .8fr 1.2fr; }
+  .service-card {
+    position: relative; overflow: hidden;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 44px;
+    transition: all .4s cubic-bezier(.16,1,.3,1);
+  }
+  .service-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: rgba(235,35,72,.15); }
+  .service-card::after {
+    content: ''; position: absolute; top: -60px; right: -60px;
+    width: 160px; height: 160px; border-radius: 50%;
+    background: radial-gradient(circle, rgba(235,35,72,.06), transparent 65%);
+    transition: opacity .4s;
+  }
+  .service-card:hover::after { opacity: 1.5; }
+  .service-num { font-family: 'Clash Display', sans-serif; font-weight: 500; font-size: 13px; color: var(--red); letter-spacing: .1em; }
+  .service-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 26px; color: var(--dark); margin: 12px 0 10px; }
+  .service-card p { font-size: 16px; line-height: 1.7; color: var(--muted); }
+  .service-arrow { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: var(--red); margin-top: 20px; transition: gap .3s; }
+  .service-arrow:hover { gap: 14px; }
+
+  /* ===== SPECTACLES ===== */
+  .spectacles-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; }
+  .spectacles-nav { display: flex; gap: 10px; }
+  .spectacles-nav button {
+    width: 48px; height: 48px; border-radius: 50%;
+    border: 1px solid var(--border); background: var(--white);
+    color: var(--text); font-size: 18px;
+    display: flex; align-items: center; justify-content: center;
+    transition: all .3s;
+  }
+  .spectacles-nav button:hover { border-color: var(--red); color: var(--red); background: rgba(235,35,72,.04); }
+  .spectacles-scroll {
+    display: flex; gap: 22px; overflow-x: auto; scroll-snap-type: x mandatory;
+    padding: 48px max(40px, calc((100% - 1200px)/2 + 40px)) 20px;
+    scrollbar-width: none;
+  }
+  .spectacles-scroll::-webkit-scrollbar { display: none; }
+  .spectacle-card {
+    flex: none; width: 380px; scroll-snap-align: start;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); overflow: hidden;
+    transition: all .4s cubic-bezier(.16,1,.3,1);
+  }
+  .spectacle-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); border-color: rgba(235,35,72,.15); }
+  .spectacle-card img { aspect-ratio: 3/4; width: 100%; object-fit: cover; transition: transform .6s; }
+  .spectacle-card:hover img { transform: scale(1.03); }
+  .spectacle-card-body { padding: 24px 28px 28px; }
+  .spectacle-tag { font-size: 11px; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--red); }
+  .spectacle-card h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 26px; color: var(--dark); margin: 6px 0 0; }
+  .spectacle-link { display: inline-flex; align-items: center; gap: 8px; font-weight: 600; font-size: 14px; color: var(--text); margin-top: 16px; transition: gap .3s, color .3s; }
+  .spectacle-link:hover { gap: 13px; color: var(--red); }
+  .spectacle-cta-card {
+    flex: none; width: 380px; scroll-snap-align: start;
+    border-radius: var(--radius-lg); padding: 1px;
+    background: var(--grad-btn);
+    display: flex;
+  }
+  .spectacle-cta-inner {
+    border-radius: calc(var(--radius-lg) - 1px);
+    background: var(--white);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 48px 36px; width: 100%;
+  }
+  .spectacle-cta-inner .icon { color: var(--red); font-size: 24px; animation: float 4s ease-in-out infinite; }
+  .spectacle-cta-inner h3 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 26px; color: var(--dark); margin: 16px 0 10px; line-height: 1.1; }
+  .spectacle-cta-inner p { font-size: 15px; color: var(--muted); margin-bottom: 24px; }
+  .btn-red {
+    font-weight: 600; font-size: 14px; color: #fff;
+    background: var(--grad-btn); padding: 14px 28px; border-radius: 100px;
+    box-shadow: 0 6px 20px rgba(235,35,72,.3);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .btn-red:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(235,35,72,.4); }
+
+  /* ===== FAQ ===== */
+  .faq-section { background: var(--white); }
+  .faq-layout { display: grid; grid-template-columns: .75fr 1.25fr; gap: 56px; align-items: start; margin-top: 64px; }
+  .faq-contact {
+    background: var(--bg); border: 1px solid var(--border);
+    border-radius: var(--radius-lg); padding: 36px;
+    position: sticky; top: 100px;
+  }
+  .faq-contact-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+  .faq-contact-avatar {
+    width: 56px; height: 56px; border-radius: 50%; object-fit: cover;
+    border: 2px solid rgba(235,35,72,.15);
+  }
+  .faq-contact h4 { font-family: 'Clash Display', sans-serif; font-weight: 600; font-size: 20px; color: var(--dark); }
+  .faq-contact .sub { font-size: 14px; color: var(--muted); margin-top: 2px; }
+  .btn-faq {
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-weight: 600; font-size: 15px; color: #fff; width: 100%;
+    background: var(--grad-btn); padding: 16px 28px; border-radius: 100px;
+    box-shadow: 0 8px 24px rgba(235,35,72,.25);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .btn-faq:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(235,35,72,.35); }
+  .faq-email { text-align: center; margin-top: 18px; font-size: 14px; color: var(--muted); }
+  .faq-email a { color: var(--red); font-weight: 500; }
+
+  details[data-faq] { border-top: 1px solid var(--border); }
+  details[data-faq]:last-child { border-bottom: 1px solid var(--border); }
+  details[data-faq] summary {
+    list-style: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: space-between; gap: 24px;
+    padding: 22px 4px;
+  }
+  details[data-faq] summary::-webkit-details-marker { display: none; }
+  details[data-faq] summary span:first-child { font-weight: 500; font-size: 17px; color: var(--dark); }
+  .faq-plus { flex: none; color: var(--red); font-size: 22px; font-weight: 300; transition: transform .35s cubic-bezier(.16,1,.3,1); }
+  details[data-faq][open] .faq-plus { transform: rotate(45deg); }
+  details[data-faq] .faq-answer { display: grid; grid-template-rows: 0fr; transition: grid-template-rows .4s cubic-bezier(.16,1,.3,1); }
+  details[data-faq][open] .faq-answer { grid-template-rows: 1fr; }
+  details[data-faq] .faq-answer > div { overflow: hidden; }
+  details[data-faq] .faq-answer p { font-size: 15.5px; line-height: 1.7; color: var(--muted); margin: 0 4px 22px; }
+
+  /* ===== CTA FINAL ===== */
+  .cta-section {
+    position: relative; padding: 160px 0; overflow: hidden;
+    background: var(--grad-hero); background-size: 200% 200%;
+    animation: gradShift 12s ease infinite;
+  }
+  .cta-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.05) 1px, transparent 1px); background-size: 80px 80px; -webkit-mask-image: radial-gradient(60% 60% at 50% 50%, #000, transparent 75%); mask-image: radial-gradient(60% 60% at 50% 50%, #000, transparent 75%); }
+  .cta-content { position: relative; max-width: 800px; margin: 0 auto; text-align: center; padding: 0 40px; }
+  .cta-content .section-label { color: rgba(255,255,255,.7); }
+  .cta-content .section-title { color: #fff; }
+  .cta-content .section-title span {
+    background: rgba(255,255,255,.2); padding: 0 12px; border-radius: 8px;
+    -webkit-text-fill-color: #fff;
+  }
+  .cta-sub { font-size: 19px; line-height: 1.6; color: rgba(255,255,255,.75); max-width: 500px; margin: 20px auto 0; }
+  .btn-cta-white {
+    display: inline-block; margin-top: 40px;
+    font-weight: 600; font-size: 16px; color: var(--red);
+    background: #fff; padding: 18px 40px; border-radius: 100px;
+    box-shadow: 0 10px 40px rgba(0,0,0,.15);
+    transition: transform .3s, box-shadow .3s;
+  }
+  .btn-cta-white:hover { transform: translateY(-3px); box-shadow: 0 16px 50px rgba(0,0,0,.2); }
+
+  /* ===== FOOTER ===== */
+  .footer { background: var(--white); border-top: 1px solid var(--border); padding: 72px 0 32px; }
+  .footer-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; }
+  .footer-logo { height: 34px; margin-bottom: 20px; }
+  .footer-desc { font-size: 15px; line-height: 1.7; color: var(--muted); max-width: 280px; }
+  .footer-heading { font-weight: 600; font-size: 12px; letter-spacing: .16em; text-transform: uppercase; color: var(--red); margin-bottom: 16px; }
+  .footer-text { font-size: 15px; line-height: 1.7; color: var(--muted); }
+  .footer-link { display: block; font-size: 15px; color: var(--muted); transition: color .25s; }
+  .footer-link + .footer-link { margin-top: 10px; }
+  .footer-link:hover { color: var(--red); }
+  .footer-bottom {
+    margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;
+    font-size: 13px; color: var(--light-muted);
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav" id="main-nav">
+  <a href="#accueil"><img src="assets/prodvocation-logo.png" alt="Prodvocation" class="nav-logo"></a>
+  <div class="nav-links-pill">
+    <a href="#accueil" class="nav-link">Accueil</a>
+    <a href="#apropos" class="nav-link">À propos</a>
+    <a href="#services" class="nav-link">Services</a>
+    <a href="#spectacles" class="nav-link">Spectacles</a>
+    <a href="#contact" class="nav-link">Contact</a>
+  </div>
+  <a href="#contact" class="nav-cta">Nous contacter</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="accueil">
+  <!-- Orbital rings -->
+  <div class="hero-orbit-ring hero-orbit-ring-1"></div>
+  <div class="hero-orbit-ring hero-orbit-ring-2"></div>
+  <div class="hero-orbit-ring hero-orbit-ring-3"></div>
+  <div class="hero-arc-left"></div>
+  <div class="hero-arc-right"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="hero-badge-dot"></span>
+      <span class="hero-badge-text">Premier incubateur de spectacle en France</span>
+    </div>
+    <h1>Le premier incubateur de spectacle</h1>
+    <p class="hero-sub">ProdVocation accompagne les artistes dans le développement de leur one-man show, via un modèle de co-production équitable.</p>
+    <div class="hero-buttons">
+      <a href="#spectacles" class="btn-hero-primary">Découvrir nos artistes</a>
+    </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="hero-scroll-hint">
+    <div class="hero-scroll-pill"><div class="hero-scroll-dot"></div></div>
+    <div class="hero-scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <div style="display:flex; align-items:center;">
+      <span class="marquee-item filled">One-man show</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item outline">Co-production équitable</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item filled">Diffusion nationale</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item outline">Mise en scène</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item filled">Incubateur de spectacle</span><span class="marquee-dot">✦</span>
+    </div>
+    <div style="display:flex; align-items:center;" aria-hidden="true">
+      <span class="marquee-item filled">One-man show</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item outline">Co-production équitable</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item filled">Diffusion nationale</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item outline">Mise en scène</span><span class="marquee-dot">✦</span>
+      <span class="marquee-item filled">Incubateur de spectacle</span><span class="marquee-dot">✦</span>
+    </div>
+  </div>
+</div>
+
+<!-- SPECTACLES -->
+<section class="section" style="background:var(--white);" id="spectacles">
+  <div class="container">
+    <div class="spectacles-header reveal">
+      <div style="max-width:600px;">
+        <span class="section-label">Nos spectacles</span>
+        <h2 class="section-title">Les artistes qui nous font confiance</h2>
+      </div>
+      <div class="spectacles-nav">
+        <button id="scroll-prev" aria-label="Précédent">←</button>
+        <button id="scroll-next" aria-label="Suivant">→</button>
+      </div>
+    </div>
+  </div>
+  <div class="spectacles-scroll reveal" id="spectacles-scroller">
+    <article class="spectacle-card">
+      <div style="overflow:hidden;">
+        <img src="assets/spectacle-angelvy.jpg" alt="Thomas Angelvy">
+      </div>
+      <div class="spectacle-card-body">
+        <span class="spectacle-tag">One-man show</span>
+        <h3>Thomas Angelvy</h3>
+        <a href="#contact" class="spectacle-link">En savoir plus <span>→</span></a>
+      </div>
+    </article>
+    <article class="spectacle-card">
+      <div style="overflow:hidden;">
+        <img src="assets/spectacle-3roberts.jpg" alt="Les 3 Roberts">
+      </div>
+      <div class="spectacle-card-body">
+        <span class="spectacle-tag">Collectif</span>
+        <h3>Les 3 Roberts</h3>
+        <a href="#contact" class="spectacle-link">En savoir plus <span>→</span></a>
+      </div>
+    </article>
+    <article class="spectacle-cta-card">
+      <div class="spectacle-cta-inner">
+        <span class="icon">✦</span>
+        <h3>Et bientôt,<br>le vôtre ?</h3>
+        <p>Votre spectacle a sa place dans cette sélection.</p>
+        <a href="#contact" class="btn-red">Proposer mon projet</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- À PROPOS -->
+<section class="section" id="apropos">
+  <div class="container">
+    <div class="about-grid">
+      <div class="reveal-left">
+        <span class="section-label">Qui sommes-nous</span>
+        <h2 class="section-title">Un partenaire qui investit autant que vous</h2>
+        <p class="section-desc">Depuis 2007, à Asnières-sur-Seine, ProdVocation accompagne les humoristes dans la création de leur spectacle. Notre conviction : un artiste réussit mieux quand il n'est pas seul à porter le risque.</p>
+        <p class="section-desc" style="margin-top:16px;">C'est le principe de la <strong style="color:var(--dark); font-weight:600;">co-production équitable</strong> : nous partageons les efforts, les moyens et les bénéfices. Vous gardez votre liberté de création, nous apportons la structure.</p>
+        <a href="#contact" class="about-link">Découvrir notre histoire <span>→</span></a>
+      </div>
+      <div class="reveal-right about-image-wrap">
+        <div class="about-image-frame">
+          <img src="assets/spectacle-angelvy.jpg" alt="Thomas Angelvy — ProdVocation" style="width:100%; height:100%; object-fit:cover; display:block;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROCHE -->
+<section class="section" style="background:var(--white);">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Notre approche</span>
+      <h2 class="section-title">Une méthode au service de l'artiste</h2>
+    </div>
+    <div class="approach-grid">
+      <div class="approach-card reveal stagger-1">
+        <div class="approach-num">01</div>
+        <h3>Contrôle artistique préservé</h3>
+        <p>Votre vision reste la vôtre. Nous accompagnons sans jamais imposer : le spectacle est et demeure le vôtre.</p>
+      </div>
+      <div class="approach-card reveal stagger-2">
+        <div class="approach-num">02</div>
+        <h3>Relations humaines</h3>
+        <p>Honnêteté et réciprocité guident chaque échange. Une relation de confiance, sur la durée, avant toute logique commerciale.</p>
+      </div>
+      <div class="approach-card reveal stagger-3">
+        <div class="approach-num">03</div>
+        <h3>Expertise depuis 2007</h3>
+        <p>Écriture, mise en scène, gestion : près de vingt ans de savoir-faire au service de votre spectacle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESSUS -->
+<section class="section process-section" id="processus">
+  <div class="container">
+    <div class="process-header reveal">
+      <div class="label-line"><span class="section-label">Notre processus, expliqué</span></div>
+      <h2 class="section-title">Comment on travaille ensemble</h2>
+    </div>
+    <div class="process-cards-wrap reveal-scale">
+
+      <svg class="process-connector process-connector-1" viewBox="0 0 180 140" fill="none">
+        <path d="M20 120 C 10 60, 80 30, 130 25 S 165 18, 165 15" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none" class="connector-path"/>
+        <circle cx="20" cy="120" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
+        <circle cx="165" cy="15" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
+      </svg>
+
+      <svg class="process-connector process-connector-2" viewBox="0 0 160 120" fill="none">
+        <path d="M15 15 C 30 50, 60 70, 80 80 S 100 95, 80 100 C 60 105, 90 110, 140 90" stroke="var(--red)" stroke-width="2" stroke-linecap="round" fill="none" class="connector-path"/>
+        <circle cx="15" cy="15" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
+        <circle cx="140" cy="90" r="5" stroke="var(--red)" stroke-width="2" fill="#EEECEB"/>
+      </svg>
+
+      <div class="process-card process-card-1">
+        <div class="num">1</div>
+        <div class="card-bottom">
+          <h3>Rencontre</h3>
+          <p>On échange sur votre univers, votre projet et vos ambitions, sans engagement.</p>
+        </div>
+      </div>
+
+      <div class="process-card process-card-2">
+        <div class="num">2</div>
+        <div class="card-bottom">
+          <h3>Création</h3>
+          <p>Écriture, mise en scène, rodage : on construit le spectacle ensemble, à votre rythme.</p>
+        </div>
+      </div>
+
+      <div class="process-card process-card-3">
+        <div class="num">3</div>
+        <div class="card-bottom">
+          <h3>Diffusion</h3>
+          <p>Réseau national, dates et communication : on porte le spectacle vers son public.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VALEURS -->
+<section class="section values-section">
+  <div class="values-layout">
+
+    <!-- Pills gauche -->
+    <div class="value-pill pill-pos-1 reveal-left stagger-1" data-draggable>
+      <div class="pill-icon" style="background:linear-gradient(135deg,#FFF0EB,#FFE0E6);">◇</div>
+      <span class="pill-label">Souplesse</span>
+    </div>
+    <div class="value-pill pill-pos-2 reveal-left stagger-2" data-draggable>
+      <div class="pill-icon" style="background:linear-gradient(135deg,#E8F5E9,#C8E6C9);">○</div>
+      <span class="pill-label">Transparence</span>
+    </div>
+    <div class="value-pill pill-pos-3 reveal-left stagger-3" data-draggable>
+      <div class="pill-icon" style="background:linear-gradient(135deg,#FFF8E1,#FFECB3);">●</div>
+      <span class="pill-label">Humain</span>
+    </div>
+
+    <!-- Texte central -->
+    <div class="values-center reveal">
+      <div class="label-line"><span class="label-text">Nos valeurs</span></div>
+      <p class="values-statement">
+        Nous accompagnons les artistes avec souplesse, transparence et indépendance pour créer des spectacles authentiques et humains
+      </p>
+    </div>
+
+    <!-- Pills droite -->
+    <div class="value-pill pill-pos-4 reveal-right stagger-1" data-draggable>
+      <div class="pill-icon" style="background:linear-gradient(135deg,#FCE4EC,#F8BBD0);">✦</div>
+      <span class="pill-label">Indépendance</span>
+    </div>
+    <div class="value-pill pill-pos-5 reveal-right stagger-2" data-draggable>
+      <div class="pill-icon" style="background:linear-gradient(135deg,#E3F2FD,#BBDEFB);">◈</div>
+      <span class="pill-label">Créativité</span>
+    </div>
+    <div class="value-pill pill-pos-6 reveal-right stagger-3" data-draggable>
+      <div class="pill-icon" style="background:linear-gradient(135deg,#F3E5F5,#E1BEE7);">★</div>
+      <span class="pill-label">Confiance</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- POUR QUI -->
+<section class="section audience-section">
+  <div class="container">
+    <div class="audience-header reveal">
+      <div style="max-width:600px;">
+        <span class="section-label">Pour qui ?</span>
+        <h2 class="section-title">Les artistes que nous accompagnons</h2>
+      </div>
+      <p style="font-size:16px; line-height:1.7; color:var(--muted); max-width:340px;">Cinq tempéraments, une même envie : porter un spectacle qui vous ressemble.</p>
+    </div>
+    <div class="audience-grid">
+      <div class="audience-card reveal stagger-1"><div class="icon">✦</div><h3>Indépendants</h3><p>Vous gardez la main sur votre carrière et vos choix.</p></div>
+      <div class="audience-card reveal stagger-2"><div class="icon">✦</div><h3>Perfectionnistes</h3><p>Vous visez l'excellence à chaque représentation.</p></div>
+      <div class="audience-card reveal stagger-3"><div class="icon">✦</div><h3>Ambitieux</h3><p>Vous voyez grand pour votre spectacle et votre public.</p></div>
+      <div class="audience-card reveal stagger-4"><div class="icon">✦</div><h3>Talentueux</h3><p>Vous avez quelque chose d'unique à défendre sur scène.</p></div>
+      <div class="audience-card reveal stagger-5"><div class="icon">✦</div><h3>Déterminés</h3><p>Vous êtes prêts à vous investir pleinement dans l'aventure.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="container">
+    <div class="reveal">
+      <span class="section-label">Nos services</span>
+      <h2 class="section-title">Tout ce qu'il faut autour de votre spectacle</h2>
+    </div>
+    <div class="services-grid" style="margin-top:56px;">
+      <div class="service-card reveal stagger-1">
+        <div class="service-num">01</div>
+        <h3>Gestion</h3>
+        <p>Production, planning et logistique de vos dates : on structure, vous créez.</p>
+        <span class="service-arrow">En savoir plus <span>→</span></span>
+      </div>
+      <div class="service-card reveal stagger-2">
+        <div class="service-num">02</div>
+        <h3>Administration</h3>
+        <p>Contrats, paie, déclarations : on s'occupe de la paperasse, vous restez sur scène.</p>
+        <span class="service-arrow">En savoir plus <span>→</span></span>
+      </div>
+    </div>
+    <div class="services-grid services-grid-row2" style="margin-top:20px;">
+      <div class="service-card reveal stagger-1">
+        <div class="service-num">03</div>
+        <h3>Diffusion</h3>
+        <p>Un réseau national de salles et de programmateurs pour remplir vos représentations.</p>
+        <span class="service-arrow">En savoir plus <span>→</span></span>
+      </div>
+      <div class="service-card reveal stagger-2">
+        <div class="service-num">04</div>
+        <h3>Communication</h3>
+        <p>Identité, contenus et stratégie pour faire connaître votre spectacle au bon public.</p>
+        <span class="service-arrow">En savoir plus <span>→</span></span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section faq-section">
+  <div class="container">
+    <div class="reveal" style="text-align:center; margin-bottom:16px;">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title">Vos questions, nos réponses</h2>
+    </div>
+    <div class="faq-layout">
+      <div class="reveal-left">
+        <div class="faq-contact">
+          <div class="faq-contact-header">
+            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Contact" class="faq-contact-avatar">
+            <div>
+              <h4>Encore des questions ?</h4>
+              <div class="sub">Réservez un appel découverte gratuit</div>
+            </div>
+          </div>
+          <a href="#contact" class="btn-faq">Réserver un appel <span>→</span></a>
+          <div class="faq-email">Ou écrivez-nous à <a href="mailto:Diffusion@prodvocation.com">Diffusion@prodvocation.com</a></div>
+        </div>
+      </div>
+      <div class="reveal-right">
+        <details data-faq open>
+          <summary><span>Comment fonctionne la co-production équitable ?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer"><div><p>Nous investissons aux côtés de l'artiste, temps, moyens et expertise, et nous partageons les bénéfices de manière équitable. Vous n'êtes plus seul à porter le risque, ni à en récolter les fruits.</p></div></div>
+        </details>
+        <details data-faq>
+          <summary><span>Gardez-vous un droit de regard sur mon spectacle ?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer"><div><p>Le contrôle artistique reste entièrement le vôtre. Nous accompagnons, conseillons et structurons, mais nous n'imposons jamais : le spectacle est et demeure le vôtre.</p></div></div>
+        </details>
+        <details data-faq>
+          <summary><span>À quel stade de mon projet puis-je vous contacter ?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer"><div><p>À tout moment, d'une simple idée à un spectacle déjà rodé. Plus on se rencontre tôt, plus on peut construire ensemble dans la bonne direction.</p></div></div>
+        </details>
+        <details data-faq>
+          <summary><span>Quels types d'accompagnement proposez-vous ?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer"><div><p>Écriture, mise en scène, gestion, administration, diffusion et communication. Un accompagnement complet, modulable selon vos besoins et votre autonomie.</p></div></div>
+        </details>
+        <details data-faq>
+          <summary><span>Travaillez-vous avec des artistes débutants ?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer"><div><p>Ce n'est pas l'expérience qui compte, mais le talent, l'ambition et la détermination. Nous accompagnons aussi bien des artistes émergents que des humoristes confirmés.</p></div></div>
+        </details>
+        <details data-faq>
+          <summary><span>Comment se passe la diffusion de mon spectacle ?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer"><div><p>Nous nous appuyons sur un réseau national de salles et de programmateurs pour vous trouver des dates et remplir vos représentations, partout en France.</p></div></div>
+        </details>
+        <details data-faq>
+          <summary><span>Le premier rendez-vous m'engage-t-il à quelque chose ?</span><span class="faq-plus">+</span></summary>
+          <div class="faq-answer"><div><p>Aucunement. La première rencontre est gratuite et sans engagement, sinon celui d'oser en parler. On échange, on apprend à se connaître, et on décide ensemble de la suite.</p></div></div>
+        </details>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA FINAL -->
+<section class="cta-section">
+  <div class="cta-grid"></div>
+  <div class="cta-content reveal">
+    <span class="section-label" style="color:rgba(255,255,255,.7);">Rejoindre l'aventure</span>
+    <h2 class="section-title" style="color:#fff; font-size:clamp(40px, 6vw, 76px);">Qui sera le <span>prochain</span> ?</h2>
+    <p class="cta-sub">Vous avez un spectacle à porter ? Parlons-en. La première rencontre ne vous engage à rien, sinon à oser.</p>
+    <a href="#contact" class="btn-cta-white">Contactez-nous</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" id="contact">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <img src="assets/prodvocation-logo.png" alt="Prodvocation" class="footer-logo">
+        <p class="footer-desc">Le premier incubateur de spectacle en France. Co-producteur équitable des one-man shows de demain, depuis 2007.</p>
+      </div>
+      <div>
+        <div class="footer-heading">Adresse</div>
+        <p class="footer-text">163 quai du Dr Dervaux<br>92600 Asnières-sur-Seine</p>
+      </div>
+      <div>
+        <div class="footer-heading">Contact</div>
+        <a href="mailto:Diffusion@prodvocation.com" class="footer-link">Diffusion@prodvocation.com</a>
+        <a href="tel:+33699723748" class="footer-link">+33 6 99 72 37 48</a>
+      </div>
+      <div>
+        <div class="footer-heading">Réseaux</div>
+        <a href="#" class="footer-link">Instagram</a>
+        <a href="#" class="footer-link">Facebook</a>
+        <a href="#" class="footer-link">LinkedIn</a>
+        <a href="#" class="footer-link">YouTube</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 ProdVocation — Tous droits réservés.</span>
+      <span>Mentions légales · Politique de confidentialité</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+  // ===== NAV scroll =====
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // ===== Scroll reveal =====
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -6% 0px' });
+  reveals.forEach(el => io.observe(el));
+  setTimeout(() => reveals.forEach(el => el.classList.add('visible')), 2500);
+
+  // ===== Process connector SVG draw =====
+  document.querySelectorAll('.connector-path').forEach(path => {
+    const len = path.getTotalLength();
+    path.style.strokeDasharray = len;
+    path.style.strokeDashoffset = len;
+    path.style.transition = 'stroke-dashoffset 1.5s cubic-bezier(.16,1,.3,1)';
+  });
+  const processWrap = document.querySelector('.process-cards-wrap');
+  if (processWrap) {
+    const pio = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          document.querySelectorAll('.connector-path').forEach((p, i) => {
+            setTimeout(() => { p.style.strokeDashoffset = '0'; }, 600 + i * 500);
+          });
+          pio.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    pio.observe(processWrap);
+  }
+
+  // ===== Carousel =====
+  const scroller = document.getElementById('spectacles-scroller');
+  document.getElementById('scroll-prev')?.addEventListener('click', () => scroller?.scrollBy({ left: -400, behavior: 'smooth' }));
+  document.getElementById('scroll-next')?.addEventListener('click', () => scroller?.scrollBy({ left: 400, behavior: 'smooth' }));
+
+  // ===== Smooth anchor clicks =====
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', e => {
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // ===== Magnetic hover on buttons =====
+  document.querySelectorAll('.btn-hero-primary, .btn-hero-secondary, .btn-cta-white, .btn-red, .btn-faq, .nav-cta').forEach(btn => {
+    btn.addEventListener('mousemove', e => {
+      const r = btn.getBoundingClientRect();
+      const x = (e.clientX - r.left - r.width / 2) * 0.15;
+      const y = (e.clientY - r.top - r.height / 2) * 0.15;
+      btn.style.transform = `translate(${x}px, ${y}px)`;
+    });
+    btn.addEventListener('mouseleave', () => {
+      btn.style.transform = '';
+    });
+  });
+
+  // ===== Card tilt on hover =====
+  document.querySelectorAll('.approach-card, .service-card').forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const r = card.getBoundingClientRect();
+      const x = ((e.clientX - r.left) / r.width - 0.5) * 8;
+      const y = ((e.clientY - r.top) / r.height - 0.5) * -8;
+      card.style.transform = `perspective(800px) rotateY(${x}deg) rotateX(${y}deg) translateY(-8px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+    });
+  });
+
+  // ===== Draggable value pills (snap back) =====
+  document.querySelectorAll('[data-draggable]').forEach(pill => {
+    let isDragging = false;
+    let startX, startY, origRect;
+
+    const onStart = (e) => {
+      isDragging = true;
+      const ev = e.touches ? e.touches[0] : e;
+      origRect = pill.getBoundingClientRect();
+      startX = ev.clientX - origRect.left;
+      startY = ev.clientY - origRect.top;
+      pill.style.transition = 'box-shadow .2s';
+      pill.style.zIndex = '20';
+      pill.style.position = 'fixed';
+      pill.style.left = origRect.left + 'px';
+      pill.style.top = origRect.top + 'px';
+      pill.style.right = 'auto';
+      pill.style.bottom = 'auto';
+      e.preventDefault();
+    };
+
+    const onMove = (e) => {
+      if (!isDragging) return;
+      const ev = e.touches ? e.touches[0] : e;
+      pill.style.left = (ev.clientX - startX) + 'px';
+      pill.style.top = (ev.clientY - startY) + 'px';
+      e.preventDefault();
+    };
+
+    const onEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      pill.style.transition = 'all .5s cubic-bezier(.16,1,.3,1)';
+      pill.style.left = origRect.left + 'px';
+      pill.style.top = origRect.top + 'px';
+      pill.style.zIndex = '5';
+      setTimeout(() => {
+        pill.style.position = '';
+        pill.style.left = '';
+        pill.style.top = '';
+        pill.style.right = '';
+        pill.style.bottom = '';
+        pill.style.transition = '';
+      }, 550);
+    };
+
+    pill.addEventListener('mousedown', onStart);
+    pill.addEventListener('touchstart', onStart, { passive: false });
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('touchmove', onMove, { passive: false });
+    window.addEventListener('mouseup', onEnd);
+    window.addEventListener('touchend', onEnd);
+  });
+
+});
+</script>
+</body>
+</html>
