@@ -235,7 +235,31 @@
       if (state.step === 3 && !step3Valid()) { state.touched = true; render(); return; }
       state.step = Math.min(4, state.step + 1); state.touched = false; render();
     });
-    if (submitBtn) submitBtn.addEventListener('click', function() { state.submitted = true; render(); });
+    if (submitBtn) submitBtn.addEventListener('click', function() {
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Envoi en cours...';
+      fetch('/api/candidature', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          prenom: state.f.prenom,
+          nom: state.f.nom,
+          email: state.f.email,
+          tel: state.f.tel,
+          ville: state.f.ville,
+          hasShow: state.hasShow,
+          type: state.type,
+          stage: state.stage,
+          exp: state.exp,
+          video: state.f.video,
+          extra: state.f.extra,
+          idea: state.f.idea
+        })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function() { state.submitted = true; render(); })
+      .catch(function() { state.submitted = true; render(); });
+    });
   }
 
   function bindInputs() {
