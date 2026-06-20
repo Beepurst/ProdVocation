@@ -83,38 +83,79 @@
   .hv-44:hover{color:#fff}
 
   @media(max-width:768px){
+    /* Nav */
     .pv-nav-links{display:none!important}
     #pv-nav-bar{gap:16px!important;padding:0 14px 0 16px!important}
-    #pv-spectacles article{width:280px!important}
+
+    /* Hero - titre plus gros, padding ajusté */
+    #accueil h1{font-size:clamp(52px,13vw,72px)!important}
+    #accueil .pv-hero-inner{padding:120px 24px 80px!important}
+    #accueil .pv-hero-inner p{font-size:16px!important}
+    #accueil .pv-hero-badge{padding:6px 12px!important}
+    #accueil .pv-hero-badge span:last-child{font-size:9px!important;letter-spacing:.1em!important}
+
+    /* Statement - scroll réduit */
+    #pv-statement-section{height:160vh!important}
+
+    /* Spectacles - 1 carte centrée plein écran */
+    #pv-spectacles{scroll-snap-type:x mandatory!important;padding:46px 0 20px!important}
+    #pv-spectacles article{width:85vw!important;margin:0 4px!important;scroll-snap-align:center!important}
+    #pv-spectacles article:first-child{margin-left:calc((100vw - 85vw)/2)!important}
+    #pv-spectacles article:last-child{margin-right:calc((100vw - 85vw)/2)!important}
+
+    /* Approche - fond clair par défaut, transition au clic */
     .pv-about-grid{grid-template-columns:1fr!important;gap:40px!important}
     #pv-appr-row{flex-direction:column!important;height:auto!important;gap:12px!important}
-    #pv-appr-row>[data-appr]{flex:none!important}
-    #pv-appr-row>[data-appr] .pv-ap-exp{opacity:1!important;transform:none!important}
-    #pv-appr-row>[data-appr] .pv-ap-vl{display:none!important}
-    #pv-appr-row>[data-appr]{background:#0C0816!important}
-    #pv-appr-row>[data-appr] .pv-ap-glow{opacity:1!important}
-    #pv-appr-row>[data-appr]>div{padding:28px 24px!important}
-    #pv-appr-row>[data-appr] span[style*="font-size:64px"]{font-size:36px!important}
+    #pv-appr-row>[data-appr]{flex:none!important;background:#f5f5f7!important;transition:background .45s ease,box-shadow .45s ease!important}
+    #pv-appr-row>[data-appr] .pv-ap-glow{opacity:0!important;transition:opacity .45s ease!important}
+    #pv-appr-row>[data-appr] .pv-ap-exp{opacity:0!important;transform:translateY(8px)!important;max-height:0;overflow:hidden;transition:opacity .45s ease,transform .45s ease,max-height .5s ease!important}
+    #pv-appr-row>[data-appr] .pv-ap-vl{opacity:1!important;position:relative!important;bottom:auto!important;left:auto!important;transform:none!important;writing-mode:horizontal-tb!important;margin-top:12px!important;font-size:16px!important;color:#1d1d1f!important}
+    #pv-appr-row>[data-appr]>div{padding:24px 22px!important}
+    #pv-appr-row>[data-appr] span[style*="font-size:64px"]{font-size:32px!important}
+    #pv-appr-row>[data-appr].pv-appr-active{background:#0C0816!important;box-shadow:0 24px 60px rgba(235,35,72,.18)!important}
+    #pv-appr-row>[data-appr].pv-appr-active .pv-ap-glow{opacity:1!important}
+    #pv-appr-row>[data-appr].pv-appr-active .pv-ap-exp{opacity:1!important;transform:none!important;max-height:300px!important}
+    #pv-appr-row>[data-appr].pv-appr-active .pv-ap-vl{display:none!important}
+
+    /* Processus */
     .pv-process-grid{grid-template-columns:1fr!important;gap:32px!important}
     .pv-process-visual{height:320px!important;border-radius:20px!important}
     #processus{height:220vh}
+
+    /* Valeurs */
     #pv-values-section{height:180vh}
     [data-pill]{display:none!important}
+
+    /* Pour qui */
     .pv-pourqui-grid{grid-template-columns:1fr!important;gap:12px!important}
     .pv-pourqui-grid>div[data-reveal]{grid-column:span 1!important}
+
+    /* Services */
     .pv-services-grid{grid-template-columns:1fr!important;gap:14px!important}
     .pv-services-grid>div[data-reveal]{grid-column:span 1!important;grid-row:span 1!important}
+
+    /* Pourquoi nous */
     #pv-drop-arena{height:clamp(320px,45vh,420px)!important}
+
+    /* FAQ */
     .pv-faq-grid{grid-template-columns:1fr!important;gap:32px!important}
+
+    /* CTA */
     #pv-cta{padding:100px 0!important;min-height:auto!important}
+
+    /* Treenity */
     .pv-treenity-orbital{width:340px!important;max-width:100%!important}
+
+    /* Footer */
     .pv-footer-grid{grid-template-columns:1fr 1fr!important;gap:32px!important}
+
+    /* Spacing */
     .pv-section-inner{padding-left:20px!important;padding-right:20px!important}
   }
   @media(max-width:480px){
     #pv-nav-cta{font-size:12px!important;padding:8px 16px!important}
     .pv-footer-grid{grid-template-columns:1fr!important}
-    #pv-spectacles article{width:260px!important}
+    #pv-spectacles article{width:88vw!important}
     .pv-process-visual{height:260px!important}
   }
 </style>
@@ -143,8 +184,8 @@
   <div style="position:absolute;top:50%;left:50%;width:400px;height:680px;margin-left:-460px;margin-top:-340px;border:3px solid rgba(255,255,255,.06);border-right-color:transparent;border-top-color:transparent;border-radius:50%;animation:pvSpin 25s linear infinite reverse"></div>
   <div style="position:absolute;top:50%;left:50%;width:420px;height:700px;margin-left:90px;margin-top:-350px;border:3px solid rgba(255,255,255,.09);border-left-color:transparent;border-bottom-color:transparent;border-radius:50%;animation:pvSpin 30s linear infinite"></div>
 
-  <div style="position:relative;z-index:2;max-width:860px;padding:140px 32px 120px;text-align:center">
-    <div style="display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:100px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);margin-bottom:30px">
+  <div class="pv-hero-inner" style="position:relative;z-index:2;max-width:860px;padding:140px 32px 120px;text-align:center">
+    <div class="pv-hero-badge" style="display:inline-flex;align-items:center;gap:9px;padding:7px 16px;border-radius:100px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);backdrop-filter:blur(8px);margin-bottom:30px">
       <span style="width:6px;height:6px;border-radius:50%;background:var(--accent);box-shadow:0 0 8px var(--accent);animation:pvPulse 2s ease-in-out infinite"></span>
       <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.8)">Premier incubateur de spectacle en France</span>
     </div>
@@ -162,7 +203,7 @@
   </div>
 </section>
 
-<section id="pv-statement-section" style="position:relative;height:260vh;background:#fbfbfd">
+<section id="pv-statement-section" style="position:relative;height:260vh;background:#fbfbfd" class="pv-statement">
   <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden">
     <div class="pv-section-inner" style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
       <p style="font-size:clamp(28px,3.7vw,46px);font-weight:600;letter-spacing:-.028em;line-height:1.28;color:#1d1d1f;max-width:920px">Depuis 2007, nous co-produisons les one-man shows de demain. <span id="pv-statement-fade" style="color:#cfcfd4">Un partenaire qui investit autant que l'artiste — temps, moyens et expertise — pour partager les efforts comme les réussites.</span></p>
@@ -850,22 +891,38 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Approach panels
   var panels = [0,1,2].map(function(i) { return document.getElementById('pv-ap-panel-' + i); });
+  var isMobile = function() { return window.innerWidth <= 768; };
   if (panels.every(Boolean)) {
     var setActive = function(active) {
       panels.forEach(function(p, i) {
         var on = i === active;
-        p.style.flex = on ? '2.6' : '1';
-        p.style.background = on ? '#0C0816' : '#f5f5f7';
-        p.style.boxShadow = on ? '0 24px 60px rgba(235,35,72,.18)' : 'none';
-        var glow = p.querySelector('.pv-ap-glow');
-        var exp = p.querySelector('.pv-ap-exp');
-        var vl = p.querySelector('.pv-ap-vl');
-        if (glow) glow.style.opacity = on ? '1' : '0';
-        if (exp) { exp.style.opacity = on ? '1' : '0'; exp.style.transform = on ? 'none' : 'translateY(8px)'; }
-        if (vl) vl.style.opacity = on ? '0' : '1';
+        if (isMobile()) {
+          p.classList.toggle('pv-appr-active', on);
+        } else {
+          p.style.flex = on ? '2.6' : '1';
+          p.style.background = on ? '#0C0816' : '#f5f5f7';
+          p.style.boxShadow = on ? '0 24px 60px rgba(235,35,72,.18)' : 'none';
+          var glow = p.querySelector('.pv-ap-glow');
+          var exp = p.querySelector('.pv-ap-exp');
+          var vl = p.querySelector('.pv-ap-vl');
+          if (glow) glow.style.opacity = on ? '1' : '0';
+          if (exp) { exp.style.opacity = on ? '1' : '0'; exp.style.transform = on ? 'none' : 'translateY(8px)'; }
+          if (vl) vl.style.opacity = on ? '0' : '1';
+        }
       });
     };
-    panels.forEach(function(p, i) { p.addEventListener('mouseenter', function() { setActive(i); }); p.addEventListener('click', function() { setActive(i); }); });
+    panels.forEach(function(p, i) {
+      p.addEventListener('mouseenter', function() { if (!isMobile()) setActive(i); });
+      p.addEventListener('click', function() {
+        if (isMobile()) {
+          var wasActive = p.classList.contains('pv-appr-active');
+          panels.forEach(function(pp) { pp.classList.remove('pv-appr-active'); });
+          if (!wasActive) p.classList.add('pv-appr-active');
+        } else {
+          setActive(i);
+        }
+      });
+    });
   }
 
   // Services animation
