@@ -1,11 +1,11 @@
-﻿<!DOCTYPE html>
-<!-- v5.1 -->
+<!DOCTYPE html>
+<!-- v6.0 -->
 <html lang="fr">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ProdVocation - Premier incubateur de spectacle en France</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/build/matter.min.js"></script>
 <style>
 
   *{box-sizing:border-box;margin:0;padding:0}
@@ -24,6 +24,8 @@
   @keyframes pvScrollDot{0%{opacity:0;transform:translateY(0)}40%{opacity:1}80%,100%{opacity:0;transform:translateY(10px)}}
   @keyframes pvDash{to{stroke-dashoffset:-22}}
   @keyframes pvHubPulse{0%,100%{transform:scale(1);opacity:.5}50%{transform:scale(1.18);opacity:.15}}
+  @keyframes pvNetFloat{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% - 10px))}}
+  @keyframes pvNetFloat2{0%,100%{transform:translate(-50%,-50%)}50%{transform:translate(-50%,calc(-50% + 9px))}}
   .pv-faq{background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:16px;margin-bottom:12px;overflow:hidden;transition:border-color .35s,box-shadow .35s}
   .pv-faq:hover{border-color:rgba(235,35,72,.28);box-shadow:0 12px 30px rgba(0,0,0,.06)}
   .pv-faq[open]{border-color:rgba(235,35,72,.32);box-shadow:0 18px 44px rgba(235,35,72,.10)}
@@ -53,29 +55,32 @@
   .hv-16:hover{gap:12px;color:var(--accent)}
   .hv-17:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(235,35,72,.34)}
   .hv-18:hover{transform:translateY(-2px)}
-  .hv-19:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
+  .hv-19:hover{transform:translateY(-2px)}
   .hv-20:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
   .hv-21:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
   .hv-22:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
   .hv-23:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
   .hv-24:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
-  .hv-25:hover{transform:translateY(-2px)}
-  .hv-26:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
+  .hv-25:hover{box-shadow:0 12px 30px rgba(0,0,0,.14)}
+  .hv-26:hover{transform:translateY(-2px)}
   .hv-27:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
   .hv-28:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
   .hv-29:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
-  .hv-30:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(235,35,72,.6),0 0 38px rgba(235,35,72,.5)}
-  .hv-31:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.45)}
-  .hv-32:hover{background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;border-color:transparent;transform:translateY(-3px)}
-  .hv-33:hover{background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;border-color:transparent;transform:translateY(-3px)}
-  .hv-34:hover{background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;border-color:transparent;transform:translateY(-3px)}
+  .hv-30:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.08);border-color:rgba(0,0,0,.12)}
+  .hv-31:hover{transform:translateY(-2px)}
+  .hv-32:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(235,35,72,.6),0 0 40px rgba(235,35,72,.5)}
+  .hv-33:hover{transform:translateY(-2px);box-shadow:0 0 0 1px rgba(235,35,72,.6),0 0 38px rgba(235,35,72,.5)}
+  .hv-34:hover{transform:translateY(-3px);box-shadow:0 14px 40px rgba(0,0,0,.45)}
   .hv-35:hover{background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;border-color:transparent;transform:translateY(-3px)}
-  .hv-36:hover{color:#fff}
-  .hv-37:hover{color:#fff}
-  .hv-38:hover{color:#fff}
+  .hv-36:hover{background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;border-color:transparent;transform:translateY(-3px)}
+  .hv-37:hover{background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;border-color:transparent;transform:translateY(-3px)}
+  .hv-38:hover{background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;border-color:transparent;transform:translateY(-3px)}
   .hv-39:hover{color:#fff}
   .hv-40:hover{color:#fff}
   .hv-41:hover{color:#fff}
+  .hv-42:hover{color:#fff}
+  .hv-43:hover{color:#fff}
+  .hv-44:hover{color:#fff}
 </style>
 </head>
 <body>
@@ -83,14 +88,14 @@
 
 <nav id="pv-nav" style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:0 24px;transition:padding .5s cubic-bezier(.16,1,.3,1)">
   <div id="pv-nav-bar" style="display:flex;align-items:center;justify-content:space-between;gap:40px;width:100%;max-width:1080px;height:68px;padding:0 18px 0 26px;border:1px solid transparent;border-radius:0px;background:transparent;box-shadow:none;transition:max-width .55s cubic-bezier(.16,1,.3,1),height .45s cubic-bezier(.16,1,.3,1),padding .45s cubic-bezier(.16,1,.3,1),background .45s ease,border-color .45s ease,border-radius .55s cubic-bezier(.16,1,.3,1),box-shadow .45s ease,backdrop-filter .45s ease;--nav-fg:#f5f5f7;--nav-fg-dim:rgba(255,255,255,.62)">
-    <a h style="display:flex;align-items:center;margin-top:4px;flex:none"><img src="cf1ec635-0c22-4e84-9fd9-7c4df35f9e9d" alt="ProdVocation" style="height:32px;width:auto;display:block"></a>
+    <a href="#accueil" style="display:flex;align-items:center;margin-top:4px;flex:none"><img src="assets/prodvocation-logo.png" alt="ProdVocation" style="height:32px;width:auto;display:block"></a>
     <div style="display:flex;gap:36px">
-      <a h style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s" class="hv-1">Spectacles</a>
-      <a h style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s" class="hv-2">À propos</a>
-      <a h style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s" class="hv-3">Services</a>
-      <a h style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s" class="hv-4">Processus</a>
+      <a class="hv-1" href="#spectacles" style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Spectacles</a>
+      <a class="hv-2" href="#apropos" style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">À propos</a>
+      <a class="hv-3" href="#services" style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Services</a>
+      <a class="hv-4" href="#processus" style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Processus</a>
     </div>
-    <a id="pv-nav-cta" h style="font-size:14px;font-weight:600;color:var(--nav-fg);border:1px solid rgba(255,255,255,.25);background:transparent;padding:10px 22px;border-radius:100px;transition:color .4s,background .4s,border-color .4s,box-shadow .4s,transform .3s;white-space:nowrap" class="hv-5">Nous contacter</a>
+    <a class="hv-5" id="pv-nav-cta" href="postuler.html" style="font-size:14px;font-weight:600;color:var(--nav-fg);border:1px solid rgba(255,255,255,.25);background:transparent;padding:10px 22px;border-radius:100px;transition:color .4s,background .4s,border-color .4s,box-shadow .4s,transform .3s;white-space:nowrap">Nous contacter</a>
   </div>
 </nav>
 
@@ -110,7 +115,7 @@
     <h1 style="font-size:clamp(46px,8vw,84px);font-weight:600;line-height:1.0;letter-spacing:-.035em;color:#fff;margin-bottom:22px">Le premier <span style="background:linear-gradient(120deg,#FF8A3D,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">incubateur</span><br>de spectacle</h1>
     <p style="font-size:19px;line-height:1.6;color:rgba(255,255,255,.55);max-width:500px;margin:0 auto 38px">ProdVocation accompagne les artistes dans le développement de leur one-man show, via un modèle de co-production équitable.</p>
     <div style="display:flex;gap:14px;justify-content:center">
-      <a h style="font-weight:600;font-size:15px;color:#0C0816;background:#fff;padding:15px 30px;border-radius:100px;transition:transform .3s,box-shadow .3s" class="hv-6">Découvrir nos artistes</a>
+      <a class="hv-6" href="#spectacles" style="font-weight:600;font-size:15px;color:#0C0816;background:#fff;padding:15px 30px;border-radius:100px;transition:transform .3s,box-shadow .3s">Découvrir nos artistes</a>
     </div>
   </div>
 
@@ -137,49 +142,49 @@
         <h2 style="font-size:clamp(32px,4.5vw,52px);font-weight:600;letter-spacing:-.028em;line-height:1.07;color:#1d1d1f">Les artistes qui nous font <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">confiance</span></h2>
       </div>
       <div style="display:flex;gap:10px">
-        <button id="scroll-prev" aria-label="Précédent" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:#1d1d1f;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,color .3s" class="hv-7">←</button>
-        <button id="scroll-next" aria-label="Suivant" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:#1d1d1f;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,color .3s" class="hv-8">→</button>
+        <button class="hv-7" id="scroll-prev" aria-label="Précédent" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:#1d1d1f;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,color .3s">←</button>
+        <button class="hv-8" id="scroll-next" aria-label="Suivant" style="width:44px;height:44px;border-radius:50%;border:1px solid rgba(0,0,0,.12);background:#fff;color:#1d1d1f;font-size:17px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:border-color .3s,color .3s">→</button>
       </div>
     </div>
   </div>
 
   <div id="pv-spectacles" data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:46px 32px 20px;scrollbar-width:none">
-    <article style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s" class="hv-9">
+    <article class="hv-9" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
       <img src="assets/spectacle-angelvy.jpg" alt="Thomas Angelvy" style="width:100%;aspect-ratio:2/3;display:block;object-fit:cover">
       <div style="padding:22px 24px 26px">
         <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
         <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Thomas Angelvy</h3>
-        <a h style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s" class="hv-10">En savoir plus →</a>
+        <a class="hv-10" href="#contact" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus →</a>
       </div>
     </article>
-    <article style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s" class="hv-11">
+    <article class="hv-11" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
       <img src="assets/spectacle-dolle.jpg" alt="Guillaume Dollé" style="width:100%;aspect-ratio:2/3;display:block;object-fit:cover">
       <div style="padding:22px 24px 26px">
         <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
         <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Guillaume Dollé</h3>
-        <a h style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s" class="hv-12">En savoir plus →</a>
+        <a class="hv-12" href="#contact" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus →</a>
       </div>
     </article>
-    <article style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s" class="hv-13">
+    <article class="hv-13" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
       <img src="assets/spectacle-mazine.jpg" alt="Mazine" style="width:100%;aspect-ratio:2/3;display:block;object-fit:cover">
       <div style="padding:22px 24px 26px">
         <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
         <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Mazine</h3>
-        <a h style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s" class="hv-14">En savoir plus →</a>
+        <a class="hv-14" href="#contact" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus →</a>
       </div>
     </article>
-    <article style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s" class="hv-15">
+    <article class="hv-15" style="flex:none;width:340px;scroll-snap-align:start;background:#fff;border:1px solid rgba(0,0,0,.08);border-radius:18px;overflow:hidden;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .5s">
       <img src="assets/spectacle-bursztein.jpg" alt="Rosa Bursztein" style="width:100%;aspect-ratio:2/3;display:block;object-fit:cover">
       <div style="padding:22px 24px 26px">
         <span style="font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)">One-man show</span>
         <h3 style="font-size:23px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:6px 0 0">Rosa Bursztein</h3>
-        <a h style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s" class="hv-16">En savoir plus →</a>
+        <a class="hv-16" href="#contact" style="display:inline-flex;align-items:center;gap:7px;font-size:14px;font-weight:500;color:#1d1d1f;margin-top:14px;transition:gap .3s,color .3s">En savoir plus →</a>
       </div>
     </article>
     <article style="flex:none;width:340px;scroll-snap-align:start;border-radius:18px;border:1px solid rgba(0,0,0,.08);background:#f5f5f7;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:48px 34px">
       <h3 style="font-size:25px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;line-height:1.12;margin-bottom:10px">Et bientôt,<br>le vôtre ?</h3>
       <p style="font-size:15px;color:#6e6e73;margin-bottom:24px;line-height:1.5">Votre spectacle a sa place dans cette sélection.</p>
-      <a h style="font-weight:600;font-size:14px;color:#fff;background:var(--accent);padding:13px 26px;border-radius:100px;transition:transform .3s,box-shadow .3s" class="hv-17">Proposer mon projet</a>
+      <a class="hv-17" href="postuler.html" style="font-weight:600;font-size:14px;color:#fff;background:var(--accent);padding:13px 26px;border-radius:100px;transition:transform .3s,box-shadow .3s">Proposer mon projet</a>
     </article>
   </div>
 </section>
@@ -192,10 +197,10 @@
         <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Un partenaire qui <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">investit</span> autant que vous</h2>
         <p style="font-size:18px;line-height:1.6;color:#6e6e73;margin-top:24px;max-width:480px">Depuis 2007, à Asnières-sur-Seine, ProdVocation accompagne les humoristes dans la création de leur spectacle. Notre conviction : un artiste réussit mieux quand il n'est pas seul à porter le risque.</p>
         <p style="font-size:18px;line-height:1.6;color:#6e6e73;margin-top:18px;max-width:480px">C'est le principe de la <strong style="color:#1d1d1f;font-weight:600">co-production équitable</strong> : nous partageons les efforts, les moyens et les bénéfices. Vous gardez votre liberté de création, nous apportons la structure.</p>
-        <a h style="position:relative;display:inline-flex;align-items:center;gap:9px;margin-top:32px;padding:15px 30px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s" class="hv-18">Découvrir notre histoire <span>→</span></a>
+        <a class="hv-18" href="#contact" style="position:relative;display:inline-flex;align-items:center;gap:9px;margin-top:32px;padding:15px 30px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s">Découvrir notre histoire <span>→</span></a>
       </div>
       <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .08s,transform .9s cubic-bezier(.16,1,.3,1) .08s">
-        <img src="assets/prodvocation-equipe.jpg" alt="ProdVocation" style="width:100%;aspect-ratio:4/5;display:block;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.1);object-fit:cover">
+        <img src="assets/prodvocation-equipe.jpg" alt="l'équipe ProdVocation" style="width:100%;aspect-ratio:4/5;display:block;border-radius:22px;box-shadow:0 24px 60px rgba(0,0,0,.1);object-fit:cover">
       </div>
     </div>
   </div>
@@ -250,39 +255,74 @@
       </div>
 
     </div>
+  
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);display:flex;justify-content:center;margin-top:56px">
+      <a class="hv-19" href="postuler.html" style="position:relative;display:inline-flex;align-items:center;gap:9px;padding:16px 34px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s">Travaillons ensemble <span>→</span></a>
+    </div>
   </div>
 </section>
 
-<section id="processus" style="position:relative;height:300vh;background:#f5f5f7">
-  <div style="position:sticky;top:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0;overflow:hidden">
+<section id="processus" style="position:relative;height:300vh;background:#fbfbfd">
+  <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:40px 0">
     <div style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
-      <div style="text-align:center;max-width:600px;margin:0 auto">
+      <div style="text-align:center;max-width:620px;margin:0 auto 48px">
         <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Notre processus</span>
         <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Comment on travaille <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">ensemble</span></h2>
+        <p style="font-size:18px;line-height:1.6;color:#6e6e73;margin-top:16px">Une équipe humaine à vos côtés, du premier café à la tournée.</p>
       </div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:48px;align-items:stretch">
-        <div id="pv-step-1" style="opacity:0;transform:translateY(40px);transition:opacity .25s ease,transform .25s ease;padding:0 40px 0 0">
-          <div style="padding-top:0">
-            <span style="display:inline-block;padding:6px 13px;border:1px solid rgba(0,0,0,.22);border-radius:10px;font-size:13px;font-weight:600;color:#1d1d1f;letter-spacing:.02em">01</span>
-            <h3 style="font-size:clamp(26px,2.3vw,33px);font-weight:600;letter-spacing:-.02em;line-height:1.12;color:#1d1d1f;margin:20px 0 14px">Rencontre</h3>
-            <p style="font-size:15px;line-height:1.6;color:#6e6e73;max-width:300px">On échange sur votre univers, votre projet et vos ambitions, sans engagement.</p>
-            <img src="assets/magnific__retouch__58221 (1).jpeg" alt="Rencontre" style="display:block;width:100%;height:240px;border-radius:14px;margin-top:26px;box-shadow:0 8px 24px rgba(0,0,0,.1);object-fit:cover">
+
+      <div style="display:grid;grid-template-columns:1.02fr .98fr;gap:60px;align-items:center">
+        <div style="display:flex;flex-direction:column">
+          <div data-pstep="0" style="display:flex;gap:20px;padding:22px 0;cursor:pointer;opacity:1;transition:opacity .45s ease">
+            <div data-pbar style="flex:none;width:3px;border-radius:3px;background:linear-gradient(180deg,#FF8A3D,#C2185B);opacity:1;transition:opacity .45s ease"></div>
+            <div>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+                <span data-picon style="flex:none;width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;transition:background .45s ease,color .45s ease"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg></span>
+                <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;transition:color .45s ease">Rencontre</h3>
+              </div>
+              <p style="font-size:15.5px;line-height:1.6;color:#6e6e73;max-width:420px">On échange sur votre univers, votre projet et vos ambitions — sans engagement. Un vrai premier rendez-vous, d'humain à humain.</p>
+            </div>
+          </div>
+          <div data-pstep="1" style="display:flex;gap:20px;padding:22px 0;cursor:pointer;opacity:.4;transition:opacity .45s ease">
+            <div data-pbar style="flex:none;width:3px;border-radius:3px;background:linear-gradient(180deg,#FF8A3D,#C2185B);opacity:0;transition:opacity .45s ease"></div>
+            <div>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+                <span data-picon style="flex:none;width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.05);color:#86868b;transition:background .45s ease,color .45s ease"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4Z"></path></svg></span>
+                <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#6e6e73;transition:color .45s ease">Création</h3>
+              </div>
+              <p style="font-size:15.5px;line-height:1.6;color:#6e6e73;max-width:420px">Écriture, mise en scène, rodage : on construit le spectacle ensemble, à votre rythme. Vous gardez la main, on apporte le métier.</p>
+            </div>
+          </div>
+          <div data-pstep="2" style="display:flex;gap:20px;padding:22px 0;cursor:pointer;opacity:.4;transition:opacity .45s ease">
+            <div data-pbar style="flex:none;width:3px;border-radius:3px;background:linear-gradient(180deg,#FF8A3D,#C2185B);opacity:0;transition:opacity .45s ease"></div>
+            <div>
+              <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+                <span data-picon style="flex:none;width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.05);color:#86868b;transition:background .45s ease,color .45s ease"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.6" y1="13.5" x2="15.4" y2="17.5"></line><line x1="15.4" y1="6.5" x2="8.6" y2="10.5"></line></svg></span>
+                <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#6e6e73;transition:color .45s ease">Diffusion</h3>
+              </div>
+              <p style="font-size:15.5px;line-height:1.6;color:#6e6e73;max-width:420px">Réseau national de salles, dates et communication : on porte le spectacle jusqu'à son public, partout en France.</p>
+            </div>
           </div>
         </div>
-        <div id="pv-step-2" style="opacity:0;transform:translateY(40px);transition:opacity .25s ease,transform .25s ease;border-left:1px solid rgba(0,0,0,.12);padding:0 40px">
-          <div style="padding-top:44px">
-            <span style="display:inline-block;padding:6px 13px;border:1px solid rgba(0,0,0,.22);border-radius:10px;font-size:13px;font-weight:600;color:#1d1d1f;letter-spacing:.02em">02</span>
-            <h3 style="font-size:clamp(26px,2.3vw,33px);font-weight:600;letter-spacing:-.02em;line-height:1.12;color:#1d1d1f;margin:20px 0 14px">Création</h3>
-            <p style="font-size:15px;line-height:1.6;color:#6e6e73;max-width:300px">Écriture, mise en scène, rodage : on construit le spectacle ensemble, à votre rythme.</p>
-            <img src="assets/1.97.2_1.97.2.png" alt="Création" style="display:block;width:100%;height:240px;border-radius:14px;margin-top:26px;box-shadow:0 8px 24px rgba(0,0,0,.1);object-fit:cover">
+
+        <div style="position:relative;width:100%;height:clamp(420px,60vh,540px);border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.05);background:#0C0816">
+          <div data-pvisual style="position:absolute;inset:0;opacity:1;transform:scale(1);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)">
+            <img src="assets/magnific__retouch__58221 (1).jpeg" alt="Rencontre" style="width:100%;height:100%;display:block;object-fit:cover">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(12,8,22,.78));pointer-events:none"></div>
+            <span style="position:absolute;top:22px;left:22px;padding:7px 14px;border-radius:100px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);font-size:12px;font-weight:600;letter-spacing:.08em;color:#fff">ÉTAPE 01</span>
+            <div style="position:absolute;left:26px;bottom:24px;right:26px"><h4 style="font-size:25px;font-weight:600;letter-spacing:-.02em;color:#fff">Rencontre</h4><p style="font-size:14px;color:rgba(255,255,255,.7);margin-top:4px">On apprend à se connaître.</p></div>
           </div>
-        </div>
-        <div id="pv-step-3" style="opacity:0;transform:translateY(40px);transition:opacity .25s ease,transform .25s ease;border-left:1px solid rgba(0,0,0,.12);padding:0 0 0 40px">
-          <div style="padding-top:88px">
-            <span style="display:inline-block;padding:6px 13px;border:1px solid rgba(0,0,0,.22);border-radius:10px;font-size:13px;font-weight:600;color:#1d1d1f;letter-spacing:.02em">03</span>
-            <h3 style="font-size:clamp(26px,2.3vw,33px);font-weight:600;letter-spacing:-.02em;line-height:1.12;color:#1d1d1f;margin:20px 0 14px">Diffusion</h3>
-            <p style="font-size:15px;line-height:1.6;color:#6e6e73;max-width:300px">Réseau national, dates et communication : on porte le spectacle vers son public.</p>
-            <img src="assets/@Kobayashi_photos_TA-8508.jpg" alt="Diffusion" style="display:block;width:100%;height:240px;border-radius:14px;margin-top:26px;box-shadow:0 8px 24px rgba(0,0,0,.1);object-fit:cover">
+          <div data-pvisual style="position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)">
+            <img src="assets/1.97.2_1.97.2.png" alt="Création" style="width:100%;height:100%;display:block;object-fit:cover">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(12,8,22,.78));pointer-events:none"></div>
+            <span style="position:absolute;top:22px;left:22px;padding:7px 14px;border-radius:100px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);font-size:12px;font-weight:600;letter-spacing:.08em;color:#fff">ÉTAPE 02</span>
+            <div style="position:absolute;left:26px;bottom:24px;right:26px"><h4 style="font-size:25px;font-weight:600;letter-spacing:-.02em;color:#fff">Création</h4><p style="font-size:14px;color:rgba(255,255,255,.7);margin-top:4px">On construit le spectacle ensemble.</p></div>
+          </div>
+          <div data-pvisual style="position:absolute;inset:0;opacity:0;transform:scale(1.04);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)">
+            <img src="assets/@Kobayashi_photos_TA-8508.jpg" alt="Diffusion" style="width:100%;height:100%;display:block;object-fit:cover">
+            <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(12,8,22,.78));pointer-events:none"></div>
+            <span style="position:absolute;top:22px;left:22px;padding:7px 14px;border-radius:100px;background:rgba(255,255,255,.14);backdrop-filter:blur(8px);font-size:12px;font-weight:600;letter-spacing:.08em;color:#fff">ÉTAPE 03</span>
+            <div style="position:absolute;left:26px;bottom:24px;right:26px"><h4 style="font-size:25px;font-weight:600;letter-spacing:-.02em;color:#fff">Diffusion</h4><p style="font-size:14px;color:rgba(255,255,255,.7);margin-top:4px">On porte le spectacle à son public.</p></div>
           </div>
         </div>
       </div>
@@ -293,28 +333,28 @@
 <section id="pv-values-section" style="position:relative;height:240vh;background:#fff">
   <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden">
 
-    <div data-pill="" style="position:absolute;top:25%;left:7%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5" class="hv-19">
+    <div class="hv-20" data-pill style="position:absolute;top:25%;left:7%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
       <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;background:linear-gradient(135deg,#FFF0EB,#FFE0E6)">◇</div>
       <span style="font-weight:600;font-size:14px;color:#1d1d1f">Souplesse</span>
     </div>
-    <div data-pill="" style="position:absolute;top:45%;left:11%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5" class="hv-20">
+    <div class="hv-21" data-pill style="position:absolute;top:45%;left:11%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
       <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;background:linear-gradient(135deg,#E8F5E9,#C8E6C9)">○</div>
       <span style="font-weight:600;font-size:14px;color:#1d1d1f">Transparence</span>
     </div>
-    <div data-pill="" style="position:absolute;top:64%;left:8%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5" class="hv-21">
+    <div class="hv-22" data-pill style="position:absolute;top:64%;left:8%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
       <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;background:linear-gradient(135deg,#FFF8E1,#FFECB3)">●</div>
       <span style="font-weight:600;font-size:14px;color:#1d1d1f">Humain</span>
     </div>
 
-    <div data-pill="" style="position:absolute;top:23%;right:8%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5" class="hv-22">
+    <div class="hv-23" data-pill style="position:absolute;top:23%;right:8%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
       <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:linear-gradient(135deg,#FCE4EC,#F8BBD0)">✦</div>
       <span style="font-weight:600;font-size:14px;color:#1d1d1f">Indépendance</span>
     </div>
-    <div data-pill="" style="position:absolute;top:44%;right:5%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5" class="hv-23">
+    <div class="hv-24" data-pill style="position:absolute;top:44%;right:5%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
       <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:linear-gradient(135deg,#E3F2FD,#BBDEFB)">◈</div>
       <span style="font-weight:600;font-size:14px;color:#1d1d1f">Créativité</span>
     </div>
-    <div data-pill="" style="position:absolute;top:63%;right:9%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5" class="hv-24">
+    <div class="hv-25" data-pill style="position:absolute;top:63%;right:9%;display:inline-flex;align-items:center;gap:10px;background:#fff;border:1px solid rgba(0,0,0,.06);border-radius:100px;padding:10px 20px 10px 12px;box-shadow:0 8px 24px rgba(0,0,0,.1);cursor:grab;user-select:none;touch-action:none;z-index:5">
       <div style="width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;background:linear-gradient(135deg,#F3E5F5,#E1BEE7)">★</div>
       <span style="font-weight:600;font-size:14px;color:#1d1d1f">Confiance</span>
     </div>
@@ -388,7 +428,7 @@
       </div>
     </div>
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);display:flex;justify-content:center;margin-top:52px">
-      <a h style="position:relative;display:inline-flex;align-items:center;gap:9px;padding:16px 34px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s" class="hv-25">Proposer mon projet <span>→</span></a>
+      <a class="hv-26" href="postuler.html" style="position:relative;display:inline-flex;align-items:center;gap:9px;padding:16px 34px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s">Proposer mon projet <span>→</span></a>
     </div>
   </div>
 </section>
@@ -401,7 +441,7 @@
     </div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px">
 
-      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);grid-column:span 2;grid-row:span 2;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:40px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s" class="hv-26">
+      <div class="hv-27" data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);grid-column:span 2;grid-row:span 2;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:40px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s">
         <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">01</div>
         <h3 style="font-size:27px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 10px">Gestion</h3>
         <p style="font-size:16px;line-height:1.6;color:#6e6e73;max-width:380px">Production, planning et logistique de vos dates : on structure, vous créez.</p>
@@ -421,7 +461,7 @@
         </div>
       </div>
 
-      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .08s,transform .8s cubic-bezier(.16,1,.3,1) .08s;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:32px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s" class="hv-27">
+      <div class="hv-28" data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .08s,transform .8s cubic-bezier(.16,1,.3,1) .08s;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:32px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s">
         <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">02</div>
         <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 8px">Administration</h3>
         <p style="font-size:15px;line-height:1.55;color:#6e6e73">Contrats, paie, déclarations : on s'occupe de la paperasse, vous restez sur scène.</p>
@@ -431,7 +471,7 @@
         </div>
       </div>
 
-      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:32px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s" class="hv-28">
+      <div class="hv-29" data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .14s,transform .8s cubic-bezier(.16,1,.3,1) .14s;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:32px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s">
         <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">03</div>
         <h3 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 8px">Diffusion</h3>
         <p style="font-size:15px;line-height:1.55;color:#6e6e73">Un réseau national de salles et de programmateurs pour remplir vos représentations.</p>
@@ -442,7 +482,7 @@
         </div>
       </div>
 
-      <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .2s,transform .8s cubic-bezier(.16,1,.3,1) .2s;grid-column:span 3;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;transition:transform .4s,box-shadow .4s,border-color .4s" class="hv-29">
+      <div class="hv-30" data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1) .2s,transform .8s cubic-bezier(.16,1,.3,1) .2s;grid-column:span 3;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:36px 40px;display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap;transition:transform .4s,box-shadow .4s,border-color .4s">
         <div style="max-width:440px">
           <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">04</div>
           <h3 style="font-size:24px;font-weight:600;letter-spacing:-.02em;color:#1d1d1f;margin:12px 0 8px">Communication</h3>
@@ -462,6 +502,10 @@
         </div>
       </div>
 
+    </div>
+  
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);display:flex;justify-content:center;margin-top:56px">
+      <a class="hv-31" href="postuler.html" style="position:relative;display:inline-flex;align-items:center;gap:9px;padding:16px 34px;border-radius:100px;background:#0C0816;color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.42),0 0 22px rgba(235,35,72,.4),0 0 46px rgba(235,35,72,.2);animation:pvBtnGlow 3.4s ease-in-out infinite;transition:transform .3s">Discutons de votre spectacle <span>→</span></a>
     </div>
   </div>
 </section>
@@ -488,6 +532,10 @@
       <span class="pv-drop-pill" data-variant="white" style="opacity:0;display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:100px;font-size:clamp(15px,1.5vw,18px);font-weight:600;white-space:nowrap;background:#fff;color:#1d1d1f">Liberté de création</span>
       <span class="pv-drop-pill" data-variant="grad" style="opacity:0;display:inline-flex;align-items:center;gap:9px;padding:14px 24px;border-radius:100px;font-size:clamp(15px,1.5vw,18px);font-weight:600;white-space:nowrap;background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;box-shadow:0 10px 30px rgba(235,35,72,.32)"><span style="width:7px;height:7px;border-radius:50%;background:#fff"></span>Humain avant tout</span>
     </div>
+  
+    <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);display:flex;justify-content:center;margin-top:56px">
+      <a class="hv-32" href="postuler.html" style="position:relative;display:inline-flex;align-items:center;gap:9px;padding:16px 34px;border-radius:100px;background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;font-weight:600;font-size:15px;box-shadow:0 0 0 1px rgba(235,35,72,.4),0 0 26px rgba(235,35,72,.34);transition:transform .3s,box-shadow .3s">Proposer mon projet <span>→</span></a>
+    </div>
   </div>
 </section>
 
@@ -504,13 +552,13 @@
           <div style="position:relative">
             <h4 style="font-size:22px;font-weight:600;letter-spacing:-.02em;color:#fff">Encore des questions ?</h4>
             <p style="font-size:15px;color:rgba(255,255,255,.55);margin-top:10px;line-height:1.55">Réservez un appel découverte gratuit, sans engagement.</p>
-            <a h style="display:flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15px;color:#fff;width:100%;background:linear-gradient(135deg,#FF8A3D,#C2185B);padding:15px 28px;border-radius:100px;margin-top:24px;box-shadow:0 0 0 1px rgba(235,35,72,.4),0 0 26px rgba(235,35,72,.34);transition:transform .3s,box-shadow .3s" class="hv-30">Réserver un appel →</a>
-            <div style="text-align:center;margin-top:16px;font-size:14px;color:rgba(255,255,255,.5)">Ou écrivez-nous à<br><a h style="color:#fff;font-weight:500">Diffusion@prodvocation.com</a></div>
+            <a class="hv-33" href="postuler.html" style="display:flex;align-items:center;justify-content:center;gap:9px;font-weight:600;font-size:15px;color:#fff;width:100%;background:linear-gradient(135deg,#FF8A3D,#C2185B);padding:15px 28px;border-radius:100px;margin-top:24px;box-shadow:0 0 0 1px rgba(235,35,72,.4),0 0 26px rgba(235,35,72,.34);transition:transform .3s,box-shadow .3s">Réserver un appel →</a>
+            <div style="text-align:center;margin-top:16px;font-size:14px;color:rgba(255,255,255,.5)">Ou écrivez-nous à<br><a href="mailto:Diffusion@prodvocation.com" style="color:#fff;font-weight:500">Diffusion@prodvocation.com</a></div>
           </div>
         </div>
       </div>
       <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s">
-        <details class="pv-faq" open="">
+        <details class="pv-faq" open>
           <summary><span style="font-weight:500;font-size:17px;color:#1d1d1f">Comment fonctionne la co-production équitable ?</span><span class="pv-faq-ic">+</span></summary>
           <div class="pv-faq-ans"><div><p style="font-size:15.5px;line-height:1.65;color:#6e6e73;margin:0 24px 22px">Nous investissons aux côtés de l'artiste — temps, moyens et expertise — et nous partageons les bénéfices de manière équitable. Vous n'êtes plus seul à porter le risque, ni à en récolter les fruits.</p></div></div>
         </details>
@@ -558,7 +606,7 @@
     </div>
     <h2 style="font-size:clamp(44px,6.5vw,80px);font-weight:600;letter-spacing:-.035em;line-height:1.0;color:#fff">Qui sera le <span style="background:linear-gradient(120deg,#FF8A3D,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">prochain</span> ?</h2>
     <p style="font-size:19px;line-height:1.6;color:rgba(255,255,255,.55);max-width:500px;margin:24px auto 0">Vous avez un spectacle à porter ? Parlons-en. La première rencontre ne vous engage à rien, sinon à oser.</p>
-    <a h style="display:inline-block;margin-top:40px;font-weight:600;font-size:16px;color:#0C0816;background:#fff;padding:17px 38px;border-radius:100px;box-shadow:0 4px 24px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s" class="hv-31">Contactez-nous</a>
+    <a class="hv-34" href="postuler.html" style="display:inline-block;margin-top:40px;font-weight:600;font-size:16px;color:#0C0816;background:#fff;padding:17px 38px;border-radius:100px;box-shadow:0 4px 24px rgba(0,0,0,.3);transition:transform .3s,box-shadow .3s">Contactez-nous</a>
   </div>
 </section>
 
@@ -602,14 +650,14 @@
 
         <div style="position:absolute;top:50%;left:50%;width:240px;height:240px;margin:-120px;border-radius:50%;background:radial-gradient(circle,rgba(235,35,72,.22),transparent 68%);animation:pvHubPulse 3.6s ease-in-out infinite;pointer-events:none"></div>
         <div style="position:absolute;top:50%;left:50%;width:132px;height:132px;margin:-66px;border-radius:50%;background:#155980;display:flex;align-items:center;justify-content:center;box-shadow:0 18px 44px rgba(21,89,128,.34),0 0 0 6px rgba(255,255,255,.7);z-index:3">
-          <img src="331d9e61-0d18-47fd-9897-cc618fe13dd8" alt="Treenity Group" style="width:78px;height:auto;display:block">
+          <img src="assets/treenity-logo.png" alt="Treenity Group" style="width:78px;height:auto;display:block">
         </div>
 
-        <div style="position:absolute;left:300px;top:70px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#a79679;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/micro thejoke-47.png" alt="The Joke" style="width:72px;height:72px;object-fit:contain;border-radius:50%"></div>
-        <div style="position:absolute;left:519px;top:229px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#f17300;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/stand up icone logo blanc (1).png" alt="Stand-Up Academy" style="width:72px;height:72px;object-fit:contain;border-radius:50%"></div>
-        <div style="position:absolute;left:435px;top:486px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#b01a36;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/prod vocation icone logo blanc (1).png" alt="ProdVocation" style="width:72px;height:72px;object-fit:contain;border-radius:50%"></div>
-        <div style="position:absolute;left:165px;top:486px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#801486;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/imagin artists icone logo blanc (1).png" alt="Imagin Artists" style="width:72px;height:72px;object-fit:contain;border-radius:50%"></div>
-        <div style="position:absolute;left:81px;top:229px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:linear-gradient(180deg,#7c4390,#d42c3a);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/connecticket icone logo blanc (1).png" alt="Connecticket" style="width:72px;height:72px;object-fit:contain;border-radius:50%"></div>
+        <div style="position:absolute;left:300px;top:70px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#a79679;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/micro thejoke-47.png" alt="The Joke" style="width:72px;height:72px;display:block;object-fit:cover"></div>
+        <div style="position:absolute;left:519px;top:229px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#f17300;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/stand up icone logo blanc (1).png" alt="Stand-Up Academy" style="width:72px;height:72px;display:block;object-fit:cover"></div>
+        <div style="position:absolute;left:435px;top:486px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#b01a36;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/prod vocation icone logo blanc (1).png" alt="ProdVocation" style="width:72px;height:72px;display:block;object-fit:cover"></div>
+        <div style="position:absolute;left:165px;top:486px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:#801486;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/imagin artists icone logo blanc (1).png" alt="Imagin Artists" style="width:72px;height:72px;display:block;object-fit:cover"></div>
+        <div style="position:absolute;left:81px;top:229px;width:88px;height:88px;margin:-44px 0 0 -44px;border-radius:50%;background:linear-gradient(180deg,#7c4390,#d42c3a);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.16);border:4px solid #fbfbfd;z-index:2"><img src="assets/connecticket icone logo blanc (1).png" alt="Connecticket" style="width:72px;height:72px;display:block;object-fit:cover"></div>
 
       </div>
     </div>
@@ -623,13 +671,13 @@
   <div style="position:relative;max-width:1080px;margin:0 auto;padding:0 32px">
     <div style="display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:48px">
       <div>
-        <img src="cf1ec635-0c22-4e84-9fd9-7c4df35f9e9d" alt="ProdVocation" style="height:34px;width:auto;display:block;margin-bottom:22px">
+        <img src="assets/prodvocation-logo.png" alt="ProdVocation" style="height:34px;width:auto;display:block;margin-bottom:22px">
         <p style="font-size:15px;line-height:1.65;color:rgba(255,255,255,.5);max-width:290px">Le premier incubateur de spectacle en France. Co-producteur équitable des one-man shows de demain, depuis 2007.</p>
         <div style="display:flex;gap:10px;margin-top:26px">
-          <a h aria-label="Instagram" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s" class="hv-32"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
-          <a h aria-label="Facebook" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s" class="hv-33"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15 8h2.5V4.5h-2.6c-2.4 0-3.9 1.5-3.9 4v1.9H9V14h2v8h3.2v-8h2.4l.4-3.6h-2.8V8.7c0-.5.3-.7.8-.7z"></path></svg></a>
-          <a h aria-label="LinkedIn" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s" class="hv-34"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0zM3.4 8.4h3.1V21H3.4V8.4zM9.1 8.4h2.97v1.72h.04c.41-.78 1.42-1.6 2.93-1.6 3.13 0 3.71 2.06 3.71 4.74V21h-3.1v-5.55c0-1.32-.02-3.02-1.84-3.02-1.84 0-2.12 1.44-2.12 2.93V21H9.1V8.4z"></path></svg></a>
-          <a h aria-label="YouTube" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s" class="hv-35"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-2.2-.2-3.4-.4-4-.2-.7-.8-1.2-1.5-1.4C18.7 6.2 12 6.2 12 6.2s-6.7 0-8.1.4c-.7.2-1.3.7-1.5 1.4-.2.6-.4 1.8-.4 4s.2 3.4.4 4c.2.7.8 1.2 1.5 1.4 1.4.4 8.1.4 8.1.4s6.7 0 8.1-.4c.7-.2 1.3-.7 1.5-1.4.2-.6.4-1.8.4-4zM10 15.2V8.8l5.2 3.2L10 15.2z"></path></svg></a>
+          <a class="hv-35" href="#" aria-label="Instagram" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"></circle></svg></a>
+          <a class="hv-36" href="#" aria-label="Facebook" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M15 8h2.5V4.5h-2.6c-2.4 0-3.9 1.5-3.9 4v1.9H9V14h2v8h3.2v-8h2.4l.4-3.6h-2.8V8.7c0-.5.3-.7.8-.7z"></path></svg></a>
+          <a class="hv-37" href="#" aria-label="LinkedIn" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.94 5a1.94 1.94 0 1 1-3.88 0 1.94 1.94 0 0 1 3.88 0zM3.4 8.4h3.1V21H3.4V8.4zM9.1 8.4h2.97v1.72h.04c.41-.78 1.42-1.6 2.93-1.6 3.13 0 3.71 2.06 3.71 4.74V21h-3.1v-5.55c0-1.32-.02-3.02-1.84-3.02-1.84 0-2.12 1.44-2.12 2.93V21H9.1V8.4z"></path></svg></a>
+          <a class="hv-38" href="#" aria-label="YouTube" style="width:40px;height:40px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.04);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);transition:all .3s"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-2.2-.2-3.4-.4-4-.2-.7-.8-1.2-1.5-1.4C18.7 6.2 12 6.2 12 6.2s-6.7 0-8.1.4c-.7.2-1.3.7-1.5 1.4-.2.6-.4 1.8-.4 4s.2 3.4.4 4c.2.7.8 1.2 1.5 1.4 1.4.4 8.1.4 8.1.4s6.7 0 8.1-.4c.7-.2 1.3-.7 1.5-1.4.2-.6.4-1.8.4-4zM10 15.2V8.8l5.2 3.2L10 15.2z"></path></svg></a>
         </div>
       </div>
       <div>
@@ -638,15 +686,15 @@
       </div>
       <div>
         <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px">Contact</div>
-        <a h style="display:block;font-size:15px;color:rgba(255,255,255,.62);transition:color .25s" class="hv-36">Diffusion@prodvocation.com</a>
-        <a h style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s" class="hv-37">+33 6 99 72 37 48</a>
+        <a class="hv-39" href="mailto:Diffusion@prodvocation.com" style="display:block;font-size:15px;color:rgba(255,255,255,.62);transition:color .25s">Diffusion@prodvocation.com</a>
+        <a class="hv-40" href="tel:+33699723748" style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s">+33 6 99 72 37 48</a>
       </div>
       <div>
         <div style="font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:16px">Liens</div>
-        <a h style="display:block;font-size:15px;color:rgba(255,255,255,.62);transition:color .25s" class="hv-38">Spectacles</a>
-        <a h style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s" class="hv-39">À propos</a>
-        <a h style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s" class="hv-40">Services</a>
-        <a h style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s" class="hv-41">Processus</a>
+        <a class="hv-41" href="#spectacles" style="display:block;font-size:15px;color:rgba(255,255,255,.62);transition:color .25s">Spectacles</a>
+        <a class="hv-42" href="#apropos" style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s">À propos</a>
+        <a class="hv-43" href="#services" style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s">Services</a>
+        <a class="hv-44" href="#processus" style="display:block;font-size:15px;color:rgba(255,255,255,.62);margin-top:10px;transition:color .25s">Processus</a>
       </div>
     </div>
     <div style="margin-top:64px;padding-top:22px;border-top:1px solid rgba(255,255,255,.1);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;font-size:13px;color:rgba(255,255,255,.4)">
@@ -659,8 +707,13 @@
 </footer>
 
 </div>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
+  var root = document.getElementById('pv-root');
+  if (root) root.style.setProperty('--accent', '#EB2348');
+
+  // Scroll reveal
   var els = Array.from(document.querySelectorAll('[data-reveal]'));
   var io = new IntersectionObserver(function(entries) {
     entries.forEach(function(e) { if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'none'; io.unobserve(e.target); } });
@@ -668,6 +721,7 @@ document.addEventListener('DOMContentLoaded', function() {
   els.forEach(function(el) { io.observe(el); });
   setTimeout(function() { els.forEach(function(el) { el.style.opacity = '1'; el.style.transform = 'none'; }); }, 2800);
 
+  // Nav
   var nav = document.getElementById('pv-nav');
   var navBar = document.getElementById('pv-nav-bar');
   var navCta = document.getElementById('pv-nav-cta');
@@ -686,15 +740,27 @@ document.addEventListener('DOMContentLoaded', function() {
     navBar.style.boxShadow = s ? '0 8px 30px rgba(0,0,0,.10),0 1px 2px rgba(0,0,0,.04)' : 'none';
     navBar.style.setProperty('--nav-fg', s ? '#1d1d1f' : '#f5f5f7');
     navBar.style.setProperty('--nav-fg-dim', s ? '#6e6e73' : 'rgba(255,255,255,.62)');
-    if (navCta) { navCta.style.background = s ? '#0C0816' : 'transparent'; navCta.style.color = s ? '#fff' : 'var(--nav-fg)'; navCta.style.borderColor = s ? '#0C0816' : 'rgba(255,255,255,.25)'; navCta.style.boxShadow = s ? '0 0 0 1px rgba(235,35,72,.32),0 0 18px rgba(235,35,72,.28)' : 'none'; }
+    if (navCta) {
+      navCta.style.background = s ? '#0C0816' : 'transparent';
+      navCta.style.color = s ? '#fff' : 'var(--nav-fg)';
+      navCta.style.borderColor = s ? '#0C0816' : 'rgba(255,255,255,.25)';
+      navCta.style.boxShadow = s ? '0 0 0 1px rgba(235,35,72,.32),0 0 18px rgba(235,35,72,.28)' : 'none';
+    }
   }
 
+  // Word fade helper
   function splitWords(host) {
     if (host.dataset.split) return Array.from(host.querySelectorAll('span'));
     host.dataset.split = '1';
     var toks = host.textContent.split(/(\s+)/);
     host.textContent = '';
-    toks.forEach(function(tok) { if (tok === '') return; if (/^\s+$/.test(tok)) { host.appendChild(document.createTextNode(tok)); return; } var sp = document.createElement('span'); sp.textContent = tok; sp.style.color = '#cfcfd4'; sp.style.transition = 'color .12s linear'; host.appendChild(sp); });
+    toks.forEach(function(tok) {
+      if (tok === '') return;
+      if (/^\s+$/.test(tok)) { host.appendChild(document.createTextNode(tok)); return; }
+      var sp = document.createElement('span');
+      sp.textContent = tok; sp.style.color = '#cfcfd4'; sp.style.transition = 'color .12s linear';
+      host.appendChild(sp);
+    });
     return Array.from(host.querySelectorAll('span'));
   }
   function mix(t) { var r = Math.round(207+(20-207)*t), g = Math.round(207+(20-207)*t), b = Math.round(212+(22-212)*t); return 'rgb('+r+','+g+','+b+')'; }
@@ -702,27 +768,71 @@ document.addEventListener('DOMContentLoaded', function() {
     var sec = document.getElementById(sectionId);
     if (!sec || !host) return function(){};
     var words = splitWords(host), N = words.length;
-    return function() { var total = sec.offsetHeight - window.innerHeight; var top = sec.getBoundingClientRect().top; var p = total > 0 ? (-top) / total : 0; p = Math.max(0, Math.min(1, p)); var fill = (p / 0.9) * N; for (var i = 0; i < N; i++) { var t = fill - i; t = t < 0 ? 0 : (t > 1 ? 1 : t); words[i].style.color = mix(t); } };
+    return function() {
+      var total = sec.offsetHeight - window.innerHeight;
+      var top = sec.getBoundingClientRect().top;
+      var p = total > 0 ? (-top) / total : 0;
+      p = Math.max(0, Math.min(1, p));
+      var fill = (p / 0.9) * N;
+      for (var i = 0; i < N; i++) { var t = fill - i; t = t < 0 ? 0 : (t > 1 ? 1 : t); words[i].style.color = mix(t); }
+    };
   }
   var updateStatement = fadeFor('pv-statement-section', document.getElementById('pv-statement-fade'));
   var updateValues = fadeFor('pv-values-section', document.getElementById('pv-values-fade'));
 
-  var procSection = document.getElementById('processus');
-  var steps = ['pv-step-1','pv-step-2','pv-step-3'].map(function(id) { return document.getElementById(id); });
-  function updateProcess() {
-    if (!procSection || !steps.every(Boolean)) return;
-    var starts = [0.06, 0.40, 0.72], span = 0.22;
-    var total = procSection.offsetHeight - window.innerHeight; var top = procSection.getBoundingClientRect().top;
-    var p = total > 0 ? (-top) / total : 0; p = Math.max(0, Math.min(1, p));
-    steps.forEach(function(el, i) { var t = (p - starts[i]) / span; t = t < 0 ? 0 : (t > 1 ? 1 : t); el.style.opacity = t; el.style.transform = 'translateY(' + ((1 - t) * 40) + 'px)'; });
+  // Process (two-column scroll-driven)
+  var procSec = document.getElementById('processus');
+  var pItems = Array.from(document.querySelectorAll('[data-pstep]'));
+  var pVisuals = Array.from(document.querySelectorAll('[data-pvisual]'));
+  var pActive = -1;
+  function setPActive(idx) {
+    if (idx === pActive) return; pActive = idx;
+    pItems.forEach(function(el, i) {
+      var on = i === idx;
+      el.style.opacity = on ? '1' : '.4';
+      var bar = el.querySelector('[data-pbar]'); if (bar) bar.style.opacity = on ? '1' : '0';
+      var ic = el.querySelector('[data-picon]'); if (ic) { ic.style.background = on ? 'linear-gradient(135deg,#FF8A3D,#C2185B)' : 'rgba(0,0,0,.05)'; ic.style.color = on ? '#fff' : '#86868b'; }
+      var ti = el.querySelector('h3'); if (ti) ti.style.color = on ? '#1d1d1f' : '#6e6e73';
+    });
+    pVisuals.forEach(function(el, i) { var on = i === idx; el.style.opacity = on ? '1' : '0'; el.style.transform = on ? 'scale(1)' : 'scale(1.04)'; });
   }
+  function updateProcess() {
+    if (!procSec) return;
+    var total = procSec.offsetHeight - window.innerHeight;
+    var top = procSec.getBoundingClientRect().top;
+    var p = total > 0 ? (-top) / total : 0;
+    p = Math.max(0, Math.min(0.999, p));
+    setPActive(Math.min(2, Math.floor(p * 3)));
+  }
+  pItems.forEach(function(el, i) {
+    el.addEventListener('click', function() {
+      if (!procSec) return;
+      var total = procSec.offsetHeight - window.innerHeight;
+      window.scrollTo({ top: procSec.offsetTop + ((i + 0.5) / 3) * total, behavior: 'smooth' });
+    });
+  });
 
+  // Approach panels
   var panels = [0,1,2].map(function(i) { return document.getElementById('pv-ap-panel-' + i); });
   if (panels.every(Boolean)) {
-    var setActive = function(active) { panels.forEach(function(p, i) { var on = i === active; p.style.flex = on ? '2.6' : '1'; p.style.background = on ? '#0C0816' : '#f5f5f7'; p.style.boxShadow = on ? '0 24px 60px rgba(235,35,72,.18)' : 'none'; var glow = p.querySelector('.pv-ap-glow'); var exp = p.querySelector('.pv-ap-exp'); var vl = p.querySelector('.pv-ap-vl'); if (glow) glow.style.opacity = on ? '1' : '0'; if (exp) { exp.style.opacity = on ? '1' : '0'; exp.style.transform = on ? 'none' : 'translateY(8px)'; } if (vl) vl.style.opacity = on ? '0' : '1'; }); };
+    var setActive = function(active) {
+      panels.forEach(function(p, i) {
+        var on = i === active;
+        p.style.flex = on ? '2.6' : '1';
+        p.style.background = on ? '#0C0816' : '#f5f5f7';
+        p.style.boxShadow = on ? '0 24px 60px rgba(235,35,72,.18)' : 'none';
+        var glow = p.querySelector('.pv-ap-glow');
+        var exp = p.querySelector('.pv-ap-exp');
+        var vl = p.querySelector('.pv-ap-vl');
+        if (glow) glow.style.opacity = on ? '1' : '0';
+        if (exp) { exp.style.opacity = on ? '1' : '0'; exp.style.transform = on ? 'none' : 'translateY(8px)'; }
+        if (vl) vl.style.opacity = on ? '0' : '1';
+      });
+    };
     panels.forEach(function(p, i) { p.addEventListener('mouseenter', function() { setActive(i); }); p.addEventListener('click', function() { setActive(i); }); });
   }
 
+  // Services animation
   var sec = document.getElementById('services');
   if (sec) {
     var has = function(el, re) { return re.test(el.getAttribute('style') || ''); };
@@ -733,13 +843,23 @@ document.addEventListener('DOMContentLoaded', function() {
     var avatars = Array.from(sec.querySelectorAll('span')).filter(function(s) { return has(s, /width:40px;height:40px/); });
     avatars.forEach(function(a, i) { a.style.transform = 'scale(0)'; a.style.transition = 'transform .5s cubic-bezier(.34,1.56,.64,1)'; a.style.transitionDelay = (0.15 + i * 0.08) + 's'; });
     var hotDots = dots.filter(function(d) { return has(d, /linear-gradient\(135deg/); });
-    var sio = new IntersectionObserver(function(es) { es.forEach(function(e) { if (!e.isIntersecting) return; bars.forEach(function(b) { b.style.transform = 'scaleX(1)'; }); avatars.forEach(function(a) { a.style.transform = 'scale(1)'; }); dots.forEach(function(d) { d.style.transform = 'scale(1)'; }); hotDots.forEach(function(d, i) { setTimeout(function() { d.style.transition = ''; d.style.animation = 'pvDotPulse 2.4s ease-in-out ' + (i * 0.3) + 's infinite'; }, 900); }); sio.disconnect(); }); }, { threshold: 0.28 });
+    var sio = new IntersectionObserver(function(es) {
+      es.forEach(function(e) {
+        if (!e.isIntersecting) return;
+        bars.forEach(function(b) { b.style.transform = 'scaleX(1)'; });
+        avatars.forEach(function(a) { a.style.transform = 'scale(1)'; });
+        dots.forEach(function(d) { d.style.transform = 'scale(1)'; });
+        hotDots.forEach(function(d, i) { setTimeout(function() { d.style.transition = ''; d.style.animation = 'pvDotPulse 2.4s ease-in-out ' + (i * 0.3) + 's infinite'; }, 900); });
+        sio.disconnect();
+      });
+    }, { threshold: 0.28 });
     sio.observe(sec);
   }
 
+  // Draggable pills
   document.querySelectorAll('[data-pill]').forEach(function(pill) {
     var dragging = false, sx = 0, sy = 0;
-    pill.addEventListener('mousedown', function(e) { dragging = true; var ev = e; sx = ev.clientX; sy = ev.clientY; pill.style.transition = 'box-shadow .2s ease'; pill.style.zIndex = '40'; pill.style.cursor = 'grabbing'; pill.style.willChange = 'transform'; pill.style.boxShadow = '0 18px 40px rgba(0,0,0,.18)'; e.preventDefault(); });
+    pill.addEventListener('mousedown', function(e) { dragging = true; sx = e.clientX; sy = e.clientY; pill.style.transition = 'box-shadow .2s ease'; pill.style.zIndex = '40'; pill.style.cursor = 'grabbing'; pill.style.willChange = 'transform'; pill.style.boxShadow = '0 18px 40px rgba(0,0,0,.18)'; e.preventDefault(); });
     pill.addEventListener('touchstart', function(e) { dragging = true; var ev = e.touches[0]; sx = ev.clientX; sy = ev.clientY; pill.style.transition = 'box-shadow .2s ease'; pill.style.zIndex = '40'; pill.style.cursor = 'grabbing'; pill.style.willChange = 'transform'; pill.style.boxShadow = '0 18px 40px rgba(0,0,0,.18)'; e.preventDefault(); }, { passive: false });
     window.addEventListener('mousemove', function(e) { if (!dragging) return; pill.style.transform = 'translate(' + (e.clientX - sx) + 'px,' + (e.clientY - sy) + 'px) scale(1.06)'; });
     window.addEventListener('touchmove', function(e) { if (!dragging) return; var ev = e.touches[0]; pill.style.transform = 'translate(' + (ev.clientX - sx) + 'px,' + (ev.clientY - sy) + 'px) scale(1.06)'; if (e.cancelable) e.preventDefault(); }, { passive: false });
@@ -792,16 +912,19 @@ document.addEventListener('DOMContentLoaded', function() {
     dio.observe(arena);
   }
 
+  // Carousel
   var scroller = document.getElementById('pv-spectacles');
   var prev = document.getElementById('scroll-prev');
   var next = document.getElementById('scroll-next');
   if (prev && scroller) prev.addEventListener('click', function() { scroller.scrollBy({left:-380, behavior:'smooth'}); });
   if (next && scroller) next.addEventListener('click', function() { scroller.scrollBy({left:380, behavior:'smooth'}); });
 
+  // Smooth anchors
   document.querySelectorAll('a[href^="#"]').forEach(function(a) {
     a.addEventListener('click', function(e) { var id = a.getAttribute('href'); if (id === '#') return; var target = document.querySelector(id); if (target) { e.preventDefault(); window.scrollTo({top: target.getBoundingClientRect().top + window.scrollY, behavior:'smooth'}); } });
   });
 
+  // Master scroll handler
   var ticking = false;
   window.addEventListener('scroll', function() { if (ticking) return; ticking = true; requestAnimationFrame(function() { updateNav(); updateStatement(); updateProcess(); updateValues(); ticking = false; }); }, {passive:true});
   updateNav(); updateStatement(); updateProcess(); updateValues();

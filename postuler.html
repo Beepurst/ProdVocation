@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Candidature artiste - ProdVocation</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:#0C0816;font-family:-apple-system,BlinkMacSystemFont,'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  @keyframes cfStepIn{from{opacity:0;transform:translateX(28px)}to{opacity:1;transform:none}}
+  @keyframes cfFadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+  @keyframes cfGlow{0%,100%{box-shadow:0 0 0 1px rgba(235,35,72,.4),0 0 24px rgba(235,35,72,.34),0 0 50px rgba(235,35,72,.18)}50%{box-shadow:0 0 0 1px rgba(235,35,72,.7),0 0 34px rgba(235,35,72,.6),0 0 74px rgba(235,35,72,.32)}}
+  #cf-root input::placeholder,#cf-root textarea::placeholder{color:rgba(255,255,255,.32)}
+  #cf-root input:focus,#cf-root textarea:focus{outline:none}
+  #cf-root *::-webkit-scrollbar{width:8px}
+  #cf-root *::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:8px}
+  .cf-step{animation:cfStepIn .5s cubic-bezier(.16,1,.3,1) both}
+  .cf-fade{animation:cfFadeUp .45s ease both}
+  .cf-label{font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:block}
+  .cf-input{width:100%;margin-top:8px;padding:14px 16px;border-radius:14px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);color:#fff;font-family:inherit;font-size:15px;transition:border-color .25s}
+  .cf-input:focus{border-color:rgba(235,35,72,.5)}
+  .cf-textarea{min-height:96px;resize:vertical}
+  .cf-pill{flex:none;cursor:pointer;font-family:inherit;font-size:14px;font-weight:600;color:rgba(255,255,255,.8);padding:11px 18px;border-radius:100px;border:1px solid rgba(255,255,255,.16);background:rgba(255,255,255,.04);display:inline-flex;align-items:center;gap:7px;transition:all .25s}
+  .cf-pill.active{color:#fff;background:linear-gradient(135deg,#FF8A3D,#C2185B);border-color:transparent}
+  .cf-card{position:relative;cursor:pointer;font-family:inherit;display:flex;flex-direction:column;align-items:flex-start;gap:10px;padding:18px;border-radius:16px;text-align:left;transition:all .25s;color:#fff;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1)}
+  .cf-card.active{background:rgba(235,35,72,.12);border-color:rgba(235,35,72,.7);transform:scale(1.015)}
+  .cf-radio{position:relative;cursor:pointer;font-family:inherit;display:flex;align-items:center;gap:14px;padding:15px 18px;border-radius:14px;transition:all .25s;color:#fff;background:rgba(255,255,255,.04);border:1.5px solid rgba(255,255,255,.1)}
+  .cf-radio.active{background:rgba(235,35,72,.12);border-color:rgba(235,35,72,.7)}
+  .cf-dot{flex:none;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,.3);background:transparent;transition:all .25s}
+  .cf-radio.active .cf-dot{border-color:#EB2348;background:#EB2348}
+  .cf-check{position:absolute;top:12px;right:12px;width:20px;height:20px;border-radius:50%;background:linear-gradient(135deg,#FF8A3D,#C2185B);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff}
+  .cf-valid{border-color:rgba(54,201,122,.7) !important}
+  .cf-invalid{border-color:rgba(235,35,72,.6) !important}
+</style>
+</head>
+<body>
+<div style="position:relative;min-height:100dvh;display:flex;flex-direction:column;align-items:center;padding:24px 20px 32px;overflow-x:hidden">
+  <div style="position:absolute;top:-8%;left:50%;transform:translateX(-50%);width:760px;height:480px;border-radius:50%;background:radial-gradient(circle,rgba(120,40,180,.24),rgba(235,35,72,.14) 46%,transparent 70%);filter:blur(90px);pointer-events:none"></div>
+  <div style="position:relative;width:100%;max-width:860px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:8px 4px 22px">
+    <a href="index.html" style="display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:rgba(255,255,255,.72);text-decoration:none">← ProdVocation</a>
+    <span style="font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4)">Candidature artiste</span>
+  </div>
+  <div id="cf-root" style="position:relative;width:100%;max-width:860px;min-height:560px;border-radius:28px;overflow:hidden;box-shadow:0 30px 90px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.07);background:#0C0816;color:#fff;display:flex;flex-direction:column">
+    <div style="position:absolute;top:-12%;left:50%;transform:translateX(-50%);width:680px;height:440px;border-radius:50%;background:radial-gradient(circle,rgba(120,40,180,.28),rgba(235,35,72,.16) 44%,transparent 68%);filter:blur(80px);pointer-events:none"></div>
+
+    <!-- Stepper -->
+    <div id="cf-stepper" style="position:relative;z-index:1;flex:none;padding:32px 40px 22px"></div>
+
+    <!-- Content -->
+    <div id="cf-content" style="position:relative;z-index:1;flex:1;min-height:0;overflow-y:auto;padding:28px 40px 32px"></div>
+
+    <!-- Footer -->
+    <div id="cf-footer" style="position:relative;z-index:1;flex:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:20px 40px;border-top:1px solid rgba(255,255,255,.08)"></div>
+  </div>
+</div>
+
+<script>
+(function() {
+  var state = {
+    step: 1,
+    f: { prenom:'', nom:'', email:'', tel:'', ville:'', idea:'', video:'', extra:'' },
+    hasShow: null, type: null, stage: null, exp: [], touched: false, submitted: false
+  };
+  var compact = false;
+
+  function isCompact() {
+    var root = document.getElementById('cf-root');
+    return root ? root.clientWidth < 560 : false;
+  }
+
+  function emailOk(e) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e); }
+  function step1Valid() { var f = state.f; return f.prenom.trim() && f.nom.trim() && emailOk(f.email) && f.tel.trim().length >= 6 && f.ville.trim(); }
+  function step2Valid() { if (state.hasShow === 'non' || !state.hasShow) return false; return !!state.type && !!state.stage; }
+  function step3Valid() { return state.exp.length > 0; }
+
+  function fieldClass(key, valid) {
+    if (!state.touched || !key) return 'cf-input';
+    return 'cf-input ' + (valid ? 'cf-valid' : 'cf-invalid');
+  }
+
+  function render() {
+    compact = isCompact();
+    renderStepper();
+    renderContent();
+    renderFooter();
+  }
+
+  function renderStepper() {
+    var el = document.getElementById('cf-stepper');
+    var titles = ['Vous', 'Votre projet', 'Vos ambitions', 'Récapitulatif'];
+    if (compact) {
+      el.style.padding = '22px 20px 16px';
+      el.innerHTML = '<div><div style="display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px"><span style="font-size:18px;font-weight:600;letter-spacing:-.02em;color:#fff">' + titles[state.step-1] + '</span><span style="font-size:13px;font-weight:600;color:rgba(255,255,255,.5)">Étape ' + state.step + '/4</span></div><div style="height:5px;border-radius:5px;background:rgba(255,255,255,.1);overflow:hidden"><div style="height:100%;width:' + (state.step*25) + '%;background:linear-gradient(90deg,#FF8A3D,#C2185B);border-radius:5px;transition:width .5s cubic-bezier(.16,1,.3,1)"></div></div></div>';
+    } else {
+      el.style.padding = '32px 40px 22px';
+      var html = '<div style="display:flex;align-items:center;gap:0">';
+      titles.forEach(function(t, i) {
+        var n = i+1, done = state.step > n, cur = state.step === n;
+        var dotStyle = 'flex:none;width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:600;transition:all .35s;';
+        dotStyle += (done||cur) ? 'background:linear-gradient(135deg,#FF8A3D,#C2185B);color:#fff;box-shadow:0 0 18px rgba(235,35,72,.4)' : 'background:rgba(255,255,255,.08);color:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.14)';
+        var labelColor = (done||cur) ? '#fff' : 'rgba(255,255,255,.5)';
+        var wrap = n < 4 ? 'display:flex;align-items:center;flex:1' : 'display:flex;align-items:center;flex:none';
+        html += '<div style="' + wrap + '"><div style="display:flex;align-items:center;gap:12px"><div style="' + dotStyle + '">' + (done ? '✓' : n) + '</div><div style="display:flex;flex-direction:column;gap:2px"><span style="font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.4)">Étape ' + n + '</span><span style="font-size:14px;font-weight:600;letter-spacing:-.01em;color:' + labelColor + '">' + t + '</span></div></div>';
+        if (n < 4) {
+          var fillW = done ? '100' : '0';
+          html += '<div style="flex:1;height:2px;margin:0 16px;border-radius:2px;background:rgba(255,255,255,.1);position:relative;overflow:hidden"><div style="position:absolute;inset:0;width:' + fillW + '%;background:linear-gradient(90deg,#FF8A3D,#C2185B);transition:width .5s cubic-bezier(.16,1,.3,1)"></div></div>';
+        }
+        html += '</div>';
+      });
+      html += '</div>';
+      el.innerHTML = html;
+    }
+  }
+
+  function renderContent() {
+    var el = document.getElementById('cf-content');
+    el.style.padding = compact ? '20px 20px 24px' : '28px 40px 32px';
+    var fs = compact ? '24px' : '30px';
+    var halfCol = 'flex:1;min-width:140px;display:block';
+    var fullCol = 'width:100%;display:block';
+    var html = '';
+
+    if (state.step === 1) {
+      html = '<div class="cf-step"><h2 style="font-size:' + fs + ';font-weight:600;letter-spacing:-.025em;line-height:1.1;margin-bottom:8px">Faisons connaissance</h2><p style="font-size:15px;color:rgba(255,255,255,.55);margin-bottom:28px">On commence par l\'essentiel. Quelques infos sur vous.</p><div style="display:flex;flex-wrap:wrap;gap:16px">';
+      var fields = [
+        {key:'prenom',label:'Prénom',ph:'Camille',col:halfCol,req:true,valid:state.f.prenom.trim()},
+        {key:'nom',label:'Nom',ph:'Durand',col:halfCol,req:true,valid:state.f.nom.trim()},
+        {key:'email',label:'Email',ph:'camille@email.com',col:fullCol,req:true,valid:emailOk(state.f.email),type:'email'},
+        {key:'tel',label:'Téléphone',ph:'06 12 34 56 78',col:halfCol,req:true,valid:state.f.tel.trim().length>=6},
+        {key:'ville',label:'Ville',ph:'Paris',col:halfCol,req:true,valid:state.f.ville.trim()}
+      ];
+      fields.forEach(function(fd) {
+        var cls = fieldClass(fd.key, fd.valid);
+        html += '<label style="' + fd.col + '"><span class="cf-label">' + fd.label + (fd.req ? ' <span style="color:#EB2348">•</span>' : '') + '</span><input class="' + cls + '" data-field="' + fd.key + '" value="' + (state.f[fd.key]||'').replace(/"/g,'&quot;') + '" placeholder="' + fd.ph + '"' + (fd.type ? ' type="'+fd.type+'"' : '') + '></label>';
+      });
+      html += '</div></div>';
+    }
+
+    if (state.step === 2) {
+      html = '<div class="cf-step"><h2 style="font-size:' + fs + ';font-weight:600;letter-spacing:-.025em;line-height:1.1;margin-bottom:8px">Votre projet</h2><p style="font-size:15px;color:rgba(255,255,255,.55);margin-bottom:28px">Parlez-nous du spectacle que vous portez.</p>';
+      html += '<span class="cf-label">Avez-vous déjà un spectacle écrit ou en cours d\'écriture ? <span style="color:#EB2348">•</span></span><div style="display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 4px">';
+      [{k:'oui',l:'Oui'},{k:'idee',l:"J'ai une idée mais rien d'écrit"},{k:'non',l:'Non'}].forEach(function(o) {
+        var cls = 'cf-pill' + (state.hasShow===o.k ? ' active' : '');
+        html += '<button class="' + cls + '" data-hasshow="' + o.k + '">' + o.l + '</button>';
+      });
+      html += '</div>';
+
+      if (state.hasShow === 'non') {
+        html += '<div class="cf-fade" style="margin-top:22px;padding:24px;border-radius:18px;background:rgba(235,35,72,.08);border:1px solid rgba(235,35,72,.22)"><div style="font-size:17px;font-weight:600;margin-bottom:6px">Revenez quand votre projet sera plus avancé 🎭</div><p style="font-size:15px;line-height:1.6;color:rgba(255,255,255,.62)">Nous accompagnons des artistes qui ont déjà un spectacle amorcé. Dès que l\'écriture est lancée, recontactez-nous — on sera là.</p></div>';
+      }
+
+      if (state.hasShow === 'idee') {
+        html += '<div class="cf-fade" style="margin-top:22px"><div style="padding:16px 18px;border-radius:14px;background:rgba(255,138,61,.1);border:1px solid rgba(255,138,61,.26);font-size:14px;line-height:1.55;color:rgba(255,255,255,.7);margin-bottom:16px">Nous accompagnons principalement des projets déjà amorcés, mais parlez-nous de votre idée — on lit tout.</div><label style="' + fullCol + '"><span class="cf-label">Décrivez votre idée en quelques lignes</span><textarea class="cf-input cf-textarea" data-field="idea" placeholder="Le thème, le ton, ce qui vous anime...">' + (state.f.idea||'') + '</textarea></label></div>';
+      }
+
+      if (state.hasShow === 'oui' || state.hasShow === 'idee') {
+        html += '<div class="cf-fade"><div style="margin-top:28px"><span class="cf-label">Type de spectacle <span style="color:#EB2348">•</span></span></div><div style="display:grid;grid-template-columns:' + (compact?'1fr 1fr':'repeat(4,1fr)') + ';gap:12px;margin-top:12px">';
+        [{k:'oneman',l:'One-man show',i:'🎤'},{k:'onewoman',l:'One-woman show',i:'✨'},{k:'duo',l:'Duo',i:'🎭'},{k:'autre',l:'Autre',i:'＋'}].forEach(function(o) {
+          var cls = 'cf-card' + (state.type===o.k ? ' active' : '');
+          html += '<button class="' + cls + '" data-type="' + o.k + '">' + (state.type===o.k ? '<span class="cf-check">✓</span>' : '') + '<span style="font-size:24px;line-height:1">' + o.i + '</span><span style="font-size:15px;font-weight:600">' + o.l + '</span></button>';
+        });
+        html += '</div>';
+
+        html += '<div style="margin-top:28px"><span class="cf-label">Où en êtes-vous ? <span style="color:#EB2348">•</span></span></div><div style="display:flex;flex-direction:column;gap:10px;margin-top:12px">';
+        ['Écriture en cours','Spectacle écrit, pas encore rodé','Déjà rodé en scène ouverte / petites salles','Déjà en tournée'].forEach(function(lbl) {
+          var cls = 'cf-radio' + (state.stage===lbl ? ' active' : '');
+          html += '<button class="' + cls + '" data-stage="' + lbl + '"><span class="cf-dot">' + (state.stage===lbl ? '<span style="width:10px;height:10px;border-radius:50%;background:#fff"></span>' : '') + '</span><span style="font-size:15px;font-weight:500;text-align:left">' + lbl + '</span></button>';
+        });
+        html += '</div></div>';
+      }
+      html += '</div>';
+    }
+
+    if (state.step === 3) {
+      html = '<div class="cf-step"><h2 style="font-size:' + fs + ';font-weight:600;letter-spacing:-.025em;line-height:1.1;margin-bottom:8px">Vos ambitions</h2><p style="font-size:15px;color:rgba(255,255,255,.55);margin-bottom:28px">Qu\'attendez-vous d\'un partenaire comme ProdVocation ?</p>';
+      html += '<span class="cf-label">Sélectionnez ce qui compte pour vous <span style="color:#EB2348">•</span></span><div style="display:flex;flex-wrap:wrap;gap:10px;margin:12px 0 4px">';
+      ["Aide à l'écriture / mise en scène","Production et gestion","Diffusion et réseau de salles","Communication et visibilité","Financement / co-production","Je ne sais pas encore"].forEach(function(lbl) {
+        var active = state.exp.indexOf(lbl) !== -1;
+        var cls = 'cf-pill' + (active ? ' active' : '');
+        html += '<button class="' + cls + '" data-exp="' + lbl + '">' + (active ? '<span style="font-size:13px">✓</span>' : '') + lbl + '</button>';
+      });
+      html += '</div>';
+      html += '<div style="margin-top:28px"><label style="' + fullCol + '"><span class="cf-label">Lien vers une vidéo de vous sur scène</span><input class="cf-input" data-field="video" value="' + (state.f.video||'').replace(/"/g,'&quot;') + '" placeholder="YouTube, Instagram, TikTok..."></label></div>';
+      html += '<div style="margin-top:18px"><label style="' + fullCol + '"><span class="cf-label">Quelque chose à ajouter ?</span><textarea class="cf-input cf-textarea" data-field="extra" placeholder="Un mot libre, un contexte, une question...">' + (state.f.extra||'') + '</textarea></label></div></div>';
+    }
+
+    if (state.step === 4) {
+      if (state.submitted) {
+        html = '<div class="cf-step" style="text-align:center;padding:30px 8px"><div style="width:74px;height:74px;border-radius:50%;margin:0 auto 22px;background:linear-gradient(135deg,#FF8A3D,#C2185B);display:flex;align-items:center;justify-content:center;font-size:34px;box-shadow:0 0 0 1px rgba(235,35,72,.4),0 0 40px rgba(235,35,72,.4)">✓</div><h2 style="font-size:' + fs + ';font-weight:600;letter-spacing:-.025em;margin-bottom:10px">Candidature envoyée</h2><p style="font-size:16px;line-height:1.6;color:rgba(255,255,255,.6);max-width:420px;margin:0 auto">Merci ' + (state.f.prenom||'') + '. On a bien reçu votre projet et on revient vers vous très vite.</p></div>';
+      } else {
+        var typeLabel = {oneman:'One-man show',onewoman:'One-woman show',duo:'Duo',autre:'Autre'}[state.type] || '—';
+        var hasLabel = {oui:'Oui, en cours',idee:'Une idée',non:'Non'}[state.hasShow] || '—';
+        var summary = [
+          {l:'Nom',v:(state.f.prenom+' '+state.f.nom).trim()||'—'},
+          {l:'Contact',v:(state.f.email||'—')+(state.f.tel?' · '+state.f.tel:'')},
+          {l:'Ville',v:state.f.ville||'—'},
+          {l:'Projet',v:hasLabel+(state.type?' · '+typeLabel:'')},
+          {l:'Avancement',v:state.stage||'—'},
+          {l:'Attentes',v:state.exp.length?state.exp.join(', '):'—'},
+          {l:'Vidéo',v:state.f.video||'—'}
+        ];
+        html = '<div class="cf-step"><h2 style="font-size:' + fs + ';font-weight:600;letter-spacing:-.025em;line-height:1.1;margin-bottom:8px">Récapitulatif</h2><p style="font-size:15px;color:rgba(255,255,255,.55);margin-bottom:24px">Un dernier coup d\'œil avant l\'envoi.</p><div style="display:flex;flex-direction:column;gap:12px">';
+        summary.forEach(function(s) {
+          html += '<div style="display:flex;justify-content:space-between;gap:18px;padding:16px 20px;border-radius:16px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)"><span style="font-size:12px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;color:rgba(255,255,255,.42);flex:none;max-width:42%">' + s.l + '</span><span style="font-size:15px;font-weight:500;text-align:right;color:#fff">' + s.v + '</span></div>';
+        });
+        html += '</div><div style="margin-top:20px;font-size:14px;color:rgba(255,255,255,.5);display:flex;align-items:center;gap:8px"><span style="width:6px;height:6px;border-radius:50%;background:#EB2348"></span>Nous vous répondons sous 5 jours ouvrés.</div></div>';
+      }
+    }
+
+    el.innerHTML = html;
+    bindInputs();
+  }
+
+  function renderFooter() {
+    var el = document.getElementById('cf-footer');
+    el.style.padding = compact ? '16px 20px' : '20px 40px';
+    if (state.step === 4 && state.submitted) { el.style.display = 'none'; return; }
+    el.style.display = 'flex';
+    var html = '<button id="cf-prev" style="flex:none;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;padding:14px 24px;border-radius:100px;border:1px solid rgba(255,255,255,.18);background:transparent;color:rgba(255,255,255,.8);transition:all .25s;visibility:' + (state.step > 1 ? 'visible' : 'hidden') + '">← Précédent</button>';
+    if (state.step === 4 && !state.submitted) {
+      html += '<button id="cf-submit" style="flex:none;display:inline-flex;align-items:center;gap:9px;padding:15px 30px;border:none;cursor:pointer;border-radius:100px;font-family:inherit;font-size:15px;font-weight:600;color:#fff;background:linear-gradient(135deg,#FF8A3D,#C2185B);animation:cfGlow 3.2s ease-in-out infinite">Envoyer ma candidature →</button>';
+    } else if (state.hasShow !== 'non') {
+      html += '<button id="cf-next" style="flex:none;cursor:pointer;font-family:inherit;font-size:15px;font-weight:600;padding:14px 28px;border-radius:100px;border:none;color:#fff;background:linear-gradient(135deg,#FF8A3D,#C2185B);box-shadow:0 8px 26px rgba(235,35,72,.32);transition:transform .25s">Suivant →</button>';
+    }
+    el.innerHTML = html;
+
+    var prevBtn = document.getElementById('cf-prev');
+    var nextBtn = document.getElementById('cf-next');
+    var submitBtn = document.getElementById('cf-submit');
+    if (prevBtn) prevBtn.addEventListener('click', function() { state.step = Math.max(1, state.step - 1); state.touched = false; render(); });
+    if (nextBtn) nextBtn.addEventListener('click', function() {
+      if (state.step === 1 && !step1Valid()) { state.touched = true; render(); return; }
+      if (state.step === 2 && !step2Valid()) { state.touched = true; render(); return; }
+      if (state.step === 3 && !step3Valid()) { state.touched = true; render(); return; }
+      state.step = Math.min(4, state.step + 1); state.touched = false; render();
+    });
+    if (submitBtn) submitBtn.addEventListener('click', function() { state.submitted = true; render(); });
+  }
+
+  function bindInputs() {
+    document.querySelectorAll('[data-field]').forEach(function(input) {
+      var key = input.getAttribute('data-field');
+      input.addEventListener('input', function(e) { state.f[key] = e.target.value; });
+    });
+    document.querySelectorAll('[data-hasshow]').forEach(function(btn) {
+      btn.addEventListener('click', function() { state.hasShow = btn.getAttribute('data-hasshow'); state.touched = false; render(); });
+    });
+    document.querySelectorAll('[data-type]').forEach(function(btn) {
+      btn.addEventListener('click', function() { state.type = btn.getAttribute('data-type'); render(); });
+    });
+    document.querySelectorAll('[data-stage]').forEach(function(btn) {
+      btn.addEventListener('click', function() { state.stage = btn.getAttribute('data-stage'); render(); });
+    });
+    document.querySelectorAll('[data-exp]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var lbl = btn.getAttribute('data-exp');
+        var idx = state.exp.indexOf(lbl);
+        if (idx === -1) state.exp.push(lbl); else state.exp.splice(idx, 1);
+        render();
+      });
+    });
+  }
+
+  window.addEventListener('resize', function() { var c = isCompact(); if (c !== compact) { compact = c; render(); } });
+  render();
+})();
+</script>
+</body>
+</html>
