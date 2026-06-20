@@ -81,6 +81,42 @@
   .hv-42:hover{color:#fff}
   .hv-43:hover{color:#fff}
   .hv-44:hover{color:#fff}
+
+  @media(max-width:768px){
+    .pv-nav-links{display:none!important}
+    #pv-nav-bar{gap:16px!important;padding:0 14px 0 16px!important}
+    #pv-spectacles article{width:280px!important}
+    .pv-about-grid{grid-template-columns:1fr!important;gap:40px!important}
+    #pv-appr-row{flex-direction:column!important;height:auto!important;gap:12px!important}
+    #pv-appr-row>[data-appr]{flex:none!important}
+    #pv-appr-row>[data-appr] .pv-ap-exp{opacity:1!important;transform:none!important}
+    #pv-appr-row>[data-appr] .pv-ap-vl{display:none!important}
+    #pv-appr-row>[data-appr]{background:#0C0816!important}
+    #pv-appr-row>[data-appr] .pv-ap-glow{opacity:1!important}
+    #pv-appr-row>[data-appr]>div{padding:28px 24px!important}
+    #pv-appr-row>[data-appr] span[style*="font-size:64px"]{font-size:36px!important}
+    .pv-process-grid{grid-template-columns:1fr!important;gap:32px!important}
+    .pv-process-visual{height:320px!important;border-radius:20px!important}
+    #processus{height:220vh}
+    #pv-values-section{height:180vh}
+    [data-pill]{display:none!important}
+    .pv-pourqui-grid{grid-template-columns:1fr!important;gap:12px!important}
+    .pv-pourqui-grid>div[data-reveal]{grid-column:span 1!important}
+    .pv-services-grid{grid-template-columns:1fr!important;gap:14px!important}
+    .pv-services-grid>div[data-reveal]{grid-column:span 1!important;grid-row:span 1!important}
+    #pv-drop-arena{height:clamp(320px,45vh,420px)!important}
+    .pv-faq-grid{grid-template-columns:1fr!important;gap:32px!important}
+    #pv-cta{padding:100px 0!important;min-height:auto!important}
+    .pv-treenity-orbital{width:340px!important;max-width:100%!important}
+    .pv-footer-grid{grid-template-columns:1fr 1fr!important;gap:32px!important}
+    .pv-section-inner{padding-left:20px!important;padding-right:20px!important}
+  }
+  @media(max-width:480px){
+    #pv-nav-cta{font-size:12px!important;padding:8px 16px!important}
+    .pv-footer-grid{grid-template-columns:1fr!important}
+    #pv-spectacles article{width:260px!important}
+    .pv-process-visual{height:260px!important}
+  }
 </style>
 </head>
 <body>
@@ -89,7 +125,7 @@
 <nav id="pv-nav" style="position:fixed;top:0;left:0;right:0;z-index:100;display:flex;justify-content:center;padding:0 24px;transition:padding .5s cubic-bezier(.16,1,.3,1)">
   <div id="pv-nav-bar" style="display:flex;align-items:center;justify-content:space-between;gap:40px;width:100%;max-width:1080px;height:68px;padding:0 18px 0 26px;border:1px solid transparent;border-radius:0px;background:transparent;box-shadow:none;transition:max-width .55s cubic-bezier(.16,1,.3,1),height .45s cubic-bezier(.16,1,.3,1),padding .45s cubic-bezier(.16,1,.3,1),background .45s ease,border-color .45s ease,border-radius .55s cubic-bezier(.16,1,.3,1),box-shadow .45s ease,backdrop-filter .45s ease;--nav-fg:#f5f5f7;--nav-fg-dim:rgba(255,255,255,.62)">
     <a href="#accueil" style="display:flex;align-items:center;margin-top:4px;flex:none"><img src="assets/prodvocation-logo.png" alt="ProdVocation" style="height:32px;width:auto;display:block"></a>
-    <div style="display:flex;gap:36px">
+    <div class="pv-nav-links" style="display:flex;gap:36px">
       <a class="hv-1" href="#spectacles" style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Spectacles</a>
       <a class="hv-2" href="#apropos" style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">À propos</a>
       <a class="hv-3" href="#services" style="font-size:14px;font-weight:400;color:var(--nav-fg-dim);transition:color .3s">Services</a>
@@ -128,14 +164,14 @@
 
 <section id="pv-statement-section" style="position:relative;height:260vh;background:#fbfbfd">
   <div style="position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden">
-    <div style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
+    <div class="pv-section-inner" style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
       <p style="font-size:clamp(28px,3.7vw,46px);font-weight:600;letter-spacing:-.028em;line-height:1.28;color:#1d1d1f;max-width:920px">Depuis 2007, nous co-produisons les one-man shows de demain. <span id="pv-statement-fade" style="color:#cfcfd4">Un partenaire qui investit autant que l'artiste — temps, moyens et expertise — pour partager les efforts comme les réussites.</span></p>
     </div>
   </div>
 </section>
 
 <section id="spectacles" style="padding:10px 0 130px;background:#fbfbfd">
-  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);display:flex;justify-content:space-between;align-items:flex-end;gap:24px;flex-wrap:wrap">
       <div style="max-width:600px">
         <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Nos spectacles</span>
@@ -190,8 +226,8 @@
 </section>
 
 <section id="apropos" style="padding:130px 0;background:#fff">
-  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
+    <div class="pv-about-grid" style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center">
       <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)">
         <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Qui sommes-nous</span>
         <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Un partenaire qui <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">investit</span> autant que vous</h2>
@@ -207,7 +243,7 @@
 </section>
 
 <section style="padding:130px 0;background:#fbfbfd">
-  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);max-width:640px">
       <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Notre approche</span>
       <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Une <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">méthode</span> au service de l'artiste</h2>
@@ -264,14 +300,14 @@
 
 <section id="processus" style="position:relative;height:300vh;background:#fbfbfd">
   <div style="position:sticky;top:0;height:100vh;display:flex;flex-direction:column;justify-content:center;overflow:hidden;padding:40px 0">
-    <div style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
+    <div class="pv-section-inner" style="max-width:1080px;margin:0 auto;padding:0 32px;width:100%">
       <div style="text-align:center;max-width:620px;margin:0 auto 48px">
         <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Notre processus</span>
         <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Comment on travaille <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">ensemble</span></h2>
         <p style="font-size:18px;line-height:1.6;color:#6e6e73;margin-top:16px">Une équipe humaine à vos côtés, du premier café à la tournée.</p>
       </div>
 
-      <div style="display:grid;grid-template-columns:1.02fr .98fr;gap:60px;align-items:center">
+      <div class="pv-process-grid" style="display:grid;grid-template-columns:1.02fr .98fr;gap:60px;align-items:center">
         <div style="display:flex;flex-direction:column">
           <div data-pstep="0" style="display:flex;gap:20px;padding:22px 0;cursor:pointer;opacity:1;transition:opacity .45s ease">
             <div data-pbar style="flex:none;width:3px;border-radius:3px;background:linear-gradient(180deg,#FF8A3D,#C2185B);opacity:1;transition:opacity .45s ease"></div>
@@ -305,7 +341,7 @@
           </div>
         </div>
 
-        <div style="position:relative;width:100%;height:clamp(420px,60vh,540px);border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.05);background:#0C0816">
+        <div class="pv-process-visual" style="position:relative;width:100%;height:clamp(420px,60vh,540px);border-radius:28px;overflow:hidden;box-shadow:0 30px 70px rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.05);background:#0C0816">
           <div data-pvisual style="position:absolute;inset:0;opacity:1;transform:scale(1);transition:opacity .6s ease,transform .8s cubic-bezier(.16,1,.3,1)">
             <img src="assets/magnific__retouch__58221 (1).jpeg" alt="Rencontre" style="width:100%;height:100%;display:block;object-fit:cover">
             <div style="position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(12,8,22,.78));pointer-events:none"></div>
@@ -370,7 +406,7 @@
 
 <section style="padding:130px 0;background:#0C0816;position:relative;overflow:hidden">
   <div style="position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:900px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(235,35,72,.16),transparent 62%);filter:blur(70px);pointer-events:none"></div>
-  <div style="max-width:1080px;margin:0 auto;padding:0 32px;position:relative">
+  <div class="pv-section-inner" style="max-width:1080px;margin:0 auto;padding:0 32px;position:relative">
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);display:flex;justify-content:space-between;align-items:flex-end;gap:40px;flex-wrap:wrap">
       <div style="max-width:600px">
         <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:inline-block;margin-bottom:14px">Pour qui ?</span>
@@ -378,7 +414,7 @@
       </div>
       <p style="font-size:16px;line-height:1.6;color:rgba(255,255,255,.55);max-width:320px">Cinq tempéraments, une même envie : porter un spectacle qui vous ressemble.</p>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:56px">
+    <div class="pv-pourqui-grid" style="display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:56px">
       <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1);grid-column:span 3;position:relative;border-radius:22px;overflow:hidden;padding:1.5px;background:#17141f;min-height:236px">
         <div style="position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent 0deg,transparent 252deg,#FF8A3D 312deg,#EB2348 342deg,#C2185B 360deg);animation:pvSpin 4.6s linear infinite;pointer-events:none"></div>
         <div style="position:relative;height:100%;border-radius:20.5px;background:radial-gradient(130% 130% at 0% 0%,#1a1626,#0C0816);padding:34px;display:flex;flex-direction:column;justify-content:space-between">
@@ -434,12 +470,12 @@
 </section>
 
 <section id="services" style="padding:130px 0;background:#fff">
-  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);max-width:640px">
       <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Nos services</span>
       <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Tout ce qu'il faut autour de votre <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">spectacle</span></h2>
     </div>
-    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px">
+    <div class="pv-services-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:56px">
 
       <div class="hv-27" data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);grid-column:span 2;grid-row:span 2;background:#fbfbfd;border:1px solid rgba(0,0,0,.08);border-radius:24px;padding:40px;display:flex;flex-direction:column;transition:transform .4s,box-shadow .4s,border-color .4s">
         <div style="font-size:13px;font-weight:600;letter-spacing:.1em;color:var(--accent)">01</div>
@@ -512,7 +548,7 @@
 
 <section style="position:relative;padding:130px 0 150px;background:#0C0816;overflow:hidden">
   <div style="position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:900px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(120,40,180,.28),rgba(235,35,72,.16) 42%,transparent 66%);filter:blur(80px);pointer-events:none"></div>
-  <div style="position:relative;max-width:1080px;margin:0 auto;padding:0 32px">
+  <div style="position:relative;max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);text-align:center;max-width:680px;margin:0 auto">
       <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:rgba(255,255,255,.5);display:inline-block;margin-bottom:14px">Pourquoi nous</span>
       <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#fff">Un incubateur pas comme les <span style="background:linear-gradient(120deg,#FF8A3D,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">autres</span></h2>
@@ -540,12 +576,12 @@
 </section>
 
 <section style="padding:130px 0;background:#fbfbfd">
-  <div style="max-width:1080px;margin:0 auto;padding:0 32px">
+  <div style="max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);text-align:center;max-width:600px;margin:0 auto">
       <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">FAQ</span>
       <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Vos questions, nos <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">réponses</span></h2>
     </div>
-    <div style="display:grid;grid-template-columns:.78fr 1.22fr;gap:56px;align-items:start;margin-top:64px">
+    <div class="pv-faq-grid" style="display:grid;grid-template-columns:.78fr 1.22fr;gap:56px;align-items:start;margin-top:64px">
       <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1)">
         <div style="position:relative;overflow:hidden;background:#0C0816;border:1px solid rgba(255,255,255,.1);border-radius:22px;padding:36px;position:sticky;top:80px">
           <div style="position:absolute;top:-40%;left:-10%;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(235,35,72,.32),transparent 65%);filter:blur(50px);pointer-events:none"></div>
@@ -612,7 +648,7 @@
 
 <section id="treenity-section" style="position:relative;padding:130px 0;background:#fbfbfd;overflow:hidden;z-index:1">
   <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:760px;height:760px;border-radius:50%;background:radial-gradient(circle,rgba(235,35,72,.07),transparent 62%);pointer-events:none"></div>
-  <div style="position:relative;max-width:1080px;margin:0 auto;padding:0 32px">
+  <div style="position:relative;max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .85s cubic-bezier(.16,1,.3,1),transform .85s cubic-bezier(.16,1,.3,1);text-align:center;max-width:620px;margin:0 auto">
       <span style="font-size:13px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#86868b;display:inline-block;margin-bottom:14px">Le groupe</span>
       <h2 style="font-size:clamp(30px,4vw,48px);font-weight:600;letter-spacing:-.028em;line-height:1.08;color:#1d1d1f">Tout un écosystème derrière votre <span style="background:linear-gradient(120deg,#FF6B35,#EB2348,#C2185B);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent">carrière</span></h2>
@@ -620,7 +656,7 @@
     </div>
 
     <div data-reveal="" style="opacity:0;transform:translateY(26px);transition:opacity .9s cubic-bezier(.16,1,.3,1) .1s,transform .9s cubic-bezier(.16,1,.3,1) .1s;display:flex;justify-content:center;margin-top:56px">
-      <div style="position:relative;width:600px;max-width:100%;aspect-ratio:1/1">
+      <div class="pv-treenity-orbital" style="position:relative;width:600px;max-width:100%;aspect-ratio:1/1">
 
         <div style="position:absolute;top:50%;left:50%;width:560px;height:560px;margin:-280px;border:1px dashed rgba(0,0,0,.1);border-radius:50%"></div>
         <div style="position:absolute;top:50%;left:50%;width:400px;height:400px;margin:-200px;border:1px dashed rgba(0,0,0,.08);border-radius:50%"></div>
@@ -668,8 +704,8 @@
   <div style="position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:1000px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(235,35,72,.18),rgba(120,40,180,.08) 45%,transparent 66%);filter:blur(70px);pointer-events:none"></div>
   <div style="position:absolute;top:50%;left:50%;width:760px;height:760px;margin-left:-380px;margin-top:-380px;border:1px dashed rgba(255,255,255,.05);border-radius:50%;animation:pvSpin 60s linear infinite;pointer-events:none"></div>
 
-  <div style="position:relative;max-width:1080px;margin:0 auto;padding:0 32px">
-    <div style="display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:48px">
+  <div style="position:relative;max-width:1080px;margin:0 auto;padding:0 32px" class="pv-section-inner">
+    <div class="pv-footer-grid" style="display:grid;grid-template-columns:1.7fr 1fr 1fr 1fr;gap:48px">
       <div>
         <img src="assets/prodvocation-logo.png" alt="ProdVocation" style="height:34px;width:auto;display:block;margin-bottom:22px">
         <p style="font-size:15px;line-height:1.65;color:rgba(255,255,255,.5);max-width:290px">Le premier incubateur de spectacle en France. Co-producteur équitable des one-man shows de demain, depuis 2007.</p>
