@@ -97,14 +97,16 @@
     /* Statement - scroll réduit */
     #pv-statement-section{height:160vh!important}
 
-    /* Spectacles - 1 carte centrée plein écran */
+    /* Spectacles - 1 carte centrée, légèrement réduite */
     #pv-spectacles{scroll-snap-type:x mandatory!important;padding:46px 0 20px!important}
-    #pv-spectacles article{width:85vw!important;margin:0 4px!important;scroll-snap-align:center!important}
-    #pv-spectacles article:first-child{margin-left:calc((100vw - 85vw)/2)!important}
-    #pv-spectacles article:last-child{margin-right:calc((100vw - 85vw)/2)!important}
+    #pv-spectacles article{width:75vw!important;margin:0 4px!important;scroll-snap-align:center!important}
+    #pv-spectacles article:first-child{margin-left:calc((100vw - 75vw)/2)!important}
+    #pv-spectacles article:last-child{margin-right:calc((100vw - 75vw)/2)!important}
+    #pv-spectacles img{aspect-ratio:3/4!important}
 
-    /* Approche - fond clair par défaut, transition au clic */
-    .pv-about-grid{grid-template-columns:1fr!important;gap:40px!important}
+    /* À propos - réduire espaces haut et bas */
+    #apropos{padding:60px 0!important}
+    .pv-about-grid{grid-template-columns:1fr!important;gap:28px!important}
     #pv-appr-row{flex-direction:column!important;height:auto!important;gap:12px!important}
     #pv-appr-row>[data-appr]{flex:none!important;background:#f5f5f7!important;transition:background .45s ease,box-shadow .45s ease!important}
     #pv-appr-row>[data-appr] .pv-ap-glow{opacity:0!important;transition:opacity .45s ease!important}
@@ -117,10 +119,17 @@
     #pv-appr-row>[data-appr].pv-appr-active .pv-ap-exp{opacity:1!important;transform:none!important;max-height:300px!important}
     #pv-appr-row>[data-appr].pv-appr-active .pv-ap-vl{display:none!important}
 
-    /* Processus */
-    .pv-process-grid{grid-template-columns:1fr!important;gap:32px!important}
-    .pv-process-visual{height:320px!important;border-radius:20px!important}
-    #processus{height:220vh}
+    /* Processus - titre lisible + images non coupées */
+    #processus{height:auto!important}
+    #processus>div{position:relative!important;height:auto!important;min-height:0!important;padding:80px 0!important}
+    #processus h2{font-size:28px!important}
+    .pv-process-grid{grid-template-columns:1fr!important;gap:24px!important}
+    .pv-process-visual{height:280px!important;border-radius:20px!important;order:-1}
+    .pv-process-visual img{object-position:center 20%!important}
+    [data-pstep]{opacity:1!important}
+    [data-pstep] [data-pbar]{opacity:1!important}
+    [data-pstep] [data-picon]{background:linear-gradient(135deg,#FF8A3D,#C2185B)!important;color:#fff!important}
+    [data-pstep] h3{color:#1d1d1f!important}
 
     /* Valeurs */
     #pv-values-section{height:180vh}
@@ -155,8 +164,8 @@
   @media(max-width:480px){
     #pv-nav-cta{font-size:12px!important;padding:8px 16px!important}
     .pv-footer-grid{grid-template-columns:1fr!important}
-    #pv-spectacles article{width:88vw!important}
-    .pv-process-visual{height:260px!important}
+    #pv-spectacles article{width:78vw!important}
+    .pv-process-visual{height:240px!important}
   }
 </style>
 </head>
